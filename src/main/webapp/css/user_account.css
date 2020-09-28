@@ -1,0 +1,12 @@
+.line {
+    background-color: #E6E6FA;
+    color: #434fa2;
+    border: 2px solid black;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 40%;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center
+}
