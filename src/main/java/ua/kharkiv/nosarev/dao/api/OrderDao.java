@@ -7,11 +7,13 @@ import java.util.List;
 
 public interface OrderDao {
 
-    Order getOrderByUserId(int userId);
+    Order getOrderById(int orderId);
 
     boolean deleteOrderById(int orderId);
 
     List<Order> getAllOrders();
+
+    List<Order> getAllCustomerOrders(int userId);
 
     Order insertOrder(Order order);
 }

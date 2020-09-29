@@ -4,21 +4,25 @@ import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Arrays;
 
-public class Util {
+public final class Util {
 
     private static final Logger LOGGER = Logger.getLogger(Util.class);
 
+    private Util() {
+    }
+
     public static void close(AutoCloseable... resources) {
         try {
-            Arrays.stream(resources).forEach(i -> close(i));
+            for (AutoCloseable resource : resources) {
+                if (resource != null) resource.close();
+            }
         } catch (Exception e) {
             LOGGER.error("Can't close resource ", e);
         }
     }
 
-    public static void rollback(Connection connection) {
+    public static void rollBack(Connection connection) {
         try {
             connection.rollback();
         } catch (SQLException throwables) {
