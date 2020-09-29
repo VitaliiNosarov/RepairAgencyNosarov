@@ -16,7 +16,7 @@ import java.util.List;
 
 public class UserDaoImpl implements UserDao {
 
-    static final Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
     private DataSource dataSource;
 
     public UserDaoImpl(DataSource dataSource) {

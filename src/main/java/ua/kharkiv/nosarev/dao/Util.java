@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class Util {
 
-    static final Logger LOGGER = Logger.getLogger(Util.class);
+    private static final Logger LOGGER = Logger.getLogger(Util.class);
 
     public static void close(AutoCloseable... resources) {
         try {

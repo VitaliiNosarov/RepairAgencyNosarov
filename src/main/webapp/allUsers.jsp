@@ -8,7 +8,7 @@
     <title>All users</title>
 </head>
 <body>
-
+<jsp:include page="/page_component/header.jsp"></jsp:include>
 <h3 align="center">All users info</h3>
 
 <br>
@@ -38,6 +38,6 @@
         <c:set var="count" value="${count + 1}" scope="request"/>
     </c:forEach>
 </table>
-
+<jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -1,7 +1,9 @@
 package ua.kharkiv.nosarev.controller;
 
 import org.apache.log4j.Logger;
+import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.dao.api.UserDao;
+import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.services.api.UserService;
 
@@ -18,14 +20,14 @@ import java.io.IOException;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 
-    static final Logger LOGGER = Logger.getLogger(LoginController.class);
-    private static final long serialVersionUID = 1L;
     UserService useruserService;
+    OrderDao orderDao;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         useruserService = (UserService) config.getServletContext().getAttribute("userService");
+        orderDao = (OrderDao) config.getServletContext().getAttribute("orderDao");
     }
 
     @Override
@@ -40,6 +42,7 @@ public class LoginController extends HttpServlet {
         User user = useruserService.getUserByEmailPass(email, password);
         HttpSession session = req.getSession();
         session.setAttribute("user", user);
+     Order order = orderDao.getOrderByUserId(user.getId());
         req.setAttribute("user", user);
         req.getRequestDispatcher("user_account.jsp").forward(req, resp);
     }

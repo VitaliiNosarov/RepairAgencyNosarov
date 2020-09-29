@@ -3,7 +3,9 @@ package ua.kharkiv.nosarev.listener;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import ua.kharkiv.nosarev.dao.OrderDaoImpl;
 import ua.kharkiv.nosarev.dao.UserDaoImpl;
+import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.dao.api.UserDao;
 import ua.kharkiv.nosarev.services.UserServiceImpl;
 import ua.kharkiv.nosarev.services.api.UserService;
@@ -21,7 +23,7 @@ import java.io.File;
 @WebListener
 public class ContextListener implements ServletContextListener {
 
-    static final Logger LOGGER = Logger.getLogger(ContextListener.class);
+    private static final Logger LOGGER = Logger.getLogger(ContextListener.class);
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
@@ -37,8 +39,10 @@ public class ContextListener implements ServletContextListener {
             ServletContext ctx = event.getServletContext();
             DataSource ds = (DataSource) context.lookup("java:comp/env/jdbc/repair_agency");
             UserDao userDao = new UserDaoImpl(ds);
+            OrderDao orderDao = new OrderDaoImpl(ds);
             UserService userService = new UserServiceImpl(userDao);
             ctx.setAttribute("userService", userService);
+            ctx.setAttribute("orderDao", orderDao);
         } catch (NamingException e) {
             LOGGER.error("Can't initialize Datasource", e);
         }

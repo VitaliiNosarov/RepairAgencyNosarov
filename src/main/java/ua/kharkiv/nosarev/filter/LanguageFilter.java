@@ -11,7 +11,7 @@ import java.io.IOException;
 @WebFilter("/*")
 public class LanguageFilter implements Filter {
 
-    static final Logger LOGGER = Logger.getLogger(LanguageFilter.class);
+    private static final Logger LOGGER = Logger.getLogger(LanguageFilter.class);
 
 
     @Override

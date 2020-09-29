@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
     private UserDao userDao;
 
     public UserServiceImpl(UserDao userDao) {
@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByEmailPass(String userEmail, String userPass) {
-        if(!Validator.validateEmail(userEmail)||!Validator.validatePassword(userPass)){
+        if (!Validator.validateEmail(userEmail) || !Validator.validatePassword(userPass)) {
             throw new AuthorizationException();
         }
         User user = userDao.getUserByEmail(userEmail);
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User insertUser(User user) {
-        if(!Validator.validateUser(user)){
+        if (!Validator.validateUser(user)) {
             LOGGER.info("Wrong registration " + user.getEmail());
             throw new RegistrationException();
         }
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteUserByEmail(String email) {
-        if(!Validator.validateEmail(email)){
+        if (!Validator.validateEmail(email)) {
             return false;
         }
         return userDao.deleteUserByEmail(email);

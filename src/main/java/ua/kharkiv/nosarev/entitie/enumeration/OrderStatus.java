@@ -1,6 +1,6 @@
 package ua.kharkiv.nosarev.entitie.enumeration;
 
-public enum OrderType {
+public enum OrderStatus {
 
     WAITING_FOR_PROCESSING(1),
     WAITING_FOR_PAYMENT(2),
@@ -12,7 +12,7 @@ public enum OrderType {
 
     private int id;
 
-    OrderType(int id) {
+    OrderStatus(int id) {
         this.id = id;
     }
 

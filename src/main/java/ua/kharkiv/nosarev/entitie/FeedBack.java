@@ -1,28 +1,13 @@
 package ua.kharkiv.nosarev.entitie;
 
-import java.time.LocalDateTime;
+import ua.kharkiv.nosarev.entitie.enumeration.FeedbackRate;
 
-public class FeedBack{
+import java.sql.Timestamp;
 
-    private int id;
+public class FeedBack {
+
+    private int orderId;
     private String comment;
-    private LocalDateTime time;
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
-
-
+    private Timestamp time;
+    private FeedbackRate rate;
 }

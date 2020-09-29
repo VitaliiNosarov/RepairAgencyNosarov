@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OrderDao {
 
-    Order getOrderById(int orderId);
+    Order getOrderByUserId(int userId);
 
     boolean deleteOrderById(int orderId);
 
