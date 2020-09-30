@@ -12,5 +12,5 @@ public interface UserDao {
 
     List<User> getAllUsers();
 
-    User insertUser(User user);
+    User saveUser(User user);
 }

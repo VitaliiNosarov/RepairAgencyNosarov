@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserService {
 
     public User getUserByEmailPass(String userEmail, String userPass);
-    User insertUser(User user);
+    User saveUser(User user);
     List<User> getAllUsers();
     boolean deleteUserByEmail(String email);
 }

@@ -17,6 +17,13 @@ public class User {
     private BigDecimal balance;
     private UserLocale locale;
 
+    public User() {
+        id = 0;
+        role = UserRole.CUSTOMER;
+        locale = UserLocale.EN;
+        balance = new BigDecimal(0);
+    }
+
     public int getId() {
         return id;
     }

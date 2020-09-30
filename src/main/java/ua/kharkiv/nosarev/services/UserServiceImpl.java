@@ -33,12 +33,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User insertUser(User user) {
-        if (!Validator.validateUser(user)) {
+    public User saveUser(User user) {
+        if (!Validator.validateUser(user) || userDao.getUserByEmail(user.getEmail()) != null) {
             LOGGER.info("Wrong registration " + user.getEmail());
             throw new RegistrationException();
         }
-        return userDao.insertUser(user);
+        return userDao.saveUser(user);
     }
 
     @Override

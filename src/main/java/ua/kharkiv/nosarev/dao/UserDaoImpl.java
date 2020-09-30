@@ -69,7 +69,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User insertUser(User user) {
+    public User saveUser(User user) {
         try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQLConstant.INSERT_USER, Statement.RETURN_GENERATED_KEYS)) {
             if (user != null) {
                 setUserToPreparedStatement(user, statement);
@@ -89,29 +89,26 @@ public class UserDaoImpl implements UserDao {
     private User extractUser(ResultSet rs) throws SQLException {
         User user = new User();
         user.setId(rs.getInt("id"));
-        user.setName(rs.getString("name"));
-        user.setSurName(rs.getString("surname"));
-        user.setPhone(rs.getString("phone"));
         user.setEmail(rs.getString("email"));
         user.setPassword(rs.getString("password"));
-        user.setBalance(rs.getBigDecimal("balance"));
-        user.setLocale(UserLocale.valueOf(rs.getString("locale")));
+        user.setName(rs.getString("name"));
+        user.setSurName(rs.getString("surname"));
         user.setRole(UserRole.valueOf(rs.getString("role")));
+        user.setPhone(rs.getString("phone"));
+        user.setLocale(UserLocale.valueOf(rs.getString("locale")));
+        user.setBalance(rs.getBigDecimal("balance"));
         return user;
     }
 
     private void setUserToPreparedStatement(User user, PreparedStatement statement) throws SQLException {
-        statement.setString(1, user.getName());
-        statement.setString(2, user.getSurName());
-        statement.setString(3, user.getPhone());
-        statement.setString(4, user.getEmail());
-        statement.setString(5, user.getPassword());
-        statement.setBigDecimal(6, user.getBalance());
-        statement.setString(7, String.valueOf(user.getLocale()));
-        if (user.getRole() == null) {
-            statement.setString(8, String.valueOf(UserRole.CUSTOMER));
-        } else {
-            statement.setString(8, String.valueOf(user.getRole()));
-        }
+        statement.setInt(1, user.getId());
+        statement.setString(2, user.getEmail());
+        statement.setString(3, user.getPassword());
+        statement.setString(4, user.getName());
+        statement.setString(5, user.getSurName());
+        statement.setString(6, String.valueOf(user.getRole()));
+        statement.setString(7, user.getPhone());
+        statement.setString(8, String.valueOf(user.getLocale()));
+        statement.setBigDecimal(9, user.getBalance());
     }
 }

@@ -2,12 +2,14 @@ package ua.kharkiv.nosarev.dao;
 
 public class SQLConstant {
 
-    public static final String GET_USER_BY_EMAIL_PASS = "SELECT id, name, surname, phone, email, password, balance, locale, role " +
+    public static final String GET_USER_BY_EMAIL_PASS = "SELECT id, email, password, name, surname, role, phone, locale, balance " +
             "FROM account where email = ?;";
     public static final String DELETE_USER_BY_EMAIL = "DELETE FROM account WHERE email = ?";
     public static final String GET_ALL_USERS = "SELECT * FROM account";
-    public static final String INSERT_USER = "INSERT INTO account (name, surname, phone, email, password, balance, locale, role) \n" +
-            " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    public static final String INSERT_USER = "INSERT INTO ACCOUNT (id, email, password, name, surname, role, phone, locale, balance)" +
+            " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)" +
+            " AS new on duplicate key update id = new.id, email=new.email, password=new.password, name=new.name," +
+            " surname=new.surname, role = new.role, phone=new.phone, locale = new.locale, balance = new.balance;";
 
 
     public static final String GET_ORDER_BY_ID = "SELECT b.id, b.price, b.customer_comment, b.creating_time," +
