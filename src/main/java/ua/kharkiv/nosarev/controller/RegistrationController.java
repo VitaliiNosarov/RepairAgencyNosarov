@@ -19,8 +19,8 @@ import java.io.IOException;
 @WebServlet("/registration")
 public class RegistrationController extends HttpServlet {
 
-    static final Logger LOGGER = Logger.getLogger(RegistrationController.class);
-    UserService userService;
+    private static final Logger LOGGER = Logger.getLogger(RegistrationController.class);
+    private UserService userService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -34,7 +34,6 @@ public class RegistrationController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String email = req.getParameter("email");
         String password = req.getParameter("password");
             User user = new User();

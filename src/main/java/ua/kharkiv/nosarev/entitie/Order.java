@@ -21,6 +21,9 @@ public class Order {
 
     public Order() {
         services = new ArrayList<>();
+        id = 0;
+        status = OrderStatus.WAITING_FOR_PROCESSING;
+        price = new BigDecimal(0);
     }
 
 

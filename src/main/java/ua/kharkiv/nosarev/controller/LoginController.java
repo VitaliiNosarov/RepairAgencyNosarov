@@ -21,14 +21,12 @@ import java.util.List;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 
-    UserService useruserService;
-    OrderDao orderDao;
+    private UserService useruserService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         useruserService = (UserService) config.getServletContext().getAttribute("userService");
-        orderDao = (OrderDao) config.getServletContext().getAttribute("orderDao");
     }
 
     @Override
@@ -43,15 +41,6 @@ public class LoginController extends HttpServlet {
         User user = useruserService.getUserByEmailPass(email, password);
         HttpSession session = req.getSession();
         session.setAttribute("user", user);
-        Order order = new Order();
-        order.setPrice(new BigDecimal(255));
-        order.setComment("comment comment");
-        order.setMasterId(1);
-        order.setStatus(OrderStatus.READY_TO_ISSUE);
-        order.setCustomerId(1);
-        order.addService("Replacement of thermal paste");
-        order.addService("Video card repair");
-        orderDao.insertOrder(order);
         req.setAttribute("user", user);
         req.getRequestDispatcher("user_account.jsp").forward(req, resp);
     }

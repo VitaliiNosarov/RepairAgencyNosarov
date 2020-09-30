@@ -20,22 +20,6 @@ public class OrderDaoImpl implements OrderDao {
         this.dataSource = dataSource;
     }
 
-    private static Order extractOrder(ResultSet rs) throws SQLException {
-        Order order = new Order();
-        while (rs.next()) {
-            order.setId(rs.getInt("id"));
-            order.setCustomerId(rs.getInt("b.user_account_id"));
-            order.setMasterId(rs.getInt("b.master_account_id"));
-            order.setPrice(rs.getBigDecimal("b.price"));
-            order.addService(rs.getString("s.name"));
-            order.setPaymentId(rs.getInt("b.payment_id"));
-            order.setCreatingTime(rs.getTimestamp("b.creating_time"));
-            order.setComment(rs.getString("b.customer_comment"));
-            order.setStatus(OrderStatus.valueOf(rs.getString("order_status")));
-        }
-        return order;
-    }
-
     @Override
     public Order getOrderById(int orderId) {
         Order order = null;
@@ -129,7 +113,28 @@ public class OrderDaoImpl implements OrderDao {
             Util.rollBack(connection);
             LOGGER.error("Exception in insertOrder", ex);
         } finally {
-            Util.close(orderStatement, servicesStatement, connection);
+            Util.close(resultSet, orderStatement, servicesStatement, connection);
+        }
+        return order;
+    }
+
+    @Override
+    public Order updateOrder(Order order) {
+        return null;
+    }
+
+    private Order extractOrder(ResultSet rs) throws SQLException {
+        Order order = new Order();
+        while (rs.next()) {
+            order.setId(rs.getInt("id"));
+            order.setCustomerId(rs.getInt("b.user_account_id"));
+            order.setMasterId(rs.getInt("b.master_account_id"));
+            order.setPrice(rs.getBigDecimal("b.price"));
+            order.addService(rs.getString("s.name"));
+            order.setPaymentId(rs.getInt("b.payment_id"));
+            order.setCreatingTime(rs.getTimestamp("b.creating_time"));
+            order.setComment(rs.getString("b.customer_comment"));
+            order.setStatus(OrderStatus.valueOf(rs.getString("order_status")));
         }
         return order;
     }

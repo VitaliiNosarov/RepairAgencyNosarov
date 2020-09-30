@@ -5,7 +5,6 @@ import ua.kharkiv.nosarev.dao.api.UserDao;
 import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
-import ua.kharkiv.nosarev.exception.AuthorizationException;
 import ua.kharkiv.nosarev.exception.DatabaseException;
 import ua.kharkiv.nosarev.exception.RegistrationException;
 
@@ -26,7 +25,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByEmail(String userEmail) {
         User user = null;
-        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_USER_BY_EMAIL_PASS)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_USER_BY_EMAIL_PASS)) {
             statement.setString(1, userEmail);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
@@ -43,11 +43,12 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean deleteUserByEmail(String email) {
         boolean result = false;
-        try(Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQLConstant.DELETE_USER_BY_EMAIL)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQLConstant.DELETE_USER_BY_EMAIL)) {
             statement.setString(1, email);
             result = statement.executeUpdate() == 1;
         } catch (SQLException throwables) {
-            LOGGER.error("Can't delete user with email "+ email +"from database", throwables);
+            LOGGER.error("Can't delete user with email " + email + "from database", throwables);
             throw new DatabaseException();
         }
         return result;
@@ -56,9 +57,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
-        try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement()) {
-            ResultSet set = statement.executeQuery(SQLConstant.GET_ALL_USERS);
-            while(set.next()){
+        try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement();
+             ResultSet set = statement.executeQuery(SQLConstant.GET_ALL_USERS)) {
+            while (set.next()) {
                 list.add(extractUser(set));
             }
         } catch (SQLException throwables) {
@@ -70,7 +71,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User saveUser(User user) {
-        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQLConstant.INSERT_USER, Statement.RETURN_GENERATED_KEYS)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQLConstant.SAVE_USER, Statement.RETURN_GENERATED_KEYS)) {
             if (user != null) {
                 setUserToPreparedStatement(user, statement);
                 statement.executeUpdate();

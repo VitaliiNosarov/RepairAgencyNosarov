@@ -14,7 +14,7 @@ public class Validator {
     }
 
     public static boolean validateUser(User user){
+        //should check user for null
         return true;
     }
-
 }

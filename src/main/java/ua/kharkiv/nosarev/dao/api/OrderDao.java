@@ -1,7 +1,6 @@
 package ua.kharkiv.nosarev.dao.api;
 
 import ua.kharkiv.nosarev.entitie.Order;
-import ua.kharkiv.nosarev.entitie.User;
 
 import java.util.List;
 
@@ -16,4 +15,6 @@ public interface OrderDao {
     List<Order> getAllCustomerOrders(int userId);
 
     Order insertOrder(Order order);
+
+    Order updateOrder(Order order);
 }
