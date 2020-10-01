@@ -8,7 +8,8 @@
 <a href="login">Log in</a> <br/>
 <a href="users">all users/a> <br/>
 <a href="registration">Registration</a> <br/>
-<a href="order?orderId=1">Order by id</a> <br/>
+<a href="order">Create order</a> <br/>
+<a href="orders">All orders</a> <br/>
 
 <jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>

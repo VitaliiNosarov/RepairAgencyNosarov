@@ -16,7 +16,7 @@
     </error-page>
 
     <error-page>
-        <exception-type>ua.kharkiv.nosarev.exception.AuthorizationException</exception-type>
+        <exception-type>ua.kharkiv.nosarev.exception.AuthenticationException</exception-type>
         <location>/error_page/wronglogin.jsp</location>
     </error-page>
 

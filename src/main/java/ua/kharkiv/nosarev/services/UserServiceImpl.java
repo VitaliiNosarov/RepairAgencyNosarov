@@ -3,7 +3,7 @@ package ua.kharkiv.nosarev.services;
 import org.apache.log4j.Logger;
 import ua.kharkiv.nosarev.dao.api.UserDao;
 import ua.kharkiv.nosarev.entitie.User;
-import ua.kharkiv.nosarev.exception.AuthorizationException;
+import ua.kharkiv.nosarev.exception.AuthenticationException;
 import ua.kharkiv.nosarev.exception.RegistrationException;
 import ua.kharkiv.nosarev.services.api.UserService;
 
@@ -21,14 +21,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmailPass(String userEmail, String userPass) {
         if (!Validator.validateEmail(userEmail) || !Validator.validatePassword(userPass)) {
-            throw new AuthorizationException();
+            throw new AuthenticationException();
         }
         User user = userDao.getUserByEmail(userEmail);
         if (user!=null&&checkPass(user, userPass)) {
             return user;
         } else {
             LOGGER.info("Wrong authorization " + userEmail);
-            throw new AuthorizationException();
+            throw new AuthenticationException();
         }
     }
 

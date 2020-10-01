@@ -39,17 +39,17 @@ public class OrderController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//        HttpSession session = req.getSession();
-//        User user = (User) session.getAttribute("user");
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
         Order order = new Order();
-//        order.setCustomerId(user.getId());
-//        order.setComment(req.getParameter("comment"));
+        order.setCustomerId(user.getId());
+        order.setComment(req.getParameter("comment"));
         String[] services = req.getParameterValues("service");
         for (String service : services) {
             order.addService(new Service(Integer.valueOf(service), null));
         }
-//        orderDao.insertOrder(order);
-//        order = orderDao.getOrderById(order.getId());
-//        session.setAttribute("order", order);
+        orderDao.insertOrder(order);
+        order = orderDao.getOrderById(order.getId());
+        session.setAttribute("order", order);
     }
 }
