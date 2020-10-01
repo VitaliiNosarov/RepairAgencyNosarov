@@ -1,6 +1,7 @@
 package ua.kharkiv.nosarev.controller;
 
 import ua.kharkiv.nosarev.dao.api.OrderDao;
+import ua.kharkiv.nosarev.dao.api.ServiceDao;
 import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.User;
@@ -13,23 +14,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/order")
 public class OrderController extends HttpServlet {
 
+    private ServiceDao serviceDao;
     private OrderDao orderDao;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         orderDao = (OrderDao) config.getServletContext().getAttribute("orderDao");
+        serviceDao = (ServiceDao) config.getServletContext().getAttribute("serviceDao");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int orderId = Integer.parseInt(req.getParameter("orderId"));
-        Order order = orderDao.getOrderById(orderId);
-        req.setAttribute("order", order);
+        List<Service> list = serviceDao.getAllServices();
+        req.setAttribute("list", list);
         req.getRequestDispatcher("order.jsp").forward(req, resp);
     }
 
