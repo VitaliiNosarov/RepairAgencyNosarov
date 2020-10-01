@@ -8,6 +8,12 @@
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
+<h3>Chose services</h3>
+    <c:forEach items="${list}" var="list">
+       <tr>
+        <td> ${list.name} </td>
+        </tr>
+    </c:forEach>
 
 <jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>

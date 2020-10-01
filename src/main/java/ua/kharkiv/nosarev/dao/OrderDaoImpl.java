@@ -3,6 +3,7 @@ package ua.kharkiv.nosarev.dao;
 import org.apache.log4j.Logger;
 import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.entitie.Order;
+import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
 import ua.kharkiv.nosarev.exception.DatabaseException;
 
@@ -93,18 +94,15 @@ public class OrderDaoImpl implements OrderDao {
             connection = dataSource.getConnection();
             connection.setAutoCommit(false);
             orderStatement = connection.prepareStatement(SQLConstant.INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
-            orderStatement.setBigDecimal(1, order.getPrice());
+            orderStatement.setInt(1, order.getCustomerId());
             orderStatement.setString(2, order.getComment());
-            orderStatement.setInt(3, order.getMasterId());
-            orderStatement.setString(4, String.valueOf(order.getStatus()));
-            orderStatement.setInt(5, order.getCustomerId());
             orderStatement.executeUpdate();
             resultSet = orderStatement.getGeneratedKeys();
             if (resultSet.next()) order.setId(resultSet.getInt(1));
             servicesStatement = connection.prepareStatement(SQLConstant.INSERT_SERVICES_TO_ORDER);
-            for (String string : order.getServices()) {
+            for (Service service : order.getServices()) {
                 servicesStatement.setInt(1, order.getId());
-                servicesStatement.setString(2, string);
+                servicesStatement.setInt(2, service.getId());
                 servicesStatement.addBatch();
             }
             servicesStatement.executeBatch();
@@ -124,8 +122,7 @@ public class OrderDaoImpl implements OrderDao {
             statement.setBigDecimal(1, order.getPrice());
             statement.setInt(2, order.getMasterId());
             statement.setString(3, String.valueOf(order.getStatus()));
-            statement.setInt(4, order.getPaymentId());
-            statement.setInt(5, order.getId());
+            statement.setInt(4, order.getId());
             statement.executeUpdate();
         }catch (SQLException ex){
             LOGGER.error("Exception in updateOrder", ex);
@@ -140,8 +137,7 @@ public class OrderDaoImpl implements OrderDao {
             order.setCustomerId(rs.getInt("b.user_account_id"));
             order.setMasterId(rs.getInt("b.master_account_id"));
             order.setPrice(rs.getBigDecimal("b.price"));
-            order.addService(rs.getString("s.name"));
-            order.setPaymentId(rs.getInt("b.payment_id"));
+            order.addService(new Service(rs.getInt("s.id"), rs.getString("s.name")));
             order.setCreatingTime(rs.getTimestamp("b.creating_time"));
             order.setComment(rs.getString("b.customer_comment"));
             order.setStatus(OrderStatus.valueOf(rs.getString("order_status")));

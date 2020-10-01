@@ -13,8 +13,7 @@ public class Order {
     private int customerId;
     private int masterId;
     private BigDecimal price;
-    private List<String> services;
-    private int paymentId;
+    private List<Service> services;
     private Timestamp creatingTime;
     private String comment;
     private OrderStatus status;
@@ -59,20 +58,12 @@ public class Order {
         this.price = price;
     }
 
-    public List<String> getServices() {
+    public List<Service> getServices() {
         return services;
     }
 
-    public void addService(String service) {
+    public void addService(Service service) {
         services.add(service);
-    }
-
-    public int getPaymentId() {
-        return paymentId;
-    }
-
-    public void setPaymentId(int paymentId) {
-        this.paymentId = paymentId;
     }
 
     public Timestamp getCreatingTime() {

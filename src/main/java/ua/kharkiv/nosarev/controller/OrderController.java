@@ -2,8 +2,8 @@ package ua.kharkiv.nosarev.controller;
 
 import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.entitie.Order;
+import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.User;
-import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -28,7 +28,8 @@ public class OrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int orderId = Integer.parseInt(req.getParameter("orderId"));
-        req.setAttribute("order", orderDao.getOrderById(orderId));
+        Order order = orderDao.getOrderById(orderId);
+        req.setAttribute("order", order);
         req.getRequestDispatcher("order.jsp").forward(req, resp);
     }
 
@@ -42,8 +43,10 @@ public class OrderController extends HttpServlet {
         order.setComment(req.getParameter("comment"));
         String[] services = req.getParameterValues("service");
         for (String service : services) {
-            order.addService(service);
+            order.addService(new Service(Integer.valueOf(service), null));
         }
         orderDao.insertOrder(order);
+        order = orderDao.getOrderById(order.getId());
+        session.setAttribute("order", order);
     }
 }

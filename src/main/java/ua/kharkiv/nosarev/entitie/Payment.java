@@ -12,5 +12,6 @@ public class Payment{
     private BigDecimal summ;
     private PaymentType type;
     private LocalDateTime paymentTime;
+    private int orderId;
 
 }
