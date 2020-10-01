@@ -16,5 +16,5 @@ public interface OrderDao {
 
     Order insertOrder(Order order);
 
-    Order updateOrder(Order order);
+    void updateOrder(Order order);
 }

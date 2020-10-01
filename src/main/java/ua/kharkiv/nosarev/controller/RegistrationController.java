@@ -44,7 +44,6 @@ public class RegistrationController extends HttpServlet {
             user.setPhone(req.getParameter("phone"));
             user.setLocale(UserLocale.valueOf(req.getParameter("locale")));
             userService.saveUser(user);
-            HttpSession session = req.getSession();
             resp.sendRedirect("registrationSuccess.jsp");
 
     }

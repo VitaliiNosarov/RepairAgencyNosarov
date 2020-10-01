@@ -3,12 +3,12 @@
 </head>
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
-Welcome to my Computer Repair Agency
-
-<a href="login">Log in</a>
-<a href="users">all users/a>
-<a href="registration">Registration</a>
-<a href="order?orderId=1">Order by id</a>
+<h2>Welcome to my Computer Repair Agency</h2>
+<br/>
+<a href="login">Log in</a> <br/>
+<a href="users">all users/a> <br/>
+<a href="registration">Registration</a> <br/>
+<a href="order?orderId=1">Order by id</a> <br/>
 
 <jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>

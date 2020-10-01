@@ -25,4 +25,6 @@ public class SQLConstant {
             "SELECT booking.id, service.id FROM booking, service where booking.id = ? AND service.name = ?";
     public static final String UPDATE_ORDER = "UPDATE booking SET price = ?, master_account_id = ?, order_status = ?," +
             " payment_id = ? WHERE id = ?;";
+
+    public static final String INSERT_PAYMENT = "INSERT INTO payment (order_value, payment_type, account_id) VALUES (?, ?, ?);";
 }
