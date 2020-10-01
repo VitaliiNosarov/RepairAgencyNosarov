@@ -33,23 +33,23 @@ public class OrderController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Service> list = serviceDao.getAllServices();
         req.setAttribute("list", list);
-        req.getRequestDispatcher("order.jsp").forward(req, resp);
+        req.getRequestDispatcher("createOrder.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
+//        HttpSession session = req.getSession();
+//        User user = (User) session.getAttribute("user");
         Order order = new Order();
-        order.setCustomerId(user.getId());
-        order.setComment(req.getParameter("comment"));
+//        order.setCustomerId(user.getId());
+//        order.setComment(req.getParameter("comment"));
         String[] services = req.getParameterValues("service");
         for (String service : services) {
             order.addService(new Service(Integer.valueOf(service), null));
         }
-        orderDao.insertOrder(order);
-        order = orderDao.getOrderById(order.getId());
-        session.setAttribute("order", order);
+//        orderDao.insertOrder(order);
+//        order = orderDao.getOrderById(order.getId());
+//        session.setAttribute("order", order);
     }
 }
