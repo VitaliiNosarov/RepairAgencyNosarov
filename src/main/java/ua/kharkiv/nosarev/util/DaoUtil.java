@@ -26,7 +26,9 @@ public final class DaoUtil {
 
     public static void rollBack(Connection connection) {
         try {
-            connection.rollback();
+            if (connection != null) {
+                connection.rollback();
+            }
         } catch (SQLException throwables) {
             LOGGER.error("Exception in connection rollback", throwables);
         }

@@ -1,6 +1,5 @@
 package ua.kharkiv.nosarev.listener;
 
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import ua.kharkiv.nosarev.dao.OrderDaoImpl;
@@ -12,6 +11,7 @@ import ua.kharkiv.nosarev.dao.api.UserDao;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 import ua.kharkiv.nosarev.services.UserServiceImpl;
 import ua.kharkiv.nosarev.services.api.UserService;
+import ua.kharkiv.nosarev.util.SecurityUtil;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -72,28 +72,13 @@ public class ContextListener implements ServletContextListener {
         try {
             FileInputStream fis = new FileInputStream(fullPath);
             properties.load(fis);
-            Map<UserRole, Set<String>> uriMap = initializeUriMap(properties);
+            Map<UserRole, Set<String>> uriMap = SecurityUtil.initializeUriMap(properties);
             return uriMap;
         } catch (IOException e) {
             LOGGER.error("Properties not found");
         }
         LOGGER.error("Can't initialize security");
         throw new RuntimeException();
-    }
-
-    private Set<String> parseSecurityPropertiesToSet(Properties properties, UserRole role) {
-        String[] values = properties.getProperty(String.valueOf(role))
-                .replace(System.lineSeparator(),"\\s").split("\\s");
-        Set<String> set = new HashSet<>(Arrays.asList(values));
-        return set;
-    }
-
-    private Map<UserRole, Set<String>> initializeUriMap(Properties properties) {
-        Map<UserRole, Set<String>> map = new HashMap();
-        map.put(UserRole.ADMIN, parseSecurityPropertiesToSet(properties, UserRole.ADMIN));
-        map.put(UserRole.MASTER, parseSecurityPropertiesToSet(properties, UserRole.MASTER));
-        map.put(UserRole.CUSTOMER, parseSecurityPropertiesToSet(properties, UserRole.CUSTOMER));
-        return map;
     }
 
     @Override
