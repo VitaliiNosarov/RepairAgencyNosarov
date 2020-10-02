@@ -6,6 +6,7 @@ import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
 import ua.kharkiv.nosarev.exception.DatabaseException;
+import ua.kharkiv.nosarev.util.DaoUtil;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -108,10 +109,10 @@ public class OrderDaoImpl implements OrderDao {
             servicesStatement.executeBatch();
             connection.commit();
         } catch (SQLException ex) {
-            Util.rollBack(connection);
+            DaoUtil.rollBack(connection);
             LOGGER.error("Exception in insertOrder", ex);
         } finally {
-            Util.close(resultSet, orderStatement, servicesStatement, connection);
+            DaoUtil.close(resultSet, orderStatement, servicesStatement, connection);
         }
         return order;
     }

@@ -10,7 +10,7 @@
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
-<c:set var="user" value='${requestScope.user}' />
+<c:set var="user" value='${sessionScope.user}' />
 <div class="line">
 <h3>Name :  ${user.name}</h3>
 </div>

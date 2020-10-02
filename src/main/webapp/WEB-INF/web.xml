@@ -9,7 +9,10 @@
         <param-name>log4j-config-location</param-name>
         <param-value>WEB-INF/log4j.properties</param-value>
     </context-param>
-
+    <context-param>
+        <param-name>security-config-location</param-name>
+        <param-value>WEB-INF/uri_security.properties</param-value>
+    </context-param>
     <error-page>
         <exception-type>ua.kharkiv.nosarev.exception.RegistrationException</exception-type>
         <location>/error_page/wrongregistration.jsp</location>
@@ -34,8 +37,6 @@
         <error-code>500</error-code>
         <location>/error_page/500.jsp</location>
     </error-page>
-
-
 
     <resource-ref>
         <description>DB Connection</description>

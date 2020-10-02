@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
             throw new AuthenticationException();
         }
         User user = userDao.getUserByEmail(userEmail);
-        if (user!=null&&checkPass(user, userPass)) {
+        if (user != null && checkPass(user, userPass)) {
             return user;
         } else {
             LOGGER.info("Wrong authorization " + userEmail);

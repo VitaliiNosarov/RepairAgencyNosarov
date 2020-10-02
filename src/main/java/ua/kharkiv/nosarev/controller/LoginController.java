@@ -1,9 +1,6 @@
 package ua.kharkiv.nosarev.controller;
 
-import ua.kharkiv.nosarev.dao.api.OrderDao;
-import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.User;
-import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
 import ua.kharkiv.nosarev.services.api.UserService;
 
 import javax.servlet.ServletConfig;
@@ -14,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.List;
 
 
 @WebServlet("/login")
@@ -31,7 +26,12 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
+        HttpSession session = req.getSession();
+        if (session.getAttribute("user") != null) {
+            req.getRequestDispatcher("user_account.jsp").forward(req, resp);
+        } else {
+            resp.sendRedirect("login.jsp");
+        }
     }
 
     @Override
@@ -41,7 +41,6 @@ public class LoginController extends HttpServlet {
         User user = useruserService.getUserByEmailPass(email, password);
         HttpSession session = req.getSession();
         session.setAttribute("user", user);
-        req.setAttribute("user", user);
-        req.getRequestDispatcher("user_account.jsp").forward(req, resp);
+        resp.sendRedirect("login");
     }
 }

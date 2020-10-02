@@ -1,15 +1,15 @@
-package ua.kharkiv.nosarev.dao;
+package ua.kharkiv.nosarev.util;
 
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public final class Util {
+public final class DaoUtil {
 
-    private static final Logger LOGGER = Logger.getLogger(Util.class);
+    private static final Logger LOGGER = Logger.getLogger(DaoUtil.class);
 
-    private Util() {
+    private DaoUtil() {
     }
 
     public static void close(AutoCloseable... resources) {

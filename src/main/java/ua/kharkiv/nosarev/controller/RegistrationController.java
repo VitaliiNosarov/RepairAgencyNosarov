@@ -19,7 +19,6 @@ import java.io.IOException;
 @WebServlet("/registration")
 public class RegistrationController extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(RegistrationController.class);
     private UserService userService;
 
     @Override
@@ -30,7 +29,7 @@ public class RegistrationController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("registration.jsp");
+        req.getRequestDispatcher("registration.jsp").forward(req, resp);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
