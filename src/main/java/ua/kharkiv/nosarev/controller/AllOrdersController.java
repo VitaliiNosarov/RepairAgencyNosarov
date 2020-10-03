@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/orders")
-public class GetAllOrderController extends HttpServlet {
+public class AllOrdersController extends HttpServlet {
 
     private OrderDao orderDao;
 
@@ -22,7 +22,7 @@ public class GetAllOrderController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Order> list = orderDao.getAllOrders();
         req.setAttribute("list", list);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("allOrders.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("all_orders.jsp");
         dispatcher.forward(req, resp);
     }
 

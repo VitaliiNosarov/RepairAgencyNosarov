@@ -10,7 +10,7 @@
 
 <html>
 <head>
-<link href="../RepairAgency/css/header.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
 </head>
 
@@ -30,10 +30,15 @@
             </c:choose>
     </div>
    <div class="right-header">
-    <a href="#contact">Home</a>
-    <a href="#contact">Contact</a>
-    <a href="#my account">My account</a>
-  </div>
+    <c:if test="${sessionScope.user.role == 'ADMIN'}">
+      <a href="users">All users</a>
+    </c:if>
+    <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.role == 'MASTER'}">
+          <a href="orders">All orders</a>
+        </c:if>
+    <a href="create_order">Order</a>
+    <a href="login">My account</a>
+   </div>
   </header>
 </body>
 </html>

@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/validate.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
@@ -11,24 +13,25 @@
 <html>
 <head>
 <title> <fmt:message key="login.page_title" /> </title>
-<link href="../RepairAgency/css/login.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
 <div class = "login">
- <form action="login" method="post">
+ <form id="login_form" action="login" method="post" >
    <div class="form-group">
-    <label for="exampleInputEmail1"><fmt:message key="login.email" /></label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="<fmt:message key="login.enter_email" />" name="email" required>
+    <label for="email"><fmt:message key="login.email" /></label>
+    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="<fmt:message key="login.enter_email" />" name="email" required>
+    <span class="error" aria-live="polite"></span>
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
    </div>
    <div class="form-group">
-    <label for="exampleInputPassword1"><fmt:message key="login.password" /></label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="<fmt:message key="login.enter_password" />" name="password" required>
+    <label for="password"><fmt:message key="login.password" /></label>
+    <input type="password" class="form-control" id="password" placeholder="<fmt:message key="login.enter_password" />" name="password" required>
    </div>
-    <button type="submit" class="btn btn-primary"><fmt:message key="login.login_button" /></button> <a href="/RepairAgency/registration"><fmt:message key="login.registration" /></a>
+    <button type="submit" class="btn btn-primary"><fmt:message key="login.login_button"/></button> <a href="/RepairAgency/registration"><fmt:message key="login.registration" /></a>
  </form>
 </div>
 

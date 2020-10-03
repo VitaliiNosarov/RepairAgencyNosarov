@@ -16,8 +16,8 @@ import java.util.Set;
 @WebFilter("/*")
 public class AuthorizationFilter implements Filter {
 
-    static final Logger LOGGER = Logger.getLogger(AuthorizationFilter.class);
-    Map<UserRole, Set<String>> uriMap;
+    private static final Logger LOGGER = Logger.getLogger(AuthorizationFilter.class);
+    private Map<UserRole, Set<String>> uriMap;
 
     @Override
     public void init(FilterConfig config) throws ServletException {
@@ -34,7 +34,7 @@ public class AuthorizationFilter implements Filter {
         HttpSession session = req.getSession();
 
         String uri = req.getServletPath();
-        if (uri.contains("login") || uri.contains("registration") || uri.contains("index.jsp") || uri.endsWith(".css")) {
+        if (checkUri(uri)) {
             chain.doFilter(request, response);
             return;
         }
@@ -49,6 +49,11 @@ public class AuthorizationFilter implements Filter {
         }
         LOGGER.info("Unauthorized access request");
         resp.sendRedirect("not_rights.jsp");
+    }
+
+    private boolean checkUri(String uri) {
+        return uri.contains("login") || uri.contains("registration")
+                || uri.endsWith("index.jsp") || uri.endsWith(".css") || uri.endsWith(".js");
     }
 
     @Override

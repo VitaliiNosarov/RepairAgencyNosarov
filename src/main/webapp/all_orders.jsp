@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title>All users</title>
+    <title>All orders</title>
 </head>
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
@@ -21,15 +21,23 @@
       <th scope="col">ID</th>
       <th scope="col">Comment</th>
       <th scope="col">Services</th>
+      <th scope="col">Price</th>
+      <th scope="col">Creating Time</th>
+      <th scope="col"></th>
     </tr>
   </thead>
     <c:forEach items="${list}" var="list">
 
         <tr>
+            <form method="Get" action="order">
             <th scope="row">${count}</th>
             <td> ${list.id} </td>
             <td> ${list.comment} </td>
             <td> ${list.services} </td>
+            <td> ${list.price} </td>
+            <td> ${list.creatingTime} </td>
+            <td><button type="submit" name="orderId" value="${list.id}" class="btn btn-info">Update</button></td>
+            </form>
         </tr>
         <c:set var="count" value="${count + 1}" scope="request"/>
     </c:forEach>

@@ -8,3 +8,8 @@ text-align: center;
     padding-left: 25%;
     padding-top: 5%;
 }
+
+.error {
+  color: red;
+  margin-left: 5px;
+}

@@ -4,8 +4,8 @@
 <%@ page session="true" %>
 <html>
 <head>
-
-<link href="../RepairAgency/css/user_account.css" rel="stylesheet" type="text/css">
+<title>Account</title>
+<link href="${pageContext.request.contextPath}/css/user_account.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>

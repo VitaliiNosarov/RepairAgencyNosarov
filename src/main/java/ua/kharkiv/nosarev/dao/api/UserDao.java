@@ -8,7 +8,9 @@ public interface UserDao {
 
     User getUserByEmail(String userLogin);
 
-    boolean deleteUserByEmail(String email);
+    User getUserById(int userId);
+
+    boolean deleteUserById(int userId);
 
     List<User> getAllUsers();
 

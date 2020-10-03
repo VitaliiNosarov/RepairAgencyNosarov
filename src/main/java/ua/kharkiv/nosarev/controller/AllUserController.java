@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/users")
-public class GetAllUserController extends HttpServlet {
+public class AllUserController extends HttpServlet {
 
     private UserService userService;
 
@@ -22,7 +22,7 @@ public class GetAllUserController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<User> list = userService.getAllUsers();
         req.setAttribute("list", list);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("allUsers.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("all_users.jsp");
         dispatcher.forward(req, resp);
     }
 

@@ -2,9 +2,9 @@ package ua.kharkiv.nosarev.dao;
 
 public class SQLConstant {
 
-    public static final String GET_USER_BY_EMAIL_PASS = "SELECT id, email, password, name, surname, role, phone, locale, balance " +
-            "FROM account where email = ?;";
-    public static final String DELETE_USER_BY_EMAIL = "DELETE FROM account WHERE email = ?";
+    public static final String GET_USER_BY_EMAIL_PASS = "SELECT * FROM account where email = ?;";
+    public static final String GET_USER_BY_ID = "SELECT * FROM account where id = ?;";
+    public static final String DELETE_USER_BY_EMAIL = "DELETE FROM account WHERE id = ?";
     public static final String GET_ALL_USERS = "SELECT * FROM account";
     public static final String SAVE_USER = "INSERT INTO ACCOUNT (id, email, password, name, surname, role, phone, locale, balance)" +
             " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)" +
@@ -23,7 +23,7 @@ public class SQLConstant {
     public static final String INSERT_SERVICES_TO_ORDER = "INSERT INTO booking_service (booking_id, service_id) VALUES (?, ?);";
     public static final String UPDATE_ORDER = "UPDATE booking SET price = ?, master_account_id = ?, order_status = ? WHERE id = ?;";
 
-    public static final String INSERT_PAYMENT = "INSERT INTO payment (order_value, payment_type, account_id, booking_id) VALUES (?, ?, ?, ?);";
 
+    public static final String INSERT_PAYMENT = "INSERT INTO payment (order_value, payment_type, account_id, booking_id) VALUES (?, ?, ?, ?);";
     public static final String GET_ALL_SERVICES = "SELECT id, name FROM service";
 }

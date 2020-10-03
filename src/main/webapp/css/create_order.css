@@ -1,0 +1,24 @@
+.main_block{
+    width: 50%;
+    height: 60%;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.order_form{
+height: 60%;
+    margin: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    position: inherit;
+}
+
+@media screen and (max-width: 800px) {
+  .main_block, order_form{
+    width: 100%;
+    margin-top: 0;
+  }
+}

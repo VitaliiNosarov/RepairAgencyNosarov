@@ -111,6 +111,7 @@ public class OrderDaoImpl implements OrderDao {
         } catch (SQLException ex) {
             DaoUtil.rollBack(connection);
             LOGGER.error("Exception in insertOrder", ex);
+            throw new DatabaseException();
         } finally {
             DaoUtil.close(resultSet, orderStatement, servicesStatement, connection);
         }

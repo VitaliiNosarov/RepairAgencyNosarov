@@ -1,5 +1,6 @@
 package ua.kharkiv.nosarev.controller;
 
+import ua.kharkiv.nosarev.MessageType;
 import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.dao.api.ServiceDao;
 import ua.kharkiv.nosarev.entitie.Order;
@@ -16,8 +17,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/order")
-public class OrderController extends HttpServlet {
+@WebServlet("/create_order")
+public class CreateOrderController extends HttpServlet {
 
     private ServiceDao serviceDao;
     private OrderDao orderDao;
@@ -33,7 +34,7 @@ public class OrderController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Service> list = serviceDao.getAllServices();
         req.setAttribute("list", list);
-        req.getRequestDispatcher("createOrder.jsp").forward(req, resp);
+        req.getRequestDispatcher("create_order.jsp").forward(req, resp);
     }
 
     @Override
@@ -49,7 +50,8 @@ public class OrderController extends HttpServlet {
             order.addService(new Service(Integer.valueOf(service), null));
         }
         orderDao.insertOrder(order);
-        order = orderDao.getOrderById(order.getId());
-        session.setAttribute("order", order);
+        session.setAttribute("messageType", MessageType.CREATING_ORDER);
+        resp.sendRedirect("success_page.jsp");
+        //req.getRequestDispatcher("order.jsp").forward(req, resp);
     }
 }

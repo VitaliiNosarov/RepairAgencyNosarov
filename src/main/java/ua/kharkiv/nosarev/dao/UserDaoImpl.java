@@ -41,14 +41,32 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean deleteUserByEmail(String email) {
+    public User getUserById(int userId) {
+        User user = null;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_USER_BY_ID)) {
+            statement.setInt(1, userId);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    user = extractUser(rs);
+                }
+            }
+        } catch (SQLException throwables) {
+            LOGGER.error("SQL Exception in getUserById " + throwables);
+            throw new DatabaseException();
+        }
+        return user;
+    }
+
+    @Override
+    public boolean deleteUserById(int userId) {
         boolean result = false;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.DELETE_USER_BY_EMAIL)) {
-            statement.setString(1, email);
+            statement.setInt(1, userId);
             result = statement.executeUpdate() == 1;
         } catch (SQLException throwables) {
-            LOGGER.error("Can't delete user with email " + email + "from database", throwables);
+            LOGGER.error("Can't delete user with email " + userId + "from database", throwables);
             throw new DatabaseException();
         }
         return result;

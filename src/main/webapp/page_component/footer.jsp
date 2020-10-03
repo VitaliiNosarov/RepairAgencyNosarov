@@ -1,8 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
 <html>
 <head>
 
-<link href="../RepairAgency/css/footer.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
 </head>
 <body>

@@ -35,10 +35,10 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         ContextListener contextListener = new ContextListener();
         contextListener.initializeLogger(event);
-        contextListener.initializeServiceObjects(event);
+        contextListener.initializeContextObjects(event);
     }
 
-    private void initializeServiceObjects(ServletContextEvent event) {
+    private void initializeContextObjects(ServletContextEvent event) {
         try {
             Context context = new InitialContext();
             ServletContext ctx = event.getServletContext();
@@ -51,6 +51,7 @@ public class ContextListener implements ServletContextListener {
             ctx.setAttribute("orderDao", orderDao);
             ctx.setAttribute("serviceDao", serviceDao);
             ctx.setAttribute("uriMap", initializeSecurity(event));
+            LOGGER.info("Context was initialized");
         } catch (NamingException e) {
             LOGGER.error("Can't initialize Datasource", e);
         }
@@ -75,10 +76,9 @@ public class ContextListener implements ServletContextListener {
             Map<UserRole, Set<String>> uriMap = SecurityUtil.initializeUriMap(properties);
             return uriMap;
         } catch (IOException e) {
-            LOGGER.error("Properties not found");
+            LOGGER.error("Security wasn't initialized, Properties not found");
+            throw new RuntimeException();
         }
-        LOGGER.error("Can't initialize security");
-        throw new RuntimeException();
     }
 
     @Override

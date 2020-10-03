@@ -13,16 +13,18 @@ public final class DaoUtil {
     }
 
     public static void close(AutoCloseable... resources) {
-        try {
-            for (AutoCloseable resource : resources) {
+
+        for (AutoCloseable resource : resources) {
+            try {
                 if (resource != null) {
                     resource.close();
                 }
+            } catch (Exception e) {
+                LOGGER.error("Can't close resource ", e);
             }
-        } catch (Exception e) {
-            LOGGER.error("Can't close resource ", e);
         }
     }
+
 
     public static void rollBack(Connection connection) {
         try {

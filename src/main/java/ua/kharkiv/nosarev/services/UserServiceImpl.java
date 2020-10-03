@@ -33,6 +33,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String[] getUserFullName(int userId) {
+        User user = userDao.getUserById(userId);
+        if (user != null) {
+            return new String[]{user.getName(), user.getSurName()};
+        } else {
+            LOGGER.info("Wrong authorization " + userId);
+            throw new AuthenticationException();
+        }
+    }
+
+    @Override
     public User saveUser(User user) {
         if (!Validator.validateUser(user) || userDao.getUserByEmail(user.getEmail()) != null) {
             LOGGER.info("Wrong registration " + user.getEmail());
@@ -47,11 +58,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUserByEmail(String email) {
-        if (!Validator.validateEmail(email)) {
-            return false;
-        }
-        return userDao.deleteUserByEmail(email);
+    public boolean deleteUserById(int userId) {
+        return userDao.deleteUserById(userId);
     }
 
     public boolean checkPass(User user, String userPass) {
