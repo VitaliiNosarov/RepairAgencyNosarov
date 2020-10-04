@@ -5,7 +5,7 @@
 <%@ page session="true" %>
 <html>
 <head>
-    <link href="${pageContext.request.contextPath}/css/create_order.css" rel="stylesheet" type="text/css">
+    <link href="css/order.css" rel="stylesheet" type="text/css">
 <title>New order</title>
 </head>
 <body>
@@ -33,8 +33,8 @@
 </table>
             
   <div class="form-group">
-    <h4><label for="exampleFormControlTextarea1">Write your comment</label></h4>
-    <textarea class="form-control" id="exampleFormControlTextarea1" name="comment" rows="3"></textarea>
+    <h4><label for="userComment">Write your comment</label></h4>
+    <textarea class="form-control" id="userComment" name="comment" rows="3"></textarea>
   </div>
 <div class="alert alert-info" role="alert">
 The price and other details of the order will be agreed with the manager

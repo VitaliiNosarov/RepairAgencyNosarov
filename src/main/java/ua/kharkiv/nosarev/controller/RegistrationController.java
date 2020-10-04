@@ -43,8 +43,7 @@ public class RegistrationController extends HttpServlet {
             user.setPhone(req.getParameter("phone"));
             user.setLocale(UserLocale.valueOf(req.getParameter("locale")));
             userService.saveUser(user);
-            resp.sendRedirect("registration_success.jsp");
-
+            resp.sendRedirect("info_page/registration_success.jsp");
     }
 
 }

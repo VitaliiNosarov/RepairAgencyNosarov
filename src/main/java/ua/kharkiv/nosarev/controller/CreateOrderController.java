@@ -50,8 +50,6 @@ public class CreateOrderController extends HttpServlet {
             order.addService(new Service(Integer.valueOf(service), null));
         }
         orderDao.insertOrder(order);
-        session.setAttribute("messageType", MessageType.CREATING_ORDER);
-        resp.sendRedirect("success_page.jsp");
-        //req.getRequestDispatcher("order.jsp").forward(req, resp);
+        resp.sendRedirect("info_page/creating_order_success.jsp");
     }
 }

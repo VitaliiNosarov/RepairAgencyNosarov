@@ -6,7 +6,7 @@
 <html>
 <head>
 <title>Order</title>
-<link href="${pageContext.request.contextPath}/css/order.css" rel="stylesheet" type="text/css">
+<link href="css/order.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
@@ -14,9 +14,14 @@
 <c:set var="user" value='${requestScope.order}' />
 
 <form method="Post" action="order">
-<div class="line">
-<h3>Customer :  ${requestScope.customer}</h3>
-</div>
+
+<div class="form-group row">
+    <label for="CustomerName" class="col-sm-2 col-form-label">Customer</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="CustomerName" value="${requestScope.customer}">
+    </div>
+ </div>
+
 
 <div class="line">
 <h3>Order Id :  ${order.id}</h3>

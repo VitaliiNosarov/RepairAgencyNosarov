@@ -39,7 +39,7 @@ public class OrderUpdateController extends HttpServlet {
             String[] masterName = userService.getUserFullName(order.getMasterId());
             req.setAttribute("customer", customerName[0] + " " + customerName[1]);
             req.setAttribute("master", masterName[0] + " " + masterName[1]);
-            resp.sendRedirect("order"); //TODO
+            req.getRequestDispatcher("update_order.jsp").forward(req, resp); //TODO
         }
     }
 

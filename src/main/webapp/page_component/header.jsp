@@ -31,13 +31,21 @@
     </div>
    <div class="right-header">
     <c:if test="${sessionScope.user.role == 'ADMIN'}">
-      <a href="users">All users</a>
+      <form action="users" method="get">
+      <button type="submit" class="btn btn-primary">All users</button>
+      </form>
     </c:if>
     <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.role == 'MASTER'}">
-          <a href="orders">All orders</a>
-        </c:if>
-    <a href="create_order">Order</a>
-    <a href="login">My account</a>
+      <form action="orders" method="get">
+         <button type="submit" class="btn btn-primary">All orders</button>
+      </form>
+    </c:if>
+    <form action="create_order" method="get">
+        <button type="submit" class="btn btn-primary">New order</button>
+    </form>
+    <form action="login" method="get">
+        <button type="submit" class="btn btn-primary">My account</button>
+    </form>
    </div>
   </header>
 </body>
