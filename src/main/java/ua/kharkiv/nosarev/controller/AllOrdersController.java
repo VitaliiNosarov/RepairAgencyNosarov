@@ -26,9 +26,24 @@ public class AllOrdersController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Order> list = orderService.getAllOrders();
-        req.setAttribute("list", list);
+        int currentPage = Integer.parseInt(req.getParameter("currentPage"));
+        int recordsPerPage = Integer.parseInt(req.getParameter("recordsPerPage"));
+        int rows = orderService.getRowsAmount();
+        List<Order> orderList = orderService.findOrders(currentPage, recordsPerPage);
+        int nOfPages = rows / recordsPerPage;
+        if (nOfPages % recordsPerPage > 0) {
+            nOfPages++;
+        }
+        req.setAttribute("orders", orderList);
+        req.setAttribute("noOfPages", nOfPages);
+        req.setAttribute("currentPage", currentPage);
+        req.setAttribute("recordsPerPage", recordsPerPage);
+
         RequestDispatcher dispatcher = req.getRequestDispatcher("all_orders.jsp");
         dispatcher.forward(req, resp);
+//        List<Order> list = orderService.getAllOrders();
+//        req.setAttribute("list", list);
+//        RequestDispatcher dispatcher = req.getRequestDispatcher("all_orders.jsp");
+//        dispatcher.forward(req, resp);
     }
 }

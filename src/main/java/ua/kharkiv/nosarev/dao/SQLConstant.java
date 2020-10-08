@@ -20,7 +20,7 @@ public class SQLConstant {
     public static final String GET_ALL_ORDERS = "SELECT b.id, b.price, b.customer_comment, b.device, b.creating_time, " +
             "b.master_account_id, account.name AS customer_name, account.surname As customer_surname, " +
             "b.user_account_id, acc.name AS master_name, acc.surname AS master_surname, " +
-            "b.order_status, s.id, s.name from booking AS b LEFT JOIN booking_service AS b_s ON b_s.booking_id = b.id" +
+            "b.order_status, s.id AS service_id, s.name from booking AS b LEFT JOIN booking_service AS b_s ON b_s.booking_id = b.id" +
             " LEFT JOIN service AS s ON s.id = b_s.service_id left join account as acc on b.master_account_id = acc.id " +
             "left join account on b.user_account_id = account.id";
     public static final String GET_ORDER_BY_ID = GET_ALL_ORDERS +" WHERE b.id = ?";
@@ -29,6 +29,12 @@ public class SQLConstant {
 
     public static final String INSERT_PAYMENT = "INSERT INTO payment (order_value, payment_type, account_id, booking_id) VALUES (?, ?, ?, ?);";
     public static final String GET_ALL_SERVICES = "SELECT id, name FROM service";
-    public static final String GET_AMOUNT_OF_ROWS = "SELECT COUNT(*) FROM ?;";
+    public static final String GET_AMOUNT_OF_ORDERS = "SELECT COUNT(*) AS count FROM booking;";
+    public static final String FIND_ORDERS = "SELECT b.id, b.price, b.customer_comment, b.device, b.creating_time, " +
+            "b.master_account_id, account.name AS customer_name, account.surname As customer_surname, " +
+            "b.user_account_id, acc.name AS master_name, acc.surname AS master_surname, " +
+            "b.order_status, s.id AS service_id, s.name from booking AS b LEFT JOIN booking_service AS b_s ON b_s.booking_id = b.id" +
+            " LEFT JOIN service AS s ON s.id = b_s.service_id left join account as acc on b.master_account_id = acc.id " +
+            "left join account on b.user_account_id = account.id LIMIT ?, ?";
 
 }

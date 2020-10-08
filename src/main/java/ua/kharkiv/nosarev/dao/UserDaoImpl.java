@@ -161,7 +161,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     private void setUserToPreparedStatement(User user, PreparedStatement statement) throws SQLException {
-        statement.setInt(1, user.getId());
+        statement.setLong(1, user.getId());
         statement.setString(2, user.getEmail());
         statement.setString(3, user.getPassword());
         statement.setString(4, user.getName());

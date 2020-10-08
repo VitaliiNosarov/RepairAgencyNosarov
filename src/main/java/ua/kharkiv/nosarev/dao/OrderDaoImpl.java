@@ -10,8 +10,10 @@ import ua.kharkiv.nosarev.util.DaoUtil;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OrderDaoImpl implements OrderDao {
 
@@ -57,7 +59,8 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<Order> getAllOrders() {
         List<Order> orderList;
-        try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement()) {
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             try (ResultSet rs = statement.executeQuery(SQLConstant.GET_ALL_ORDERS)) {
                 orderList = getOrderListFromResultSet(rs);
             }
@@ -94,7 +97,7 @@ public class OrderDaoImpl implements OrderDao {
             connection = dataSource.getConnection();
             connection.setAutoCommit(false);
             orderStatement = connection.prepareStatement(SQLConstant.INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
-            orderStatement.setInt(1, order.getCustomerId());
+            orderStatement.setLong(1, order.getCustomerId());
             orderStatement.setString(2, order.getDevice());
             orderStatement.setString(3, order.getComment());
             orderStatement.executeUpdate();
@@ -102,8 +105,8 @@ public class OrderDaoImpl implements OrderDao {
             if (resultSet.next()) order.setId(resultSet.getInt(1));
             servicesStatement = connection.prepareStatement(SQLConstant.INSERT_SERVICES_TO_ORDER);
             for (Service service : order.getServices()) {
-                servicesStatement.setInt(1, order.getId());
-                servicesStatement.setInt(2, service.getId());
+                servicesStatement.setLong(1, order.getId());
+                servicesStatement.setLong(2, service.getId());
                 servicesStatement.addBatch();
             }
             servicesStatement.executeBatch();
@@ -122,14 +125,48 @@ public class OrderDaoImpl implements OrderDao {
     public void updateOrder(Order order) {
         try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQLConstant.UPDATE_ORDER)) {
             statement.setBigDecimal(1, order.getPrice());
-            statement.setInt(2, order.getMasterId());
+            statement.setLong(2, order.getMasterId());
             statement.setString(3, String.valueOf(order.getStatus()));
-            statement.setInt(4, order.getId());
+            statement.setLong(4, order.getId());
             statement.executeUpdate();
         } catch (SQLException ex) {
             LOGGER.error("Exception in updateOrder", ex);
             throw new DatabaseException();
         }
+    }
+
+    @Override
+    public int getRowsAmount() {
+        int amountOfRows = 0;
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement()) {
+            try (ResultSet rs = statement.executeQuery((SQLConstant.GET_AMOUNT_OF_ORDERS))) {
+                if (rs.next()) {
+                    amountOfRows = rs.getInt("count");
+                }
+            }
+        } catch (SQLException ex) {
+            LOGGER.error("SQL Exception in getRowsAmount " + ex);
+            throw new DatabaseException();
+        }
+        return amountOfRows;
+    }
+
+    @Override
+    public List<Order> getRows(int startPosition, int recordsPerPage) {
+        List<Order> orderList;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQLConstant.FIND_ORDERS)) {
+            statement.setInt(1, startPosition);
+            statement.setInt(2, recordsPerPage);
+            try (ResultSet rs = statement.executeQuery()) {
+                orderList = getOrderListFromResultSet(rs);
+            }
+        } catch (SQLException ex) {
+            LOGGER.error("SQL Exception in getRowsAmount " + ex);
+            throw new DatabaseException();
+        }
+        return orderList;
     }
 
     private void mapOrderRow(ResultSet rs, Order order) throws SQLException {
@@ -145,28 +182,22 @@ public class OrderDaoImpl implements OrderDao {
         order.setComment(rs.getString("b.customer_comment"));
         order.setDevice(rs.getString("b.device"));
         order.setStatus(OrderStatus.valueOf(rs.getString("order_status")));
-        order.addService(new Service(rs.getInt("s.id"), rs.getString("s.name")));
+        order.addService(new Service(rs.getInt("service_id"), rs.getString("s.name")));
     }
 
     private List<Order> getOrderListFromResultSet(ResultSet rs) throws SQLException {
-        List<Order> orderList = new ArrayList<>();
-        Order order = null;
+        Map<Long, Order> orderMap = new HashMap<>();
         while (rs.next()) {
-            if (order == null) {
-                order = new Order();
-                mapOrderRow(rs, order);
-                orderList.add(order);
+            Order order = new Order();
+            if (orderMap.containsKey(rs.getInt("id"))) {
+                order = orderMap.get(rs.getInt("id"));
+                order.addService(new Service(rs.getInt("service_id"), rs.getString("s.name")));
             } else {
-                if (order.getId() == rs.getInt("id")) {
-                    order.addService(new Service(rs.getInt("s.id"), rs.getString("s.name")));
-                } else {
-                    order = new Order();
-                    mapOrderRow(rs, order);
-                    orderList.add(order);
-                    order = null;
-                }
+                mapOrderRow(rs, order);
+                orderMap.put(order.getId(), order);
             }
+
         }
-        return orderList;
+        return orderMap.values().stream().collect(Collectors.toList());
     }
 }

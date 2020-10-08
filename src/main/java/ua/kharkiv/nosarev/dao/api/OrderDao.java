@@ -1,6 +1,7 @@
 package ua.kharkiv.nosarev.dao.api;
 
 import ua.kharkiv.nosarev.entitie.Order;
+import ua.kharkiv.nosarev.entitie.enumeration.Table;
 
 import java.util.List;
 
@@ -17,4 +18,8 @@ public interface OrderDao {
     Order insertOrder(Order order);
 
     void updateOrder(Order order);
+
+    List<Order> getRows(int start, int recordsPerPage);
+
+    int getRowsAmount();
 }

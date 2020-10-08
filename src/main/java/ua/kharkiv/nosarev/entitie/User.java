@@ -5,9 +5,9 @@ import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 
 import java.math.BigDecimal;
 
-public class User {
+public class User extends AbstractEntity{
 
-    private int id;
+
     private String email;
     private String password;
     private String name;
@@ -18,18 +18,9 @@ public class User {
     private UserLocale locale;
 
     public User() {
-        id = 0;
         role = UserRole.CUSTOMER;
         locale = UserLocale.EN;
         balance = new BigDecimal(0);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public UserRole getRole() {

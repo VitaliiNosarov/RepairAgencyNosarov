@@ -5,14 +5,73 @@
 
 <html>
 <head>
+<link href="${pageContext.request.contextPath}/css/table.css" rel="stylesheet" type="text/css">
     <title>All orders</title>
 </head>
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 <h3 align="center">All orders info</h3>
 
+
+
+
+<main class="m-3">
+    <div class="row col-md-6">
+        <table class="table table-striped table-bordered table-sm">
+            <tr>
+                <th>ID</th>
+                <th>Status</th>
+            </tr>
+
+            <c:forEach items="${orders}" var="order">
+                <tr>
+                    <td>${order.getId()}</td>
+                    <td>${order.getStatus()}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+
+    <nav aria-label="Navigation for countries">
+        <ul class="pagination">
+            <c:if test="${currentPage != 1}">
+                <li class="page-item"><a class="page-link"
+                    href="orders?recordsPerPage=${recordsPerPage}&currentPage=${currentPage-1}">Previous</a>
+                </li>
+            </c:if>
+
+            <c:forEach begin="1" end="${noOfPages}" var="i">
+                <c:choose>
+                    <c:when test="${currentPage eq i}">
+                        <li class="page-item active"><a class="page-link">
+                                ${i} <span class="sr-only">(current)</span></a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link"
+                            href="orders?recordsPerPage=${recordsPerPage}&currentPage=${i}">${i}</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
+            <c:if test="${currentPage lt noOfPages}">
+                <li class="page-item"><a class="page-link"
+                    href="orders?recordsPerPage=${recordsPerPage}&currentPage=${currentPage+1}">Next</a>
+                </li>
+            </c:if>
+        </ul>
+    </nav>
+</main>
+
+
+
+
+
+<!--
 <br>
-<table class="table table-striped">
+<div class="table">
+<table class="table table-striped";>
 
 <c:set var="count" value="1" scope="request" />
 <thead>
@@ -50,6 +109,7 @@
         <c:set var="count" value="${count + 1}" scope="request"/>
     </c:forEach>
 </table>
+</div> -->
 <jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>
 </html>

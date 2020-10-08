@@ -5,13 +5,13 @@ import ua.kharkiv.nosarev.entitie.enumeration.PaymentType;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class Payment{
+public class Payment extends AbstractEntity{
 
-    private int id;
-    private int userId;
+
+    private long userId;
     private BigDecimal summ;
     private PaymentType type;
     private LocalDateTime paymentTime;
-    private int orderId;
+    private long orderId;
 
 }

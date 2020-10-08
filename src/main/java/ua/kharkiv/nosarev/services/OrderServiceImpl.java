@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
+import ua.kharkiv.nosarev.entitie.enumeration.Table;
 import ua.kharkiv.nosarev.exception.ServiceException;
 import ua.kharkiv.nosarev.services.api.OrderService;
 
@@ -77,5 +78,20 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceException();
         }
         orderDao.updateOrder(order);
+    }
+
+    @Override
+    public int getRowsAmount() {
+            return orderDao.getRowsAmount();
+    }
+
+    @Override
+    public List<Order> findOrders(int currentPage, int recordsPerPage) {
+        if (currentPage > 0 && recordsPerPage > 0) {
+            int start = currentPage * recordsPerPage - recordsPerPage;
+            return orderDao.getRows(start, recordsPerPage);
+        }
+        LOGGER.warn("Service Exception in findOrders " + "currentPage= " + currentPage + ", recotdsOfPage=" + recordsPerPage);
+        throw new ServiceException();
     }
 }

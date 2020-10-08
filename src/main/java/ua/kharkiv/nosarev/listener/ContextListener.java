@@ -6,6 +6,7 @@ import ua.kharkiv.nosarev.dao.OrderDaoImpl;
 import ua.kharkiv.nosarev.dao.ServiceDaoImpl;
 import ua.kharkiv.nosarev.dao.UserDaoImpl;
 import ua.kharkiv.nosarev.dao.api.OrderDao;
+import ua.kharkiv.nosarev.dao.api.PaginationDao;
 import ua.kharkiv.nosarev.dao.api.ServiceDao;
 import ua.kharkiv.nosarev.dao.api.UserDao;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
@@ -39,6 +40,7 @@ public class ContextListener implements ServletContextListener {
     private OrderDao orderDao;
     private ServiceDao serviceDao;
     private OrderService orderService;
+    private UserService userService;
     private ServletContext ctx;
 
     @Override
@@ -50,8 +52,6 @@ public class ContextListener implements ServletContextListener {
 
     private void initializeContextObjects(ServletContextEvent event) {
         initializeResources(event);
-        OrderService orderService = new OrderServiceImpl(orderDao);
-        UserService userService = new UserServiceImpl(userDao);
         ctx.setAttribute("userService", userService);
         ctx.setAttribute("orderService", orderService);
         ctx.setAttribute("serviceDao", serviceDao);
@@ -66,6 +66,7 @@ public class ContextListener implements ServletContextListener {
             userDao = new UserDaoImpl(ds);
             orderDao = new OrderDaoImpl(ds);
             serviceDao = new ServiceDaoImpl(ds);
+            userService = new UserServiceImpl(userDao);
             orderService = new OrderServiceImpl(orderDao);
             ctx = event.getServletContext();
         } catch (NamingException e) {

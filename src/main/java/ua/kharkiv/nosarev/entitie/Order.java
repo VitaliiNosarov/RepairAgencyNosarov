@@ -7,11 +7,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class Order extends AbstractEntity{
 
-    private int id;
-    private int customerId;
-    private int masterId;
+
+    private long customerId;
+    private long masterId;
     private String customerName;
     private String customerSurname;
     private String masterName;
@@ -25,33 +25,24 @@ public class Order {
 
     public Order() {
         services = new ArrayList<>();
-        id = 0;
         status = OrderStatus.WAITING_FOR_PROCESSING;
         price = new BigDecimal(0);
     }
 
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getCustomerId() {
+    public long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(long customerId) {
         this.customerId = customerId;
     }
 
-    public int getMasterId() {
+    public long getMasterId() {
         return masterId;
     }
 
-    public void setMasterId(int masterId) {
+    public void setMasterId(long masterId) {
         this.masterId = masterId;
     }
 
