@@ -1,11 +1,10 @@
 package ua.kharkiv.nosarev.controller;
 
-import ua.kharkiv.nosarev.MessageType;
-import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.dao.api.ServiceDao;
 import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.User;
+import ua.kharkiv.nosarev.services.api.OrderService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -21,12 +20,12 @@ import java.util.List;
 public class CreateOrderController extends HttpServlet {
 
     private ServiceDao serviceDao;
-    private OrderDao orderDao;
+    private OrderService orderService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        orderDao = (OrderDao) config.getServletContext().getAttribute("orderDao");
+        orderService = (OrderService) config.getServletContext().getAttribute("orderService");
         serviceDao = (ServiceDao) config.getServletContext().getAttribute("serviceDao");
     }
 
@@ -44,12 +43,15 @@ public class CreateOrderController extends HttpServlet {
         User user = (User) session.getAttribute("user");
         Order order = new Order();
         order.setCustomerId(user.getId());
+        order.setDevice(req.getParameter("device"));
         order.setComment(req.getParameter("comment"));
         String[] services = req.getParameterValues("service");
-        for (String service : services) {
-            order.addService(new Service(Integer.valueOf(service), null));
+        if (services != null) {
+            for (String service : services) {
+                order.addService(new Service(Integer.valueOf(service), null));
+            }
         }
-        orderDao.insertOrder(order);
+        orderService.insertOrder(order);
         resp.sendRedirect("info_page/creating_order_success.jsp");
     }
 }

@@ -1,12 +1,29 @@
-.line {
-    background-color: #E6E6FA;
-    color: #434fa2;
-    border: 2px solid black;
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.main_block{
     width: 40%;
-    padding-left: 20px;
-    padding-right: 20px;
-    text-align: center
+    margin: auto;
+    border-style: double;
+    margin-top: 5%;
+    background-color: aliceblue;
+}
+
+.inner_block{
+    margin: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    position: inherit;
+    margin-top: 5%;
+    width: 90%;
+}
+
+.form-control{
+    background-color: white;
+}
+
+
+@media screen and (max-width: 800px) {
+  .main_block{
+    width: 100%;
+    margin-top: 0;
+  }
 }

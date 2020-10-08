@@ -7,7 +7,7 @@
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
-<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="messages"/>
 
 <html>

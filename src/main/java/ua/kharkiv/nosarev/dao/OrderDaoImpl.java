@@ -24,11 +24,14 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order getOrderById(int orderId) {
-        Order order = null;
-        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_ORDER_BY_ID)) {
+        Order order = new Order();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_ORDER_BY_ID)) {
             statement.setInt(1, orderId);
             try (ResultSet rs = statement.executeQuery()) {
-                order = extractOrder(rs);
+                while (rs.next()) {
+                    mapOrderRow(rs, order);
+                }
             }
         } catch (SQLException throwables) {
             LOGGER.error("SQL Exception in getOrderById " + throwables);
@@ -39,8 +42,9 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public boolean deleteOrderById(int orderId) {
-        boolean result = false;
-        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQLConstant.DELETE_ORDER_BY_ID)) {
+        boolean result;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQLConstant.DELETE_ORDER_BY_ID)) {
             statement.setInt(1, orderId);
             result = statement.executeUpdate() == 1;
         } catch (SQLException throwables) {
@@ -52,32 +56,27 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> getAllOrders() {
-        List<Order> list = new ArrayList<>();
+        List<Order> orderList;
         try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement()) {
-            try (ResultSet rs = statement.executeQuery(SQLConstant.GET_ALL_ORDERS_ID)) {
-                while (rs.next()) {
-                    list.add(getOrderById(rs.getInt("id")));
-                }
+            try (ResultSet rs = statement.executeQuery(SQLConstant.GET_ALL_ORDERS)) {
+                orderList = getOrderListFromResultSet(rs);
             }
-
         } catch (SQLException throwables) {
             LOGGER.error("Can't get all orders from database", throwables);
             throw new DatabaseException();
         }
-        return list;
+        return orderList;
     }
 
     @Override
     public List<Order> getAllCustomerOrders(int userId) {
-        List<Order> list = new ArrayList<>();
-        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_ALL_ORDERS_ID_BY_USER_ID)) {
+        List<Order> list;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_ALL_ORDERS_BY_USER_ID)) {
             statement.setInt(1, userId);
             try (ResultSet rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    list.add(getOrderById(rs.getInt("id")));
-                }
+                list = getOrderListFromResultSet(rs);
             }
-
         } catch (SQLException throwables) {
             LOGGER.error("Can't get all orders for user with id " + userId, throwables);
             throw new DatabaseException();
@@ -96,7 +95,8 @@ public class OrderDaoImpl implements OrderDao {
             connection.setAutoCommit(false);
             orderStatement = connection.prepareStatement(SQLConstant.INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
             orderStatement.setInt(1, order.getCustomerId());
-            orderStatement.setString(2, order.getComment());
+            orderStatement.setString(2, order.getDevice());
+            orderStatement.setString(3, order.getComment());
             orderStatement.executeUpdate();
             resultSet = orderStatement.getGeneratedKeys();
             if (resultSet.next()) order.setId(resultSet.getInt(1));
@@ -120,30 +120,53 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public void updateOrder(Order order) {
-        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQLConstant.UPDATE_ORDER)){
+        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQLConstant.UPDATE_ORDER)) {
             statement.setBigDecimal(1, order.getPrice());
             statement.setInt(2, order.getMasterId());
             statement.setString(3, String.valueOf(order.getStatus()));
             statement.setInt(4, order.getId());
             statement.executeUpdate();
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             LOGGER.error("Exception in updateOrder", ex);
             throw new DatabaseException();
         }
     }
 
-    private Order extractOrder(ResultSet rs) throws SQLException {
-        Order order = new Order();
+    private void mapOrderRow(ResultSet rs, Order order) throws SQLException {
+        order.setId(rs.getInt("id"));
+        order.setCustomerId(rs.getInt("b.user_account_id"));
+        order.setMasterId(rs.getInt("b.master_account_id"));
+        order.setMasterName(rs.getString("master_name"));
+        order.setMasterSurname(rs.getString("master_surname"));
+        order.setCustomerName(rs.getString("customer_name"));
+        order.setCustomerSurname(rs.getString("customer_surname"));
+        order.setPrice(rs.getBigDecimal("b.price"));
+        order.setCreatingTime(rs.getTimestamp("b.creating_time"));
+        order.setComment(rs.getString("b.customer_comment"));
+        order.setDevice(rs.getString("b.device"));
+        order.setStatus(OrderStatus.valueOf(rs.getString("order_status")));
+        order.addService(new Service(rs.getInt("s.id"), rs.getString("s.name")));
+    }
+
+    private List<Order> getOrderListFromResultSet(ResultSet rs) throws SQLException {
+        List<Order> orderList = new ArrayList<>();
+        Order order = null;
         while (rs.next()) {
-            order.setId(rs.getInt("id"));
-            order.setCustomerId(rs.getInt("b.user_account_id"));
-            order.setMasterId(rs.getInt("b.master_account_id"));
-            order.setPrice(rs.getBigDecimal("b.price"));
-            order.addService(new Service(rs.getInt("s.id"), rs.getString("s.name")));
-            order.setCreatingTime(rs.getTimestamp("b.creating_time"));
-            order.setComment(rs.getString("b.customer_comment"));
-            order.setStatus(OrderStatus.valueOf(rs.getString("order_status")));
+            if (order == null) {
+                order = new Order();
+                mapOrderRow(rs, order);
+                orderList.add(order);
+            } else {
+                if (order.getId() == rs.getInt("id")) {
+                    order.addService(new Service(rs.getInt("s.id"), rs.getString("s.name")));
+                } else {
+                    order = new Order();
+                    mapOrderRow(rs, order);
+                    orderList.add(order);
+                    order = null;
+                }
+            }
         }
-        return order;
+        return orderList;
     }
 }

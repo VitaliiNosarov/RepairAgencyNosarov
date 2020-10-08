@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/users")
-public class AllUserController extends HttpServlet {
+public class AllUsersController extends HttpServlet {
 
     private UserService userService;
 

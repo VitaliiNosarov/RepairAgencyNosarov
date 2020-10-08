@@ -2,7 +2,7 @@
 header {
   overflow: hidden;
   background-color: #b3cde8;
-  padding: 20px 10px;
+  padding: 15px 10px;
 }
 
 /* Style the header links */
@@ -30,8 +30,6 @@ header a:hover {
 }
 
 .language{
-float: right;
-padding-left: 7%;
 }
 
 .right-header {

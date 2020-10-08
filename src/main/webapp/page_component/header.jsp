@@ -5,8 +5,10 @@
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
-<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="messages"/>
+
+<c:set var="PATH" value="${pageContext.request.contextPath}" scope="request"/>
 
 <html>
 <head>
@@ -16,36 +18,36 @@
 
 <body>
 <header>
-  <a href="index.jsp" class="logo">RepairAgency</a>
-   <div class="language">
-        <a href="?locale=RU"><fmt:message key="language.russian" /></a>
-        <a href="?locale=EN"><fmt:message key="language.english" /></a>
-            <c:choose>
-            <c:when test="${empty sessionScope.user}">
-                <a href="login">Log in</a>
-            </c:when>
-            <c:otherwise>
-                <a href="logout">Log out</a>
-            </c:otherwise>
-            </c:choose>
-    </div>
+  <a href="${PATH}/index.jsp" class="logo">RepairAgency</a>
    <div class="right-header">
+
+    <c:choose>
+    <c:when test="${empty sessionScope.user}">
+        <a href="${PATH}/login"><fmt:message key="login.login_button"/></a>
+    </c:when>
+    <c:otherwise>
+        <a href="${PATH}/logout"><fmt:message key="header.logout"/></a>
+    </c:otherwise>
+    </c:choose>
+
     <c:if test="${sessionScope.user.role == 'ADMIN'}">
-      <form action="users" method="get">
-      <button type="submit" class="btn btn-primary">All users</button>
-      </form>
+      <a href="${PATH}/users">All users</a>
     </c:if>
     <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.role == 'MASTER'}">
-      <form action="orders" method="get">
-         <button type="submit" class="btn btn-primary">All orders</button>
-      </form>
-    </c:if>
-    <form action="create_order" method="get">
-        <button type="submit" class="btn btn-primary">New order</button>
-    </form>
-    <form action="login" method="get">
-        <button type="submit" class="btn btn-primary">My account</button>
-    </form>
+          <a href="${PATH}/orders">All orders</a>
+        </c:if>
+    <a href="${PATH}/create_order">Order</a>
+    <a href="${PATH}/updateAccount">My account</a>
+    <div class="language">
+       <form>
+           <label for="locale"></label>
+           <select id="locale" class="form-control" name="language" onchange="submit()">
+           <option value="EN" ${language == 'EN' ? 'selected' : ''}><fmt:message key="language.english"/></option>
+           <option value="RU" ${language == 'RU' ? 'selected' : ''}><fmt:message key="language.russian"/></option>
+           </select>
+       </form>
+       </div>
+
    </div>
   </header>
 </body>

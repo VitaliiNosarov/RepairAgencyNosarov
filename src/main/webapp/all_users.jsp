@@ -18,21 +18,22 @@
 <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Surname</th>
+      <th scope="col">User name</th>
       <th scope="col">Email</th>
       <th scope="col">Phone</th>
-      <th scope="col">Language</th>
+      <th scope="col">Balance</th>
+      <th scope="col">Role</th>
+      <th scope="col">Locale</th>
     </tr>
   </thead>
     <c:forEach items="${list}" var="list">
-
         <tr>
             <th scope="row">${count}</th>
-            <td> ${list.name} </td>
-            <td> ${list.surName} </td>
+            <td> ${list.name} ${list.surName}</td>
             <td> ${list.email} </td>
             <td> ${list.phone} </td>
+            <td> ${list.balance} </td>
+            <td> ${list.role} </td>
             <td> ${list.locale} </td>
         </tr>
         <c:set var="count" value="${count + 1}" scope="request"/>

@@ -1,10 +1,12 @@
 package ua.kharkiv.nosarev.filter;
 
 import org.apache.log4j.Logger;
+import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -19,10 +21,16 @@ public class LanguageFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         setEncoding(request, response);
-
         HttpServletRequest req = (HttpServletRequest) request;
-        if (req.getParameter("locale") != null) {
-            req.getSession().setAttribute("locale", req.getParameter("locale"));
+        HttpServletResponse resp = (HttpServletResponse) response;
+        HttpSession session = req.getSession();
+        if (req.getParameter("language") != null) {
+            req.getSession().setAttribute("language", req.getParameter("language"));
+            resp.sendRedirect(req.getHeader("referer"));
+            return;
+        }
+        if(session.getAttribute("language")==null){
+            session.setAttribute("language", UserLocale.EN.toString());
         }
         chain.doFilter(request, response);
     }
@@ -40,6 +48,4 @@ public class LanguageFilter implements Filter {
 
     public void init(FilterConfig arg0) throws ServletException {
     }
-
-
 }

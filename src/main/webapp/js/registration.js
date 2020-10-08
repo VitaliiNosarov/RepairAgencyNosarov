@@ -36,10 +36,18 @@ $(document).ready(function() {
             isValid = false;
           }
         }
-     if (password.length < 4) {
-           $('#password').after('<span class="error">Password must be at least 4 characters long</span>');
-           isValid = false;
-         }
+    if (password.length < 1) {
+          $('#password').after('<span class="error">This field is required</span>');
+          isValid = false;
+        } else {
+          var regExPass = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{5,}$/;
+          var validPass = regExPass.test(password);
+          if (!validPass) {
+            $('#password').after('<span class="error">Password must be at least 5 symbols long, contains digits and capital letters</span>');
+            isValid = false;
+          }
+        }
+
      if (name.length < 2) {
           $('#name').after('<span class="error">Name must be at least 2 characters long</span>');
           isValid = false;

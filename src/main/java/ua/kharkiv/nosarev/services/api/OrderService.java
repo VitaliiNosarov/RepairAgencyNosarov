@@ -1,7 +1,9 @@
 package ua.kharkiv.nosarev.services.api;
 
 import ua.kharkiv.nosarev.entitie.Order;
+import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface OrderService {
@@ -16,5 +18,5 @@ public interface OrderService {
 
     Order insertOrder(Order order);
 
-    void updateOrder(Order order);
+    void updateOrder(Order order, int masterId, String price, OrderStatus status);
 }

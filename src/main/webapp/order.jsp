@@ -11,50 +11,84 @@
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
-<c:set var="user" value='${requestScope.order}' />
+<c:set var="order" value='${requestScope.order}' />
 
-<form method="Post" action="order">
-
+<div class="main_block">
+<div class="order_form">
+<h3> Order info</h3>
 <div class="form-group row">
-    <label for="CustomerName" class="col-sm-2 col-form-label">Customer</label>
+    <label for="CustomerName" class="col-sm-2 col-form-label">Customer :</label>
     <div class="col-sm-10">
-      <input type="text" readonly class="form-control-plaintext" id="CustomerName" value="${requestScope.customer}">
+      <input type="text" readonly class="form-control-plaintext" id="CustomerName" value="${order.customerName} ${order.customerSurname}">
     </div>
  </div>
 
 
-<div class="line">
-<h3>Order Id :  ${order.id}</h3>
+<div class="form-group row">
+    <label for="Number" class="col-sm-2 col-form-label">Order Number :</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="Number" name="orderId" value="${order.id}">
+    </div>
+ </div>
+
+<div class="form-group row">
+    <label for="Device" class="col-sm-2 col-form-label">Device :</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="Device" value="${order.device}">
+    </div>
 </div>
 
-<div class="line">
-<h3>Email :  ${order.status}</h3>
+<div class="form-group row">
+    <label for="CustomerComment" class="col-sm-2 col-form-label">Comment :</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="CustomerComment" value="${order.comment}">
+    </div>
 </div>
 
-<div class="line">
-<h3>Comment :  ${order.comment}</h3>
-</div>
 
-<div class="line">
-<h3>Services :  ${order.services}</h3>
-</div>
+<div class="form-group row">
+    <label for="orderServices" class="col-sm-2 col-form-label">Services :</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="orderServices" value="${order.services}">
+    </div>
+ </div>
 
-<div class="line">
-<h3>Creating time :  ${order.creatingTime}</h3>
-</div>
 
-<div class="line">
-<h3>Master :  ${requestScope.master}</h3>
-</div>
+<div class="form-group row">
+    <label for="creatingTime" class="col-sm-2 col-form-label">Creating Time :</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="creatingTime" value="${order.creatingTime}">
+    </div>
+ </div>
 
-<div class="line">
-<h3>Price :  ${requestScope.price}</h3>
-</div>
+<div class="form-group row">
+    <label for="Master" class="col-sm-2 col-form-label">Master :</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="Master" value="${order.masterName} ${order.masterSurname}">
+    </div>
+ </div>
 
-<button class="btn btn-info" type="submit" class="btn btn-info">Update</button>
+
+<div class="form-group row">
+    <label for="Status" class="col-sm-2 col-form-label">Status :</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="Status" value="${order.status}">
+    </div>
+ </div>
+
+
+
+<div class="form-group row">
+    <label for="Price" class="col-sm-2 col-form-label">Price :</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="Price" value="${order.price}">
+    </div>
+ </div>
+
 <button class="btn btn-info" type="button" onclick="history.back();" class="btn btn-info">Back</button>
-</form>
 
+</div>
+</div>
 <jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>
 </html>

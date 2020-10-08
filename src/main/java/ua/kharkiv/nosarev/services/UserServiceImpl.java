@@ -3,11 +3,15 @@ package ua.kharkiv.nosarev.services;
 import org.apache.log4j.Logger;
 import ua.kharkiv.nosarev.dao.api.UserDao;
 import ua.kharkiv.nosarev.entitie.User;
+import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 import ua.kharkiv.nosarev.exception.AuthenticationException;
 import ua.kharkiv.nosarev.exception.RegistrationException;
+import ua.kharkiv.nosarev.exception.ServiceException;
 import ua.kharkiv.nosarev.services.api.UserService;
 
 import java.util.List;
+
+import static ua.kharkiv.nosarev.services.Validator.*;
 
 public class UserServiceImpl implements UserService {
 
@@ -20,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByEmailPass(String userEmail, String userPass) {
-        if (!Validator.validateEmail(userEmail) || !Validator.validatePassword(userPass)) {
+        if (!validateEmail(userEmail) || !validatePassword(userPass)) {
             throw new AuthenticationException();
         }
         User user = userDao.getUserByEmail(userEmail);
@@ -33,23 +37,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String[] getUserFullName(int userId) {
-        User user = userDao.getUserById(userId);
-        if (user != null) {
-            return new String[]{user.getName(), user.getSurName()};
+    public User getUserById(int id) {
+        if (id > 0) {
+            return userDao.getUserById(id);
         } else {
-            LOGGER.info("Wrong authorization " + userId);
-            throw new AuthenticationException();
+            LOGGER.info("Service exception in get user by Id  " + id);
+            throw new ServiceException();
         }
     }
 
     @Override
     public User saveUser(User user) {
-        if (!Validator.validateUser(user) || userDao.getUserByEmail(user.getEmail()) != null) {
+        if (!validateUser(user)) {
             LOGGER.info("Wrong registration " + user.getEmail());
-            throw new RegistrationException();
+            throw new RegistrationException("Wrong user fields");
         }
-        return userDao.saveUser(user);
+        if (userDao.getUserByEmail(user.getEmail()) != null) {
+            LOGGER.info("Wrong registration " + user.getEmail());
+            throw new RegistrationException("Wrong user fields");
+        }
+        return userDao.insertUser(user);
+    }
+    @Override
+    public User updateUser(User user) {
+        if (!validateUser(user)) {
+            LOGGER.info("Wrong registration " + user.getEmail());
+            throw new RegistrationException("Wrong user fields");
+        }
+        return userDao.insertUser(user);
     }
 
     @Override
@@ -58,12 +73,42 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUserById(int userId) {
-        return userDao.deleteUserById(userId);
+    public List<User> getAllUsersByRole(UserRole role) {
+        if (role != null) {
+            return userDao.getAllUsersByRole(role);
+        } else {
+            LOGGER.info("Service exception in getAllUsersByRole. User Role  = " + role);
+            throw new ServiceException();
+        }
     }
 
-    public boolean checkPass(User user, String userPass) {
-        return user.getPassword().equals(userPass);
+    @Override
+    public boolean deleteUserById(int userId) {
+        if (userId != 0) {
+            return userDao.deleteUserById(userId);
+        } else {
+            LOGGER.info("Service exception in deleteUserById. UserId  = " + userId);
+            throw new ServiceException();
+        }
+    }
+
+    @Override
+    public boolean checkRole(UserRole expectedRole, int userId) {
+        if (userId != 0 && expectedRole != null) {
+            return expectedRole.equals(userDao.getRoleById(userId));
+        } else {
+            LOGGER.info("Service exception in checkRole. Input userId = " + userId + " expectedRole " + expectedRole);
+            throw new ServiceException();
+        }
+    }
+
+    private boolean checkPass(User user, String userPass) {
+        if (user != null && userPass != null) {
+            return user.getPassword().equals(userPass);
+        } else {
+            LOGGER.info("Service exception in checkPass. Input user = " + user + " pass " + userPass);
+            throw new AuthenticationException();
+        }
     }
 
 }

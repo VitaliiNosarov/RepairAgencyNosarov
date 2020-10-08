@@ -1,6 +1,7 @@
 package ua.kharkiv.nosarev.dao.api;
 
 import ua.kharkiv.nosarev.entitie.User;
+import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 
 import java.util.List;
 
@@ -14,5 +15,11 @@ public interface UserDao {
 
     List<User> getAllUsers();
 
-    User saveUser(User user);
+    List<User> getAllUsersByRole(UserRole role);
+
+    User insertUser(User user);
+
+    User updateUser(User user);
+
+    UserRole getRoleById(int userId);
 }

@@ -1,7 +1,7 @@
 package ua.kharkiv.nosarev.controller;
 
-import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.entitie.Order;
+import ua.kharkiv.nosarev.services.api.OrderService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -16,19 +16,19 @@ import java.util.List;
 @WebServlet("/orders")
 public class AllOrdersController extends HttpServlet {
 
-    private OrderDao orderDao;
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Order> list = orderDao.getAllOrders();
-        req.setAttribute("list", list);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("all_orders.jsp");
-        dispatcher.forward(req, resp);
-    }
+    private OrderService orderService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        orderDao = (OrderDao) config.getServletContext().getAttribute("orderDao");
+        orderService = (OrderService) config.getServletContext().getAttribute("orderService");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Order> list = orderService.getAllOrders();
+        req.setAttribute("list", list);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("all_orders.jsp");
+        dispatcher.forward(req, resp);
     }
 }

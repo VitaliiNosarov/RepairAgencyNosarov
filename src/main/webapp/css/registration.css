@@ -1,9 +1,33 @@
-.registration{
-    padding-right: 25%;
-    padding-left: 25%;
+.main_block{
+    width: 40%;
+    margin: auto;
+    border-style: double;
+    margin-top: 5%;
+    background-color: aliceblue;
+}
+
+.inner_block{
+    margin: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    position: inherit;
+    margin-top: 5%;
+    width: 90%;
+}
+
+.form-control{
+    background-color: white;
 }
 
 .error {
   color: red;
   margin-left: 5px;
+}
+
+@media screen and (max-width: 800px) {
+  .main_block{
+    width: 100%;
+    margin-top: 0;
+  }
 }

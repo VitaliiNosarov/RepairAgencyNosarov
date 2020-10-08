@@ -12,10 +12,15 @@ public class Order {
     private int id;
     private int customerId;
     private int masterId;
+    private String customerName;
+    private String customerSurname;
+    private String masterName;
+    private String masterSurname;
     private BigDecimal price;
     private List<Service> services;
     private Timestamp creatingTime;
     private String comment;
+    private String device;
     private OrderStatus status;
 
     public Order() {
@@ -82,6 +87,10 @@ public class Order {
         this.comment = comment;
     }
 
+    public String getDevice() { return device; }
+
+    public void setDevice(String device) { this.device = device; }
+
     public OrderStatus getStatus() {
         return status;
     }
@@ -89,4 +98,21 @@ public class Order {
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
+
+    public String getMasterName() { return masterName; }
+
+    public void setMasterName(String masterName) { this.masterName = masterName; }
+
+    public String getMasterSurname() { return masterSurname; }
+
+    public void setMasterSurname(String masterSurname) { this.masterSurname = masterSurname; }
+
+    public String getCustomerName() { return customerName; }
+
+    public void setCustomerName(String customerName) { this.customerName = customerName; }
+
+    public String getCustomerSurname() { return customerSurname; }
+
+    public void setCustomerSurname(String customerSurname) { this.customerSurname = customerSurname; }
+
 }

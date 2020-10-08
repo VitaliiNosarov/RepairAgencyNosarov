@@ -1,23 +1,33 @@
 .main_block{
-    width: 50%;
-    height: 60%;
+width: 40%;
     margin: auto;
+    border-style: double;
     margin-top: 5%;
-    margin-bottom: 5%;
+    background-color: aliceblue;
+}
+
+.table_block{
+    max-height: 190px;
+    overflow: auto;
+    justify-content: space-evenly;
+    border-style: inset;
+    background-color: white;
 }
 
 .order_form{
-height: 60%;
-    margin: auto;
     margin-left: 5%;
     margin-right: 5%;
-    margin-top: 5%;
     margin-bottom: 5%;
     position: inherit;
+    margin-top: 5%;
+}
+
+.table table-striped{
+overflow: auto;
 }
 
 @media screen and (max-width: 800px) {
-  .main_block, order_form{
+  .main_block{
     width: 100%;
     margin-top: 0;
   }

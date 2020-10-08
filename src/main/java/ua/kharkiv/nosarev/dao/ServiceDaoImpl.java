@@ -2,7 +2,6 @@ package ua.kharkiv.nosarev.dao;
 
 import org.apache.log4j.Logger;
 import ua.kharkiv.nosarev.dao.api.ServiceDao;
-import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.exception.DatabaseException;
 
@@ -14,7 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceDaoImpl  implements ServiceDao {
+public class ServiceDaoImpl implements ServiceDao {
 
     private static final Logger LOGGER = Logger.getLogger(ServiceDaoImpl.class);
     private DataSource dataSource;

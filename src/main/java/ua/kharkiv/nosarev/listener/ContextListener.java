@@ -9,7 +9,9 @@ import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.dao.api.ServiceDao;
 import ua.kharkiv.nosarev.dao.api.UserDao;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
+import ua.kharkiv.nosarev.services.OrderServiceImpl;
 import ua.kharkiv.nosarev.services.UserServiceImpl;
+import ua.kharkiv.nosarev.services.api.OrderService;
 import ua.kharkiv.nosarev.services.api.UserService;
 import ua.kharkiv.nosarev.util.SecurityUtil;
 
@@ -24,12 +26,20 @@ import javax.sql.DataSource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 @WebListener
 public class ContextListener implements ServletContextListener {
 
     private static final Logger LOGGER = Logger.getLogger(ContextListener.class);
+    private DataSource ds;
+    private UserDao userDao;
+    private OrderDao orderDao;
+    private ServiceDao serviceDao;
+    private OrderService orderService;
+    private ServletContext ctx;
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
@@ -39,21 +49,28 @@ public class ContextListener implements ServletContextListener {
     }
 
     private void initializeContextObjects(ServletContextEvent event) {
+        initializeResources(event);
+        OrderService orderService = new OrderServiceImpl(orderDao);
+        UserService userService = new UserServiceImpl(userDao);
+        ctx.setAttribute("userService", userService);
+        ctx.setAttribute("orderService", orderService);
+        ctx.setAttribute("serviceDao", serviceDao);
+        ctx.setAttribute("uriMap", initializeSecurity(event));
+        LOGGER.info("Context was initialized");
+    }
+
+    private void initializeResources(ServletContextEvent event) {
         try {
             Context context = new InitialContext();
-            ServletContext ctx = event.getServletContext();
-            DataSource ds = (DataSource) context.lookup("java:comp/env/jdbc/repair_agency");
-            UserDao userDao = new UserDaoImpl(ds);
-            OrderDao orderDao = new OrderDaoImpl(ds);
-            ServiceDao serviceDao = new ServiceDaoImpl(ds);
-            UserService userService = new UserServiceImpl(userDao);
-            ctx.setAttribute("userService", userService);
-            ctx.setAttribute("orderDao", orderDao);
-            ctx.setAttribute("serviceDao", serviceDao);
-            ctx.setAttribute("uriMap", initializeSecurity(event));
-            LOGGER.info("Context was initialized");
+            ds = (DataSource) context.lookup("java:comp/env/jdbc/repair_agency");
+            userDao = new UserDaoImpl(ds);
+            orderDao = new OrderDaoImpl(ds);
+            serviceDao = new ServiceDaoImpl(ds);
+            orderService = new OrderServiceImpl(orderDao);
+            ctx = event.getServletContext();
         } catch (NamingException e) {
             LOGGER.error("Can't initialize Datasource", e);
+            throw new RuntimeException();
         }
     }
 

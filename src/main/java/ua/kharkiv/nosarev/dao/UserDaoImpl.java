@@ -88,7 +88,24 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User saveUser(User user) {
+    public List<User> getAllUsersByRole(UserRole role) {
+        List<User> list = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_ALL_USERS_BY_ROLE)) {
+            statement.setInt(1, role.getId());
+            ResultSet set = statement.executeQuery();
+            while (set.next()) {
+                list.add(extractUser(set));
+            }
+        } catch (SQLException throwables) {
+            LOGGER.error("Can't get all users by role from database", throwables);
+            throw new DatabaseException();
+        }
+        return list;
+    }
+
+    @Override
+    public User insertUser(User user) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.SAVE_USER, Statement.RETURN_GENERATED_KEYS)) {
             if (user != null) {
@@ -101,9 +118,32 @@ public class UserDaoImpl implements UserDao {
             }
         } catch (SQLException throwables) {
             LOGGER.error("Can't insert user with email = " + user.getEmail() + " to database");
-            throw new RegistrationException();
+            throw new RegistrationException("Wrong email or pass");
         }
         return user;
+    }
+
+    @Override
+    public User updateUser(User user) {
+        return null;
+    }
+
+    @Override
+    public UserRole getRoleById(int userId) {
+        UserRole role = null;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_ROLE_BY_USER_ID)) {
+            statement.setInt(1, userId);
+            try (ResultSet set = statement.executeQuery()) {
+                if (set.next()) {
+                    role = UserRole.valueOf(set.getString("role"));
+                }
+            }
+        } catch (SQLException throwables) {
+            LOGGER.error("Can't get user role by id " + userId);
+            throw new DatabaseException();
+        }
+        return role;
     }
 
     private User extractUser(ResultSet rs) throws SQLException {
@@ -126,9 +166,9 @@ public class UserDaoImpl implements UserDao {
         statement.setString(3, user.getPassword());
         statement.setString(4, user.getName());
         statement.setString(5, user.getSurName());
-        statement.setString(6, String.valueOf(user.getRole()));
+        statement.setString(6, user.getRole().toString());
         statement.setString(7, user.getPhone());
-        statement.setString(8, String.valueOf(user.getLocale()));
+        statement.setString(8, user.getLocale().toString());
         statement.setBigDecimal(9, user.getBalance());
     }
 }

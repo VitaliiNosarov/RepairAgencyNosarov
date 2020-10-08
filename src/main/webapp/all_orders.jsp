@@ -19,9 +19,13 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">ID</th>
+      <th scope="col">Device</th>
       <th scope="col">Comment</th>
       <th scope="col">Services</th>
       <th scope="col">Price</th>
+      <th scope="col">Status</th>
+      <th scope="col">Customer</th>
+      <th scope="col">Master</th>
       <th scope="col">Creating Time</th>
       <th scope="col"></th>
     </tr>
@@ -29,14 +33,18 @@
     <c:forEach items="${list}" var="list">
 
         <tr>
-            <form method="Get" action="order">
+            <form method="Get" action="updateOrder">
             <th scope="row">${count}</th>
             <td> ${list.id} </td>
+            <td> ${list.device} </td>
             <td> ${list.comment} </td>
             <td> ${list.services} </td>
             <td> ${list.price} </td>
+            <td> ${list.status} </td>
+            <td> ${list.customerName} ${list.customerSurname} </td>
+            <td> ${list.masterName} ${list.masterSurname}</td>
             <td> ${list.creatingTime} </td>
-            <td><button type="submit" name="orderId" value="${list.id}" class="btn btn-info">Update</button></td>
+            <td><button type="submit" name="orderId" value="${list.id}" class="btn btn-info">More info</button></td>
             </form>
         </tr>
         <c:set var="count" value="${count + 1}" scope="request"/>

@@ -40,7 +40,7 @@ public class AuthorizationFilter implements Filter {
         }
         User currentUser = (User) session.getAttribute("user");
         if (currentUser == null) {
-            resp.sendRedirect("login.jsp");
+            resp.sendRedirect(req.getContextPath()+"/login");
             return;
         }
         if (uriMap.get(currentUser.getRole()).contains(uri)) {
@@ -48,7 +48,7 @@ public class AuthorizationFilter implements Filter {
             return;
         }
         LOGGER.info("Unauthorized access request");
-        resp.sendRedirect("not_rights.jsp");
+        resp.sendRedirect(req.getContextPath()+"/info_page/not_rights.jsp");
     }
 
     private boolean checkUri(String uri) {

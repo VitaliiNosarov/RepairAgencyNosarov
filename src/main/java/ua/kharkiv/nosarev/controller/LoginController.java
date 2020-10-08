@@ -16,31 +16,26 @@ import java.io.IOException;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 
-    private UserService useruserService;
+    private UserService userService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        useruserService = (UserService) config.getServletContext().getAttribute("userService");
+        userService = (UserService) config.getServletContext().getAttribute("userService");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        if (session.getAttribute("user") != null) {
-            req.getRequestDispatcher("user_account.jsp").forward(req, resp);
-        } else {
-            resp.sendRedirect("login.jsp");
-        }
+        req.getRequestDispatcher("login.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User user = useruserService.getUserByEmailPass(email, password);
+        User user = userService.getUserByEmailPass(email, password);
         HttpSession session = req.getSession();
         session.setAttribute("user", user);
-        resp.sendRedirect("login");
+        resp.sendRedirect("index.jsp");
     }
 }
