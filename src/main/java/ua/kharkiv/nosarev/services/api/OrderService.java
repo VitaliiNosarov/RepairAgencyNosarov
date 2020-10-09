@@ -2,7 +2,6 @@ package ua.kharkiv.nosarev.services.api;
 
 import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
-import ua.kharkiv.nosarev.entitie.enumeration.Table;
 
 import java.util.List;
 
@@ -12,8 +11,6 @@ public interface OrderService {
 
     boolean deleteOrderById(int orderId);
 
-    List<Order> getAllOrders();
-
     List<Order> getAllCustomerOrders(int userId);
 
     Order insertOrder(Order order);
@@ -22,5 +19,5 @@ public interface OrderService {
 
     int getRowsAmount();
 
-    List<Order> findOrders(int currentPage, int recordsPerPage);
+    List<Order> findOrders(int currentPage, int recordsPerPage, String orderBy, String reverse, String filter, String filterParam);
 }

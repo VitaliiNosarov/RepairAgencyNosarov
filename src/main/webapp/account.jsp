@@ -14,17 +14,19 @@
 <html>
 <head>
 <title>Order</title>
-<link href="css/user_account.css" rel="stylesheet" type="text/css">
+     <link href="css/user_account.css" rel="stylesheet" type="text/css">
+     <script src="js/jquery-3.5.1.min.js"></script>
+     <script src="js/registration.js"></script>
 </head>
 
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
 <div class="main_block">
- <h1 align="center"> Account  </h1>
- <h3 align="center"> <em>You can update your information </em> </h3>
+  <h1 align="center"> Account  </h1>
+  <h3 align="center"> <em>You can update your information </em> </h3>
 
-     <form id="login_form" class="inner_block" action = "updateAccount" method = "POST">
+     <form id="registration_form" class="inner_block" action = "updateAccount" method = "POST">
 
      <input type="hidden" name="accountId" value="${account.id}">
 

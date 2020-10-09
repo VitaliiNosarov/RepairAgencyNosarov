@@ -29,7 +29,6 @@ public class Order extends AbstractEntity{
         price = new BigDecimal(0);
     }
 
-
     public long getCustomerId() {
         return customerId;
     }

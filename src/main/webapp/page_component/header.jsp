@@ -34,7 +34,7 @@
       <a href="${PATH}/users">All users</a>
     </c:if>
     <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.role == 'MASTER'}">
-          <a href="${PATH}/orders?currentPage=1&recordsPerPage=10">All orders</a>
+          <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=false">All orders</a>
         </c:if>
     <a href="${PATH}/create_order">Order</a>
     <a href="${PATH}/updateAccount">My account</a>

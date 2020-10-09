@@ -34,7 +34,7 @@ public class OrderController extends HttpServlet {
             Order order = orderService.getOrderById(orderId);
             if (user.getRole().equals(UserRole.ADMIN) || order.getCustomerId() == user.getId()) {
                 req.setAttribute("order", order);
-                req.getRequestDispatcher("order.jsp").forward(req, resp);
+                req.getRequestDispatcher("OLDorder.jsp").forward(req, resp);
             } else {
                 resp.sendRedirect("not_rights.jsp");
             }

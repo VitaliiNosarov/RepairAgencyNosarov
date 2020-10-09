@@ -1,9 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="js/jquery-3.5.1.min.js"></script>
-<script src="js/validate.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
@@ -12,8 +10,10 @@
 
 <html>
 <head>
-<title> <fmt:message key="login.page_title" /> </title>
-<link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet" type="text/css">
+    <title> <fmt:message key="login.page_title" /> </title>
+    <link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/validate_login.js"></script>
 </head>
 
 <body>

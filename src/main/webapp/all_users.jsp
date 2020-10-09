@@ -9,9 +9,11 @@
 </head>
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
-<h3 align="center">All users info</h3>
 
-<br>
+<br/>
+<h3 align="center">All users info</h3>
+<br/>
+
 <table class="table table-striped">
 
 <c:set var="count" value="1" scope="request" />

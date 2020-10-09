@@ -3,11 +3,15 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
+
 <html>
 <head>
 <title>Order</title>
-<link href="css/order.css" rel="stylesheet" type="text/css">
+    <link href="css/order.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/validate_order.js"></script>
 </head>
+
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 

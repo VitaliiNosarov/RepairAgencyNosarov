@@ -9,9 +9,9 @@ public class Service extends AbstractEntity {
     }
 
     public Service(int id, String name) {
+        super(id);
         this.name = name;
     }
-
 
     public String getName() {
         return name;

@@ -4,10 +4,12 @@
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 <html>
+
 <head>
 <title>Order</title>
-<link href="css/order.css" rel="stylesheet" type="text/css">
+     <link href="css/order.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 

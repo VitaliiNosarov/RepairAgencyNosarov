@@ -1,3 +1,11 @@
 .table{
-position: inherit;
+    position: inherit;
+}
+
+.pagination_down{
+    padding-left: 47%;
+    padding-right: 47%;
+    display: flex;
+    list-style: none;
+    border-radius: .25rem;
 }

@@ -14,7 +14,7 @@
  <h1 align="center"> Registration new user  </h1>
  <h3 align="center"> <em>Enter your information </em> </h3>
 
-     <form id="login_form" class="inner_block" action = "registration" method = "POST">
+     <form id="registration_form" class="inner_block" action = "registration" method = "POST">
        <div class="form-group row">
          <label for="inputEmail3" align="center" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-10">

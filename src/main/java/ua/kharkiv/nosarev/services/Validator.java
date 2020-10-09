@@ -1,8 +1,8 @@
 package ua.kharkiv.nosarev.services;
 
+import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.User;
 
-import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,5 +52,18 @@ public class Validator {
         }
         return validateEmail(user.getEmail()) && validatePassword(user.getPassword()) && validatePhone(user.getPhone())
                 && user.getName().length() >= 2 && user.getSurName().length() >= 2;
+    }
+
+    public static boolean validateOrder(Order order) {
+        if (order == null) {
+            return false;
+        }
+        if (order.getDevice().length() > 60 && order.getDevice().length() < 5) {
+            return false;
+        }
+        if (order.getComment().length() > 1000&&order.getComment().length() <10) {
+            return false;
+        }
+        return true;
     }
 }

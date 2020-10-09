@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  $(document).on('submit', '#login_form', function(e){
+  $(document).on('submit', '#registration_form', function(e){
   var path = window.location.pathname;
   var page = path.split("/").pop();
 
@@ -57,7 +57,7 @@ $(document).ready(function() {
           isValid = false;
         }
     if(isValid){
-         $('#login_form')[0].submit();
+         $('#registration_form')[0].submit();
     }
 
   });

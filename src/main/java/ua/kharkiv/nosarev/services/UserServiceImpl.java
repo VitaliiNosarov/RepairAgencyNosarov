@@ -58,10 +58,11 @@ public class UserServiceImpl implements UserService {
         }
         return userDao.insertUser(user);
     }
+
     @Override
     public User updateUser(User user) {
         if (!validateUser(user)) {
-            LOGGER.info("Wrong registration " + user.getEmail());
+            LOGGER.info("Can't update account");
             throw new RegistrationException("Wrong user fields");
         }
         return userDao.insertUser(user);
