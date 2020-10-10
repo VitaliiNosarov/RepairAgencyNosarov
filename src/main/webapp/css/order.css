@@ -1,5 +1,5 @@
 .main_block{
-width: 40%;
+    width: 40%;
     margin: auto;
     border-style: double;
     margin-top: 5%;
@@ -20,6 +20,7 @@ width: 40%;
     margin-bottom: 5%;
     position: inherit;
     margin-top: 5%;
+    text-align: center;
 }
 
 .error {

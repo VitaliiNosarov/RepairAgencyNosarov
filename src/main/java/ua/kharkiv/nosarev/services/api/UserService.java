@@ -9,7 +9,7 @@ public interface UserService {
 
     public User getUserByEmailPass(String userEmail, String userPass);
 
-    public User getUserById(int id);
+    public User getUserById(long id);
 
     User saveUser(User user);
 
@@ -19,7 +19,7 @@ public interface UserService {
 
     List<User> getAllUsersByRole(UserRole role);
 
-    boolean deleteUserById(int userId);
+    boolean deleteUserById(long userId);
 
-    boolean checkRole(UserRole expectedRole, int userId);
+    boolean checkRole(UserRole expectedRole, long userId);
 }

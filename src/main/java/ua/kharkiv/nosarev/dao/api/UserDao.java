@@ -9,9 +9,9 @@ public interface UserDao {
 
     User getUserByEmail(String userLogin);
 
-    User getUserById(int userId);
+    User getUserById(long userId);
 
-    boolean deleteUserById(int userId);
+    boolean deleteUserById(long userId);
 
     List<User> getAllUsers();
 
@@ -21,5 +21,5 @@ public interface UserDao {
 
     User updateUser(User user);
 
-    UserRole getRoleById(int userId);
+    UserRole getRoleById(long userId);
 }

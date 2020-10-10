@@ -64,6 +64,7 @@ public class Validator {
         if (order.getComment().length() > 1000&&order.getComment().length() <10) {
             return false;
         }
+
         return true;
     }
 }

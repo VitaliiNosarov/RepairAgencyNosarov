@@ -1,22 +1,23 @@
 package ua.kharkiv.nosarev.dao.api;
 
 import ua.kharkiv.nosarev.entitie.Order;
+import ua.kharkiv.nosarev.entitie.PaginationObject;
 
 import java.util.List;
 
 public interface OrderDao {
 
-    Order getOrderById(int orderId);
+    Order getOrderById(long orderId);
 
-    boolean deleteOrderById(int orderId);
+    boolean deleteOrderById(long orderId);
 
-    List<Order> getAllCustomerOrders(int userId);
+    List<Order> getAllCustomerOrders(long userId);
 
     Order insertOrder(Order order);
 
     void updateOrder(Order order);
 
-    List<Order> getOrderRows(int start, int recordsPerPage, String orderBy, boolean isReverse, String filter);
+    List<Order> getOrderRows(String paginationSql, PaginationObject pagObject);
 
-    int getRowsAmount();
+    int getRowsAmount(String filter);
 }

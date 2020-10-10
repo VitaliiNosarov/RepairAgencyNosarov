@@ -9,3 +9,12 @@
     list-style: none;
     border-radius: .25rem;
 }
+
+.toolbar{
+    display: flex;
+    justify-content: center;
+    }
+
+.filter_block{
+    margin-top: 2px;
+}

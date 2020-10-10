@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(int id) {
+    public User getUserById(long id) {
         if (id > 0) {
             return userDao.getUserById(id);
         } else {
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUserById(int userId) {
+    public boolean deleteUserById(long userId) {
         if (userId != 0) {
             return userDao.deleteUserById(userId);
         } else {
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkRole(UserRole expectedRole, int userId) {
+    public boolean checkRole(UserRole expectedRole, long userId) {
         if (userId != 0 && expectedRole != null) {
             return expectedRole.equals(userDao.getRoleById(userId));
         } else {

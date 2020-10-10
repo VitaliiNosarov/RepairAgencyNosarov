@@ -107,13 +107,15 @@
 <div class="form-group row">
  <label for="Status" class="col-sm-2 col-form-label">Status :</label>
   <div class="col-sm-10">
-
+      <c:if test="${sessionScope.user.role == 'CUSTOMER'}">
+          <input type="test" readonly name="recordsPerPage" value="${order.status.value}">
+      </c:if>
    <select class="custom-select my-1 mr-sm-2" id="Status" name="status">
       <c:if test="${sessionScope.user.role == 'ADMIN'}">
           <option value="WAITING_FOR_PAYMENT" ${order.status == 'WAITING_FOR_PAYMENT' ? 'selected' : ''}>Waiting for payment</option>
           <option value="PAID" ${order.status == 'PAID' ? 'selected' : ''}>Paid</option>
           <option value="CANCELED" ${order.status == 'CANCELED' ? 'selected' : ''}>Canceled</option>
-          <option value="WAITING_FOR_PROCESSING" ${order.status == 'WAITING_FOR_PROCESSING' ? 'selected' : ''}>Waiting for processing</option>
+          <option value="COMPLETED" ${order.status == 'COMPLETED' ? 'selected' : ''}>Completed</option>
       </c:if>
       <c:if test="${sessionScope.user.role == 'MASTER'}">
           <option value="IN_WORK" ${order.status == 'IN_WORK' ? 'selected' : ''}>In work</option>

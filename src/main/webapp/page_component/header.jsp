@@ -36,7 +36,8 @@
     <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.role == 'MASTER'}">
           <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=false">All orders</a>
         </c:if>
-    <a href="${PATH}/create_order">Order</a>
+    <a href="${PATH}/create_order">New order</a>
+     <a href="${PATH}/userOrders">My orders</a>
     <a href="${PATH}/updateAccount">My account</a>
     <div class="language">
        <form>

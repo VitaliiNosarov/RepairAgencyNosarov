@@ -17,15 +17,55 @@
 <div class="table">
 
   <div class="toolbar">
+    <form action="orders" method="Get">
+        <input type="hidden" name="orderBy" value="${orderBy}">
+        <input type="hidden" name="currentPage" value="${currentPage}">
+        <input type="hidden" name="reverse" value="${reverse}">
+        <input type="hidden" name="recordsPerPage" value="${recordsPerPage}">
+
+           <label class="filter_block" for="Filter"> Filter </label>
+            <select class="filter_block" name="filter" id="Filter" onchange="submit()">
+              <option value="" ${filter == null ? 'selected' : ''}>None</option>
+               <c:choose>
+                   <c:when test="${sessionScope.user.role == 'MASTER'}">
+                       <option value="STATUS" ${filter == 'STATUS' ? 'selected' : ''}>Status</option>
+                   </c:when>
+                   <c:otherwise>
+                       <option value="STATUS" ${filter == 'STATUS' ? 'selected' : ''}>Status</option>
+                       <option value="MASTER" ${filter == 'MASTER' ? 'selected' : ''}>Master</option>
+                   </c:otherwise>
+                   </c:choose>
+            </select>
+    </form>
 
     <form action="orders" method="Get">
+            <input type="hidden" name="currentPage" value="${currentPage}">
+            <input type="hidden" name="filter" value="${filter}">
 
-        <input type="hidden" name="currentPage" value="${currentPage}">
+            <c:if test="${requestScope.filter == 'MASTER'||requestScope.filter == 'STATUS'}">
+                <c:if test="${requestScope.filter == 'MASTER'}">
+                <select name="filterParam" onchange="submit()">
+                <option value="" ${filterParam == null ? 'selected' : ''}></option>
+                    <c:forEach items="${masters}" var="master">
+                       <option value="${master.id}" ${requestScope.filterParam == master.id ? 'selected' : ''}>${master.name} ${master.surName}</option>
+                   </c:forEach>
+                    </select>
+                </c:if>
+                <c:if test="${requestScope.filter == 'STATUS'}">
+                <select name="filterParam" onchange="submit()">
+                <option value="" ${filterParam == null ? 'selected' : ''}></option>
+                   <c:forEach items="${statuses}" var="status">
+                      <option value="${status}" ${requestScope.filterParam == status ? 'selected' : ''}>${status.value}</option>
+                  </c:forEach>
+                </select>
+                </c:if>
+            </c:if>
 
-          <label for="ex1">Records on page</label>
-          <input id="ex1" type="number" name="recordsPerPage" value="${recordsPerPage}" min="1" max="50" size="40">
 
-       <label for="orderBy">Sort by</label>
+          <label for="ex">  Records on page </label>
+          <input id="ex" type="number" name="recordsPerPage" value="${recordsPerPage}" min="1" max="50">
+
+       <label for="orderBy"> Sort by </label>
          <select name="orderBy" id="orderBy">
            <option value="PRICE" ${orderBy == 'PRICE' ? 'selected' : ''}>Price</option>
            <option value="CREATING_TIME" ${orderBy == 'CREATING_TIME' ? 'selected' : ''}>Creating Time</option>
@@ -38,33 +78,8 @@
          </select>
            <input type="submit" value="Sort">
 
-           <label for="Filter"> Filter </label>
-            <select name="filter" id="Filter by" onchange="submit()">
-              <option value="" ${filter == null ? 'selected' : ''}></option>
-              <option value="STATUS" ${filter == 'STATUS' ? 'selected' : ''}>Status</option>
-              <option value="MASTER" ${filter == 'MASTER' ? 'selected' : ''}>Master</option>
-            </select>
-
-            <c:if test="${filter != null}">
-                <select name="filterParam" >
-                <c:if test="${filter == 'MASTER'}">
-                <option value="" ${filterParam == null ? 'selected' : ''}></option>
-                    <c:forEach items="${masters}" var="master">
-                       <option value="${master.id}" ${filterParam == 'master.id' ? 'selected' : ''}>${master.name} ${master.surName}</option>
-                   </c:forEach>
-                   <input type="submit" value="Filter">
-                </c:if>
-                <c:if test="${filter == 'STATUS'}">
-                <option value="" ${filterParam == null ? 'selected' : ''}></option>
-                   <c:forEach items="${statuses}" var="statuses">
-                      <option value="${statuses.value}" ${filterParam == 'statuses.value' ? 'selected' : ''}>${statuses.value}</option>
-                  </c:forEach>
-                  <input type="submit" value="Filter">
-                </c:if>
-                </select>
-            </c:if>
-
     </form>
+
   </div>
 
         <table class="table table-striped">
@@ -89,7 +104,7 @@
                         <td> ${order.comment} </td>
                         <td> ${order.services} </td>
                         <td> ${order.price} </td>
-                        <td> ${order.status} </td>
+                        <td> ${order.status.value} </td>
                         <td> ${order.customerName} ${order.customerSurname} </td>
                         <td> ${order.masterName} ${order.masterSurname}</td>
                         <td> ${order.creatingTime} </td>
@@ -103,7 +118,7 @@
         <ul class="pagination_down">
             <c:if test="${currentPage != 1}">
                 <li class="page-item"><a class="page-link"
-                    href="orders?recordsPerPage=${recordsPerPage}&currentPage=${currentPage-1}&orderBy=CREATING_TIME&reverse=false">Previous</a>
+                    href="orders?recordsPerPage=${recordsPerPage}&currentPage=${currentPage-1}&orderBy=CREATING_TIME&reverse=false&filter=${filter}&filterParam=${filterParam}">Previous</a>
                 </li>
             </c:if>
 
@@ -116,7 +131,7 @@
                     </c:when>
                     <c:otherwise>
                         <li class="page-item"><a class="page-link"
-                            href="orders?recordsPerPage=${recordsPerPage}&currentPage=${i}&orderBy=${orderBy}&reverse=${reverse}">${i}</a>
+                            href="orders?recordsPerPage=${recordsPerPage}&currentPage=${i}&orderBy=${orderBy}&reverse=${reverse}&filter=${filter}&filterParam=${filterParam}">${i}</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -124,7 +139,7 @@
 
             <c:if test="${currentPage lt noOfPages}">
                 <li class="page-item"><a class="page-link"
-                    href="orders?recordsPerPage=${recordsPerPage}&currentPage=${currentPage+1}&orderBy=${orderBy}&reverse=${reverse}">Next</a>
+                    href="orders?recordsPerPage=${recordsPerPage}&currentPage=${currentPage+1}&orderBy=${orderBy}&reverse=${reverse}&filter=${filter}&filterParam=${filterParam}">Next</a>
                 </li>
             </c:if>
         </ul>

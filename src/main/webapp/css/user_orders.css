@@ -1,0 +1,24 @@
+.main_block{
+    width: fit-content;
+    margin: auto;
+    border-style: double;
+    margin-top: 2%;
+    background-color: aliceblue;
+
+}
+
+.order_form{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    position: inherit;
+    margin-top: 3%;
+    text-align: center;
+}
+
+.order_table{
+    max-height: 45%;
+    overflow: auto;
+    justify-content: space-evenly;
+    border-style: inset;
+}

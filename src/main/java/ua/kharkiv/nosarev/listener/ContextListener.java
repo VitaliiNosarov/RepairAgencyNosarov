@@ -10,6 +10,7 @@ import ua.kharkiv.nosarev.dao.api.ServiceDao;
 import ua.kharkiv.nosarev.dao.api.UserDao;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 import ua.kharkiv.nosarev.services.OrderServiceImpl;
+import ua.kharkiv.nosarev.services.PaginationService;
 import ua.kharkiv.nosarev.services.UserServiceImpl;
 import ua.kharkiv.nosarev.services.api.OrderService;
 import ua.kharkiv.nosarev.services.api.UserService;
@@ -41,6 +42,7 @@ public class ContextListener implements ServletContextListener {
     private OrderService orderService;
     private UserService userService;
     private ServletContext ctx;
+    private PaginationService paginationService;
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
@@ -54,6 +56,7 @@ public class ContextListener implements ServletContextListener {
         ctx.setAttribute("userService", userService);
         ctx.setAttribute("orderService", orderService);
         ctx.setAttribute("serviceDao", serviceDao);
+        ctx.setAttribute("paginationService", paginationService);
         ctx.setAttribute("uriMap", initializeSecurity(event));
         LOGGER.info("Context was initialized");
     }
@@ -67,6 +70,7 @@ public class ContextListener implements ServletContextListener {
             serviceDao = new ServiceDaoImpl(ds);
             userService = new UserServiceImpl(userDao);
             orderService = new OrderServiceImpl(orderDao);
+            paginationService = new PaginationService(userService);
             ctx = event.getServletContext();
         } catch (NamingException e) {
             LOGGER.error("Can't initialize Datasource", e);

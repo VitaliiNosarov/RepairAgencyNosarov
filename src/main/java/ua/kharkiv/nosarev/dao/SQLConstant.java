@@ -40,5 +40,5 @@ public class SQLConstant {
     public static final String INSERT_PAYMENT = "INSERT INTO payment (order_value, payment_type, account_id, booking_id)" +
             " VALUES (?, ?, ?, ?);";
     public static final String GET_ALL_SERVICES = "SELECT id, name FROM service";
-    public static final String GET_AMOUNT_OF_ORDERS = "SELECT COUNT(*) AS count FROM booking;";
+    public static final String GET_AMOUNT_OF_ORDERS = "SELECT COUNT(*) AS count FROM booking ";
 }

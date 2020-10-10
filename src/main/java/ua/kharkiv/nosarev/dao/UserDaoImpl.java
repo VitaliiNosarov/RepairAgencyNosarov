@@ -41,11 +41,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserById(int userId) {
+    public User getUserById(long userId) {
         User user = null;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_USER_BY_ID)) {
-            statement.setInt(1, userId);
+            statement.setLong(1, userId);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     user = extractUser(rs);
@@ -59,11 +59,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean deleteUserById(int userId) {
+    public boolean deleteUserById(long userId) {
         boolean result = false;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.DELETE_USER_BY_EMAIL)) {
-            statement.setInt(1, userId);
+            statement.setLong(1, userId);
             result = statement.executeUpdate() == 1;
         } catch (SQLException throwables) {
             LOGGER.error("Can't delete user with email " + userId + "from database", throwables);
@@ -129,11 +129,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserRole getRoleById(int userId) {
+    public UserRole getRoleById(long userId) {
         UserRole role = null;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_ROLE_BY_USER_ID)) {
-            statement.setInt(1, userId);
+            statement.setLong(1, userId);
             try (ResultSet set = statement.executeQuery()) {
                 if (set.next()) {
                     role = UserRole.valueOf(set.getString("role"));

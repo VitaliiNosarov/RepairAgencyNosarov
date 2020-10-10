@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/orders")
-public class OrdersController extends HttpServlet {
+@WebServlet("/userOrders")
+public class UserOrdersController extends HttpServlet {
 
     private OrderService orderService;
     private PaginationService paginationService;
@@ -26,20 +26,14 @@ public class OrdersController extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         orderService = (OrderService) config.getServletContext().getAttribute("orderService");
-        paginationService = (PaginationService) config.getServletContext().getAttribute("paginationService");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User) req.getSession().getAttribute("User");
-        //TODO
-        PaginationObject paginationObject = paginationService.getPgObjectFromRequest(req);
-        int orderAmount = orderService.getRowsAmount(paginationObject.getFilter(), paginationObject.getFilterParam());
-        List<Order> orderList = orderService.findOrders(paginationService
-                .buildPaginationSQL(paginationObject), paginationObject);
-        paginationService.setPaginationAttributes(req, paginationObject, orderAmount);
+        User user = (User) req.getSession().getAttribute("user");
+        List<Order> orderList = orderService.getAllCustomerOrders(user.getId());
         req.setAttribute("orders", orderList);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("all_orders.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("user_orders.jsp");
         dispatcher.forward(req, resp);
     }
 }

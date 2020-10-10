@@ -4,9 +4,8 @@ import ua.kharkiv.nosarev.entitie.enumeration.FeedbackRate;
 
 import java.sql.Timestamp;
 
-public class FeedBack {
+public class FeedBack extends AbstractEntity{
 
-    private int orderId;
     private String comment;
     private Timestamp time;
     private FeedbackRate rate;

@@ -32,15 +32,15 @@ public class UpdateOrderController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getParameter("order") != null) {
-            req.getRequestDispatcher("OLDorder.jsp").forward(req, resp);
-        } else {
+        if (req.getParameter("order") == null) {
             int orderId = Integer.parseInt(req.getParameter("orderId"));
             if (orderId != 0) {
                 Order order = orderService.getOrderById(orderId);
                 List<User> listOfMasters = userService.getAllUsersByRole(UserRole.MASTER);
                 req.setAttribute("order", order);
                 req.setAttribute("masters", listOfMasters);
+                req.getRequestDispatcher("update_order.jsp").forward(req, resp);
+        } else {
                 req.getRequestDispatcher("update_order.jsp").forward(req, resp);
             }
         }

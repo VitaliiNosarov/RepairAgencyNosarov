@@ -3,6 +3,7 @@ package ua.kharkiv.nosarev.dao;
 import org.apache.log4j.Logger;
 import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.entitie.Order;
+import ua.kharkiv.nosarev.entitie.PaginationObject;
 import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
 import ua.kharkiv.nosarev.exception.DatabaseException;
@@ -23,11 +24,11 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order getOrderById(int orderId) {
+    public Order getOrderById(long orderId) {
         Order order = new Order();
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_ORDER_BY_ID)) {
-            statement.setInt(1, orderId);
+            statement.setLong(1, orderId);
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
                     mapResultSetToOrder(rs, order);
@@ -41,11 +42,11 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public boolean deleteOrderById(int orderId) {
+    public boolean deleteOrderById(long orderId) {
         boolean result;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.DELETE_ORDER_BY_ID)) {
-            statement.setInt(1, orderId);
+            statement.setLong(1, orderId);
             result = statement.executeUpdate() == 1;
         } catch (SQLException throwables) {
             LOGGER.error("Can't delete order with id " + orderId + "from database", throwables);
@@ -55,11 +56,11 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<Order> getAllCustomerOrders(int userId) {
+    public List<Order> getAllCustomerOrders(long userId) {
         List<Order> list;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_ALL_ORDERS_BY_USER_ID)) {
-            statement.setInt(1, userId);
+            statement.setLong(1, userId);
             try (ResultSet rs = statement.executeQuery()) {
                 list = getOrderListFromResultSet(rs);
             }
@@ -120,11 +121,15 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public int getRowsAmount() {
+    public int getRowsAmount(String filter) {
+        String filterAttr = "";
+        if (filter.length() > 1) {
+            filterAttr = SQLConstant.WHERE + filter;
+        }
         int amountOfRows = 0;
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            try (ResultSet rs = statement.executeQuery((SQLConstant.GET_AMOUNT_OF_ORDERS))) {
+            try (ResultSet rs = statement.executeQuery((SQLConstant.GET_AMOUNT_OF_ORDERS + filterAttr))) {
                 if (rs.next()) {
                     amountOfRows = rs.getInt("count");
                 }
@@ -137,21 +142,12 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<Order> getOrderRows(int startPosition, int recordsPerPage, String orderBy, boolean isReverse, String filter) {
-
+    public List<Order> getOrderRows(String paginationSql, PaginationObject pagObject) {
         List<Order> orderList;
-        String reverse = "";
-        String filterString = "";
-        if (isReverse) {
-            reverse = SQLConstant.REVERSE;
-        }
-        if (filter.length() > 1) {
-            filterString = SQLConstant.WHERE + filter;
-        }
+        int recordsPerPage = pagObject.getRecordsPerPage();
+        int startPosition = pagObject.getCurrentPage() * recordsPerPage - recordsPerPage;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection
-                     .prepareStatement(SQLConstant.FIND_ORDERS + filterString + SQLConstant.GROUP_BY_ID
-                             + SQLConstant.ORDER_BY + orderBy + reverse + SQLConstant.LIMIT)) {
+             PreparedStatement statement = connection.prepareStatement(paginationSql)) {
             statement.setInt(1, startPosition);
             statement.setInt(2, recordsPerPage);
             try (ResultSet rs = statement.executeQuery()) {
