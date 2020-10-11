@@ -15,9 +15,11 @@ public interface OrderService {
 
     List<Order> getAllCustomerOrders(long userId);
 
-    Order insertOrder(Order order);
+    String insertOrder(Order order);
 
-    void updateOrder(Order order, long masterId, String price, OrderStatus status);
+    //TODO
+    //update only 4 fileds
+    String updateOrder(Order order);
 
     int getRowsAmount(PaginationField filter, String filterParam);
 

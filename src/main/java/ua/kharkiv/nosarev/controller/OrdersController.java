@@ -2,7 +2,6 @@ package ua.kharkiv.nosarev.controller;
 
 import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.PaginationObject;
-import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.services.PaginationService;
 import ua.kharkiv.nosarev.services.api.OrderService;
 
@@ -31,8 +30,6 @@ public class OrdersController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User) req.getSession().getAttribute("User");
-        //TODO
         PaginationObject paginationObject = paginationService.getPgObjectFromRequest(req);
         int orderAmount = orderService.getRowsAmount(paginationObject.getFilter(), paginationObject.getFilterParam());
         List<Order> orderList = orderService.findOrders(paginationService

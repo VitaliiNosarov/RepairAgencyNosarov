@@ -17,12 +17,20 @@
 
 <div class="main_block">
  <div id="order_form" class="order_form" action="create_order" method="get">
-    <h3 align="center">Choose appropriate options for order</h3>
+    <h3 align="center">My orders</h3>
     <br/>
+
+        <c:if test="${sessionScope.infoMessage != null}">
+             <div class="alert alert-success" role="alert">
+                    <center>${infoMessage}</center>
+                    <c:remove var="infoMessage"/>
+             </div>
+        </c:if>
+
 <div class="order_table">
 <table class="table table-striped">
             <tr>
-              <th scope="col">No</th>
+              <th scope="col">№</th>
               <th scope="col">Device</th>
               <th scope="col">Comment</th>
               <th scope="col">Services</th>

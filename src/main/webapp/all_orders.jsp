@@ -26,15 +26,8 @@
            <label class="filter_block" for="Filter"> Filter </label>
             <select class="filter_block" name="filter" id="Filter" onchange="submit()">
               <option value="" ${filter == null ? 'selected' : ''}>None</option>
-               <c:choose>
-                   <c:when test="${sessionScope.user.role == 'MASTER'}">
-                       <option value="STATUS" ${filter == 'STATUS' ? 'selected' : ''}>Status</option>
-                   </c:when>
-                   <c:otherwise>
-                       <option value="STATUS" ${filter == 'STATUS' ? 'selected' : ''}>Status</option>
-                       <option value="MASTER" ${filter == 'MASTER' ? 'selected' : ''}>Master</option>
-                   </c:otherwise>
-                   </c:choose>
+                <option value="STATUS" ${filter == 'STATUS' ? 'selected' : ''}>Status</option>
+                <option value="MASTER" ${filter == 'MASTER' ? 'selected' : ''}>Master</option>
             </select>
     </form>
 
@@ -45,7 +38,7 @@
             <c:if test="${requestScope.filter == 'MASTER'||requestScope.filter == 'STATUS'}">
                 <c:if test="${requestScope.filter == 'MASTER'}">
                 <select name="filterParam" onchange="submit()">
-                <option value="" ${filterParam == null ? 'selected' : ''}></option>
+                <option value="" ${filterParam == null ? 'selected' : ''}>None</option>
                     <c:forEach items="${masters}" var="master">
                        <option value="${master.id}" ${requestScope.filterParam == master.id ? 'selected' : ''}>${master.name} ${master.surName}</option>
                    </c:forEach>
@@ -53,7 +46,7 @@
                 </c:if>
                 <c:if test="${requestScope.filter == 'STATUS'}">
                 <select name="filterParam" onchange="submit()">
-                <option value="" ${filterParam == null ? 'selected' : ''}></option>
+                <option value="" ${filterParam == null ? 'selected' : ''}>None</option>
                    <c:forEach items="${statuses}" var="status">
                       <option value="${status}" ${requestScope.filterParam == status ? 'selected' : ''}>${status.value}</option>
                   </c:forEach>
@@ -84,7 +77,7 @@
 
         <table class="table table-striped">
             <tr>
-              <th scope="col">Number</th>
+              <th scope="col">№</th>
               <th scope="col">Device</th>
               <th scope="col">Comment</th>
               <th scope="col">Services</th>

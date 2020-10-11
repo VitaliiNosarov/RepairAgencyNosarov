@@ -41,13 +41,13 @@
       <div class="form-group">
          <br/>
         <h5 align="center"><label for="userDevice">Write your Device model</label></h5>
-        <input type="text" class="form-control" id="userDevice" name="device" placeholder="Device model" required>
+        <input type="text" class="form-control" id="userDevice" name="device" maxlength = "60" placeholder="Device model" required>
         <br/>
         <h5 align="center"><label for="userComment">Write your comment</label></h5>
-        <textarea class="form-control" id="userComment" name="comment" rows="3" placeholder="Describe the device malfunction" required></textarea>
+        <textarea class="form-control" id="userComment" name="comment" rows="3" maxlength = "1000" placeholder="Describe the device malfunction" required></textarea>
       </div>
     <div class="alert alert-info" role="alert">
-    The price and other details of the order will be agreed with the manager
+        The price and other details of the order will be agreed with the manager
     </div>
      <button class="btn btn-info" type="submit" class="btn btn-info">Create</button>
      <button class="btn btn-info" type="button" onclick="history.back();" class="btn btn-info">Back</button>

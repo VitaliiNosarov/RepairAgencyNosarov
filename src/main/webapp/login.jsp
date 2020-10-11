@@ -20,6 +20,23 @@
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
 <div class = "login">
+
+<h1 align="center"> Log in </h1>
+
+<c:if test="${sessionScope.infoMessage != null}">
+     <div class="alert alert-danger" role="alert">
+            <center>${infoMessage}</center>
+            <c:remove var="infoMessage"/>
+     </div>
+</c:if>
+
+<c:if test="${sessionScope.infoMessageSuccess != null}">
+     <div class="alert alert-success" role="alert">
+            <center>${infoMessageSuccess}</center>
+            <c:remove var="infoMessageSuccess"/>
+     </div>
+</c:if>
+
  <form id="login_form" action="login" method="post" >
    <div class="form-group">
     <label for="email"><fmt:message key="login.email" /></label>

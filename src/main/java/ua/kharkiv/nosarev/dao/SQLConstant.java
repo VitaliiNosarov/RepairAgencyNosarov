@@ -39,6 +39,14 @@ public class SQLConstant {
 
     public static final String INSERT_PAYMENT = "INSERT INTO payment (order_value, payment_type, account_id, booking_id)" +
             " VALUES (?, ?, ?, ?);";
+
+    public static final String GET_FEEDBACK = "SELECT booking_id, feedback_text, creating_time, rate FROM feedback WHERE booking_id = ?";
+    public static final String SAVE_FEEDBACK = "INSERT INTO feedback (booking_id, feedback_text, rate) VALUES (?, ?, ?)";
+
     public static final String GET_ALL_SERVICES = "SELECT id, name FROM service";
     public static final String GET_AMOUNT_OF_ORDERS = "SELECT COUNT(*) AS count FROM booking ";
+
+    public static final String GET_PAYMENT = "SELECT id, payment_value, creating_time, account_id, booking_id from payment WHERE booking_id = ? ";
+    public static final String SAVE_PAYMENT = "insert into payment (payment_value, account_id, booking_id) VALUES (?, ?, ?) ";
+
 }

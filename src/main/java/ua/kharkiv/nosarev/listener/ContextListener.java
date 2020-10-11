@@ -2,16 +2,17 @@ package ua.kharkiv.nosarev.listener;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import ua.kharkiv.nosarev.dao.FeedbackDaoImpl;
 import ua.kharkiv.nosarev.dao.OrderDaoImpl;
 import ua.kharkiv.nosarev.dao.ServiceDaoImpl;
 import ua.kharkiv.nosarev.dao.UserDaoImpl;
+import ua.kharkiv.nosarev.dao.api.FeedbackDao;
 import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.dao.api.ServiceDao;
 import ua.kharkiv.nosarev.dao.api.UserDao;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
-import ua.kharkiv.nosarev.services.OrderServiceImpl;
-import ua.kharkiv.nosarev.services.PaginationService;
-import ua.kharkiv.nosarev.services.UserServiceImpl;
+import ua.kharkiv.nosarev.services.*;
+import ua.kharkiv.nosarev.services.api.FeedbackService;
 import ua.kharkiv.nosarev.services.api.OrderService;
 import ua.kharkiv.nosarev.services.api.UserService;
 import ua.kharkiv.nosarev.util.SecurityUtil;
@@ -39,8 +40,11 @@ public class ContextListener implements ServletContextListener {
     private UserDao userDao;
     private OrderDao orderDao;
     private ServiceDao serviceDao;
+    private FeedbackDao feedbackDao;
+    private FeedbackService feedbackService;
     private OrderService orderService;
     private UserService userService;
+    private PaymentService paymentService;
     private ServletContext ctx;
     private PaginationService paginationService;
 
@@ -57,6 +61,8 @@ public class ContextListener implements ServletContextListener {
         ctx.setAttribute("orderService", orderService);
         ctx.setAttribute("serviceDao", serviceDao);
         ctx.setAttribute("paginationService", paginationService);
+        ctx.setAttribute("feedbackService", feedbackService);
+        ctx.setAttribute("paymentService", paymentService);
         ctx.setAttribute("uriMap", initializeSecurity(event));
         LOGGER.info("Context was initialized");
     }
@@ -71,6 +77,9 @@ public class ContextListener implements ServletContextListener {
             userService = new UserServiceImpl(userDao);
             orderService = new OrderServiceImpl(orderDao);
             paginationService = new PaginationService(userService);
+            feedbackDao = new FeedbackDaoImpl(ds);
+            feedbackService = new FeedbackServiceImpl(feedbackDao);
+            paymentService = new PaymentService(orderService, userService);
             ctx = event.getServletContext();
         } catch (NamingException e) {
             LOGGER.error("Can't initialize Datasource", e);

@@ -2,18 +2,21 @@ package ua.kharkiv.nosarev.services.api;
 
 import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
+import ua.kharkiv.nosarev.exception.AuthenticationException;
+import ua.kharkiv.nosarev.exception.RegistrationException;
 
+import javax.servlet.Registration;
 import java.util.List;
 
 public interface UserService {
 
-    public User getUserByEmailPass(String userEmail, String userPass);
+    User getUserByEmailPass(String userEmail, String userPass) throws AuthenticationException;
 
-    public User getUserById(long id);
+    User saveUser(User user) throws RegistrationException;
 
-    User saveUser(User user);
+    User updateUser(User user) throws RegistrationException;
 
-    User updateUser(User user);
+    User getUserById(long id);
 
     List<User> getAllUsers();
 
@@ -21,5 +24,5 @@ public interface UserService {
 
     boolean deleteUserById(long userId);
 
-    boolean checkRole(UserRole expectedRole, long userId);
+//    boolean checkRole(UserRole expectedRole, long userId);
 }

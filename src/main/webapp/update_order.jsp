@@ -20,32 +20,39 @@
 
 <h3 align="center"> Order info</h3>
 
+    <c:if test="${sessionScope.infoMessage != null}">
+         <div class="alert alert-success" role="alert">
+                <center>${infoMessage}</center>
+                <c:remove var="infoMessage"/>
+         </div>
+    </c:if>
+
 <div class="form-group row">
     <label for="CustomerName" class="col-sm-2 col-form-label">Customer :</label>
     <div class="col-sm-10">
-      <input type="text" readonly class="form-control-plaintext" id="CustomerName" value="${order.customerName} ${order.customerSurname}">
+      <input type="text" readonly class="form-control" id="CustomerName" value="${order.customerName} ${order.customerSurname}">
     </div>
  </div>
 
 
 <div class="form-group row">
-    <label for="Number" class="col-sm-2 col-form-label">Order Number :</label>
+    <label for="Number" class="col-sm-2 col-form-label">Order № :</label>
     <div class="col-sm-10">
-      <input type="text" readonly class="form-control-plaintext" id="orderId" name="orderId" value="${order.id}">
+      <input type="text" readonly class="form-control" id="orderId" name="orderId" value="${order.id}">
     </div>
  </div>
 
 <div class="form-group row">
     <label for="Device" class="col-sm-2 col-form-label">Device :</label>
     <div class="col-sm-10">
-      <input type="text" readonly class="form-control-plaintext" id="Device" value="${order.device}">
+      <input type="text" readonly class="form-control" id="Device" value="${order.device}">
     </div>
 </div>
 
 <div class="form-group row">
     <label for="CustomerComment" class="col-sm-2 col-form-label">Comment :</label>
     <div class="col-sm-10">
-      <input type="text" readonly class="form-control-plaintext" id="CustomerComment" value="${order.comment}">
+      <input type="text" readonly class="form-control" id="CustomerComment" value="${order.comment}">
     </div>
 </div>
 
@@ -53,17 +60,32 @@
 <div class="form-group row">
     <label for="orderServices" class="col-sm-2 col-form-label">Services :</label>
     <div class="col-sm-10">
-      <input type="text" readonly class="form-control-plaintext" id="orderServices" value="${order.services}">
+      <input type="text" readonly class="form-control" id="orderServices" value="${order.services}">
     </div>
  </div>
 
 
 <div class="form-group row">
-    <label for="creatingTime" class="col-sm-2 col-form-label">Creating Time :</label>
+    <label for="creatingTime" class="col-sm-2 col-form-label">Was created :</label>
     <div class="col-sm-10">
-      <input type="text" readonly class="form-control-plaintext" id="creatingTime" value="${order.creatingTime}">
+      <input type="text" readonly class="form-control" id="creatingTime" value="${order.creatingTime}">
     </div>
  </div>
+
+<c:if test="${requestScope.feedback != null}">
+      <div class="form-group row">
+           <label for="Rate" class="col-sm-2 col-form-label">Rate :</label>
+           <div class="col-sm-10">
+             <input type="text" readonly class="form-control" id="Rate" value="${feedback.rate}">
+           </div>
+      </div>
+      <div class="form-group row">
+          <label for="Feedback" class="col-sm-2 col-form-label">Feedback :</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control" id="Feedback" value="${feedback.comment}">
+          </div>
+     </div>
+</c:if>
 
 <div class="form-group row">
  <label for="Master" class="col-sm-2 col-form-label">Master :</label>
@@ -80,7 +102,8 @@
             </select>
        </c:when>
        <c:otherwise>
-           <input type="text" readonly class="form-control-plaintext" id="Master" name="masterId" value="${order.masterId}" placeholder="${order.masterName} ${order.masterSurname}">
+           <input type="text" id="Master" readonly class="form-control" id="Master" value="${order.masterName} ${order.masterSurname}">
+           <input type="hidden" name="masterId" value="${order.masterId}">
        </c:otherwise>
      </c:choose>
 
@@ -96,7 +119,7 @@
           <input type="text" min="0" class="form-control" id="Price" name="price" value="${order.price}" placeholder="${order.price}">
       </c:when>
       <c:otherwise>
-          <input type="text" readonly class="form-control-plaintext" id="Price" name="price" value="${order.price}" placeholder="${order.price}">
+          <input type="text" readonly class="form-control" id="Price" name="price" value="${order.price}" placeholder="${order.price}">
       </c:otherwise>
     </c:choose>
   </div>
@@ -107,17 +130,16 @@
 <div class="form-group row">
  <label for="Status" class="col-sm-2 col-form-label">Status :</label>
   <div class="col-sm-10">
-      <c:if test="${sessionScope.user.role == 'CUSTOMER'}">
-          <input type="test" readonly name="recordsPerPage" value="${order.status.value}">
-      </c:if>
-   <select class="custom-select my-1 mr-sm-2" id="Status" name="status">
+
+   <select class="custom-select my-1 mr-sm-2" id="Status" name="status" >
       <c:if test="${sessionScope.user.role == 'ADMIN'}">
           <option value="WAITING_FOR_PAYMENT" ${order.status == 'WAITING_FOR_PAYMENT' ? 'selected' : ''}>Waiting for payment</option>
+          <option value="WAITING_FOR_PROCESSING" ${order.status == 'WAITING_FOR_PROCESSING' ? 'selected' : ''}>Waiting for processing</option>
           <option value="PAID" ${order.status == 'PAID' ? 'selected' : ''}>Paid</option>
           <option value="CANCELED" ${order.status == 'CANCELED' ? 'selected' : ''}>Canceled</option>
           <option value="COMPLETED" ${order.status == 'COMPLETED' ? 'selected' : ''}>Completed</option>
       </c:if>
-      <c:if test="${sessionScope.user.role == 'MASTER'}">
+      <c:if test="${sessionScope.user.role == 'MASTER' && order.masterId == sessionScope.user.id}">
           <option value="IN_WORK" ${order.status == 'IN_WORK' ? 'selected' : ''}>In work</option>
           <option value="READY_TO_ISSUE" ${order.status == 'READY_TO_ISSUE' ? 'selected' : ''}>Ready to issue</option>
       </c:if>

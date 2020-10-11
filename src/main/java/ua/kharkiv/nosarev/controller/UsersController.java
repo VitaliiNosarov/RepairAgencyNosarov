@@ -19,16 +19,16 @@ public class UsersController extends HttpServlet {
     private UserService userService;
 
     @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        userService = (UserService) config.getServletContext().getAttribute("userService");
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<User> list = userService.getAllUsers();
         req.setAttribute("list", list);
         RequestDispatcher dispatcher = req.getRequestDispatcher("all_users.jsp");
         dispatcher.forward(req, resp);
-    }
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        userService = (UserService) config.getServletContext().getAttribute("userService");
     }
 }

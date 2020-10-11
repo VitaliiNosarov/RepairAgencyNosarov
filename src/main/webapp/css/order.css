@@ -1,8 +1,8 @@
 .main_block{
-    width: 40%;
+    width: 45%;
     margin: auto;
     border-style: double;
-    margin-top: 5%;
+    margin-top: 3%;
     background-color: aliceblue;
 }
 
@@ -12,6 +12,10 @@
     justify-content: space-evenly;
     border-style: inset;
     background-color: white;
+}
+
+.col-sm-10{
+  display: flex;
 }
 
 .order_form{

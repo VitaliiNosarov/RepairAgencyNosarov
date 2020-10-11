@@ -4,12 +4,12 @@
     <short-name>TLD</short-name>
 
     <tag>
-        <name>Hello</name>
-        <tag-class>ua.kharkiv.nosarev.tag.MessagesTag</tag-class>
+        <name>session_remove_attr</name>
+        <tag-class>ua.kharkiv.nosarev.tag.UpdateSessionTag</tag-class>
         <body-content>scriptless</body-content>
 
         <attribute>
-            <name>message</name>
+            <name>forRemove</name>
         </attribute>
     </tag>
 </taglib>

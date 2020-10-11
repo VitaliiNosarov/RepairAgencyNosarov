@@ -15,7 +15,7 @@ public interface OrderDao {
 
     Order insertOrder(Order order);
 
-    void updateOrder(Order order);
+    boolean updateOrder(Order order);
 
     List<Order> getOrderRows(String paginationSql, PaginationObject pagObject);
 

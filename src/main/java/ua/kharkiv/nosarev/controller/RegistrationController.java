@@ -1,10 +1,10 @@
 package ua.kharkiv.nosarev.controller;
-import org.apache.log4j.Logger;
-import ua.kharkiv.nosarev.dao.api.UserDao;
+
+import ua.kharkiv.nosarev.MessageType;
 import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
+import ua.kharkiv.nosarev.exception.RegistrationException;
 import ua.kharkiv.nosarev.services.api.UserService;
-
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -35,15 +35,24 @@ public class RegistrationController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-            User user = new User();
-            user.setEmail(email);
-            user.setPassword(password);
-            user.setName(req.getParameter("name"));
-            user.setSurName(req.getParameter("surname"));
-            user.setPhone(req.getParameter("phone"));
-            user.setLocale(UserLocale.valueOf(req.getParameter("locale")));
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setName(req.getParameter("name"));
+        user.setSurName(req.getParameter("surname"));
+        user.setPhone(req.getParameter("phone"));
+        user.setLocale(UserLocale.valueOf(req.getParameter("locale")));
+        HttpSession session = req.getSession();
+        try {
             userService.saveUser(user);
-            resp.sendRedirect("info_page/registration_success.jsp");
+            session.setAttribute("infoMessageSuccess", MessageType.REGISTRATION.getMessage());
+            resp.sendRedirect("login");
+        } catch (RegistrationException exception) {
+            session.setAttribute("infoMessage", MessageType.WRONG_REGISTRATION.getMessage());
+            resp.sendRedirect("registration");
+            return;
+        }
+
     }
 
 }

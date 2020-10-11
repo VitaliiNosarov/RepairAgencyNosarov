@@ -1,15 +1,14 @@
 package ua.kharkiv.nosarev.services;
 
 import org.apache.log4j.Logger;
+import ua.kharkiv.nosarev.MessageType;
 import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.PaginationObject;
-import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
 import ua.kharkiv.nosarev.entitie.enumeration.PaginationField;
 import ua.kharkiv.nosarev.exception.ServiceException;
 import ua.kharkiv.nosarev.services.api.OrderService;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
@@ -49,32 +48,26 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order insertOrder(Order order) {
+    public String insertOrder(Order order) {
         if (Validator.validateOrder(order)) {
-            return orderDao.insertOrder(order);
+            orderDao.insertOrder(order);
+            return MessageType.CREATING_ORDER.getMessage();
         }
         LOGGER.error("Service Exception in insertOrder " + order);
-        throw new ServiceException();
+        return MessageType.WRONG_FIELDS.getMessage();
     }
 
     @Override
-    public void updateOrder(Order order, long masterId, String price, OrderStatus status) {
+    public String updateOrder(Order order) {
+        boolean result = false;
         if (order == null) {
             LOGGER.error("Service Exception in updateOrder " + order);
-            throw new ServiceException();
         }
-        order.setMasterId(masterId);
-        order.setStatus(status);
-        try {
-            if (price != "") {
-                BigDecimal amount = new BigDecimal(price);
-                order.setPrice(amount);
-            }
-        } catch (NumberFormatException ex) {
-            LOGGER.info("Wrong price " + price);
-            throw new ServiceException();
+        result = orderDao.updateOrder(order);
+        if(result){
+            return MessageType.UPDATING_ORDER.getMessage();
         }
-        orderDao.updateOrder(order);
+        return MessageType.WRONG_FIELDS.getMessage();
     }
 
     @Override
@@ -88,6 +81,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findOrders(String paginationSql, PaginationObject pagObject) {
-            return orderDao.getOrderRows(paginationSql, pagObject);
+        return orderDao.getOrderRows(paginationSql, pagObject);
     }
 }

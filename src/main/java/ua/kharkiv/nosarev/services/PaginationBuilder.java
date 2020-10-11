@@ -15,12 +15,11 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-public class PaginationService {
-
+public class PaginationBuilder {
     private static final Logger LOGGER = Logger.getLogger(PaginationService.class);
     private UserService userService;
 
-    public PaginationService(UserService userService) {
+    public PaginationBuilder(UserService userService) {
         this.userService = userService;
     }
 
@@ -90,4 +89,3 @@ public class PaginationService {
         return paginationSQL;
     }
 }
-

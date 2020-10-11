@@ -23,16 +23,6 @@
     </jsp-config>
 
     <error-page>
-        <exception-type>ua.kharkiv.nosarev.exception.RegistrationException</exception-type>
-        <location>/error_page/wrongregistration.jsp</location>
-    </error-page>
-
-    <error-page>
-        <exception-type>ua.kharkiv.nosarev.exception.AuthenticationException</exception-type>
-        <location>/error_page/wronglogin.jsp</location>
-    </error-page>
-
-    <error-page>
         <exception-type>ua.kharkiv.nosarev.exception.DatabaseException</exception-type>
         <location>/error_page/500.jsp</location>
     </error-page>

@@ -106,18 +106,20 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public void updateOrder(Order order) {
+    public boolean updateOrder(Order order) {
+        boolean result = false;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.UPDATE_ORDER)) {
             statement.setBigDecimal(1, order.getPrice());
             statement.setLong(2, order.getMasterId());
             statement.setString(3, String.valueOf(order.getStatus()));
             statement.setLong(4, order.getId());
-            statement.executeUpdate();
+            result = statement.executeUpdate() > 0;
         } catch (SQLException ex) {
             LOGGER.error("Exception in updateOrder", ex);
             throw new DatabaseException();
         }
+        return result;
     }
 
     @Override

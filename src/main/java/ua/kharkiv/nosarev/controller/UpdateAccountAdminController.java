@@ -2,7 +2,7 @@ package ua.kharkiv.nosarev.controller;
 
 import ua.kharkiv.nosarev.MessageType;
 import ua.kharkiv.nosarev.entitie.User;
-import ua.kharkiv.nosarev.exception.AuthenticationException;
+import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 import ua.kharkiv.nosarev.services.api.UserService;
 
 import javax.servlet.ServletConfig;
@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.math.BigDecimal;
 
-
-@WebServlet("/login")
-public class LoginController extends HttpServlet {
+@WebServlet("/updateUser")
+public class UpdateAccountAdminController extends HttpServlet {
 
     private UserService userService;
 
@@ -28,25 +28,24 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        if (session.getAttribute("user") != null) {
-            resp.sendRedirect("index.jsp");
-            return;
-        }
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
+        long accountId = Long.parseLong(req.getParameter("accountId"));
+        User account = userService.getUserById(accountId);
+        req.setAttribute("account", account);
+        req.getRequestDispatcher("admin_update_account.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        HttpSession session = req.getSession();
-        try {
-            User user = userService.getUserByEmailPass(email, password);
-            session.setAttribute("user", user);
-        } catch (AuthenticationException exception) {
-            session.setAttribute("infoMessage", MessageType.WRONG_AUTHENTICATION.getMessage());
+        long accountId = Long.parseLong(req.getParameter("accountId"));
+        User account = userService.getUserById(accountId);
+        if (!req.getParameter("balance").equals("")) {
+            account.setBalance(new BigDecimal(req.getParameter("balance")));
         }
-        resp.sendRedirect("login");
+        account.setRole(UserRole.valueOf(req.getParameter("role")));
+        userService.updateUser(account);
+        HttpSession session = req.getSession();
+        session.setAttribute("infoMessage", MessageType.UPDATING_ACCOUNT.getMessage());
+        resp.sendRedirect("updateUser?accountId=" + accountId);
     }
+
 }

@@ -105,7 +105,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User insertUser(User user) {
+    public User insertUser(User user) throws RegistrationException{
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.SAVE_USER, Statement.RETURN_GENERATED_KEYS)) {
             if (user != null) {
@@ -118,14 +118,9 @@ public class UserDaoImpl implements UserDao {
             }
         } catch (SQLException throwables) {
             LOGGER.error("Can't insert user with email = " + user.getEmail() + " to database");
-            throw new RegistrationException("Wrong email or pass");
+            throw new RegistrationException();
         }
         return user;
-    }
-
-    @Override
-    public User updateUser(User user) {
-        return null;
     }
 
     @Override

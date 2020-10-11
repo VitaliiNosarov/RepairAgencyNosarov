@@ -51,7 +51,7 @@ public class CreateOrderController extends HttpServlet {
                 order.addService(new Service(Integer.valueOf(service), null));
             }
         }
-        orderService.insertOrder(order);
-        resp.sendRedirect("info_page/creating_order_success.jsp");
+        session.setAttribute("infoMessage", orderService.insertOrder(order));
+        resp.sendRedirect("userOrders");
     }
 }

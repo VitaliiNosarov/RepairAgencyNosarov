@@ -26,6 +26,13 @@
   <h1 align="center"> Account  </h1>
   <h3 align="center"> <em>You can update your information </em> </h3>
 
+<c:if test="${sessionScope.infoMessage != null}">
+         <div class="alert alert-success" role="alert">
+                <center>${infoMessage}</center>
+                <c:remove var="infoMessage"/>
+         </div>
+    </c:if>
+
      <form id="registration_form" class="inner_block" action = "updateAccount" method = "POST">
 
      <input type="hidden" name="accountId" value="${account.id}">
@@ -65,37 +72,23 @@
            </div>
        </div>
 
- <c:choose>
-    <c:when test="${user.role == 'ADMIN'}">
-        <div class="form-group row">
-                <label for="Role" class="col-sm-2 col-form-label">Role</label>
-                 <div class="col-sm-10">
-                   <select class="custom-select my-1 mr-sm-2" id="Role" name="role">
-                          <option value="ADMIN" ${account.role == 'ADMIN' ? 'selected' : ''}>Admin</option>
-                          <option value="CUSTOMER" ${account.role == 'CUSTOMER' ? 'selected' : ''}>Customer</option>
-                          <option value="MASTER" ${account.role == 'MASTER' ? 'selected' : ''}>Master</option>
-                   </select>
-                </div>
-              </div>
-
-             <div class="form-group row">
-                   <label for="Balance" align="center" class="col-sm-2 col-form-label">Balance</label>
-                   <div class="col-sm-10">
-                     <input type="text" id="Balance" class="form-control" name="balance" default="${account.balance}" placeholder="${account.balance}">
-                   </div>
-             </div>
-    </c:when>
-    <c:otherwise>
-        <input type="hidden" name="role" value="${account.role}">
         <div class="form-group row">
            <label for="balance" align="center" class="col-sm-2 col-form-label">Balance</label>
            <div class="col-sm-10">
-             <input type="text" readonly class="form-control" id="balance" class="balance" name="balance" value="${account.balance}">
+
+           <c:choose>
+                <c:when test="${account.balance == null}">
+                        <div class="alert alert-info" role="alert">
+                           To top up the balance, contact the manager
+                       </div>
+                </c:when>
+               <c:otherwise>
+                  <input type="text" readonly class="form-control" id="balance" class="balance" value="${account.balance}">
+               </c:otherwise>
+               </c:choose>
            </div>
         </div>
 
-    </c:otherwise>
-    </c:choose>
        <fieldset class="form-group">
          <div class="row">
            <legend class="col-form-label col-sm-2 pt-0" align="center">Language</legend>

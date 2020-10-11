@@ -1,5 +1,6 @@
 package ua.kharkiv.nosarev.services;
 
+import ua.kharkiv.nosarev.entitie.FeedBack;
 import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.User;
 
@@ -61,10 +62,22 @@ public class Validator {
         if (order.getDevice().length() > 60 && order.getDevice().length() < 5) {
             return false;
         }
-        if (order.getComment().length() > 1000&&order.getComment().length() <10) {
+        if (order.getComment().length() > 1000 && order.getComment().length() < 10) {
             return false;
         }
 
         return true;
+    }
+
+    public static boolean validateFeedback(FeedBack feedBack) {
+        if (feedBack == null) {
+            return false;
+        }
+        if (feedBack.getComment() != null) {
+            if (feedBack.getComment().length() > 500) {
+                return false;
+            }
+        }
+        return feedBack.getRate() != null;
     }
 }
