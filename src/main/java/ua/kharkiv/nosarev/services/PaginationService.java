@@ -35,10 +35,10 @@ public class PaginationService {
             String filterParam = req.getParameter("filterParam");
             pagObject = new PaginationObject(currentPage, recordsPerPage, orderBy);
             pagObject.setReverse(reverse);
-            if (filter != null) {
+            if (filter != null && filter.length() > 1) {
                 pagObject.setFilter(PaginationField.valueOf(filter));
             }
-            if (filterParam != null) {
+            if (filterParam != null && filterParam.length() > 0) {
                 pagObject.setFilterParam(filterParam);
             }
         } catch (IllegalArgumentException | NullPointerException exception) {

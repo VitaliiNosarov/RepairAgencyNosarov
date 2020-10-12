@@ -18,11 +18,13 @@ public interface UserService {
 
     User getUserById(long id);
 
-    List<User> getAllUsers();
+    List<User> findUsers(long currentPage, long recordsPerPage);
 
     List<User> getAllUsersByRole(UserRole role);
 
     boolean deleteUserById(long userId);
+
+    int getAmountOfUsers();
 
 //    boolean checkRole(UserRole expectedRole, long userId);
 }

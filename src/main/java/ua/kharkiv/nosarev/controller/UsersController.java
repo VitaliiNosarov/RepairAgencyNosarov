@@ -26,7 +26,17 @@ public class UsersController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User> list = userService.getAllUsers();
+        long currentPage = Long.parseLong(req.getParameter("currentPage"));
+        long recordsPerPage = Long.parseLong(req.getParameter("recordsPerPage"));
+        long numberOfRows = userService.getAmountOfUsers();
+        long nOfPages = numberOfRows / recordsPerPage;
+        if (numberOfRows % recordsPerPage > 0) {
+            nOfPages++;
+        }
+        List<User> list = userService.findUsers(currentPage, recordsPerPage);
+        req.setAttribute("noOfPages", nOfPages);
+        req.setAttribute("currentPage", currentPage);
+        req.setAttribute("recordsPerPage", recordsPerPage);
         req.setAttribute("list", list);
         RequestDispatcher dispatcher = req.getRequestDispatcher("all_users.jsp");
         dispatcher.forward(req, resp);

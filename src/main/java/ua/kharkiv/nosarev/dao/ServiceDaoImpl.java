@@ -24,7 +24,6 @@ public class ServiceDaoImpl implements ServiceDao {
 
     @Override
     public List<Service> getAllServices() {
-
         List<Service> list = new ArrayList<>();
         try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement()) {
             try (ResultSet rs = statement.executeQuery(SQLConstant.GET_ALL_SERVICES)) {
@@ -35,7 +34,6 @@ public class ServiceDaoImpl implements ServiceDao {
                     list.add(service);
                 }
             }
-
         } catch (SQLException throwables) {
             LOGGER.error("Can't get all services from database", throwables);
             throw new DatabaseException();

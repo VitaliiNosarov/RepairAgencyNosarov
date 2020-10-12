@@ -102,10 +102,11 @@
     <c:otherwise>
        <input type="text" readonly class="form-control" id="Price" value="${order.price}">
             <c:if test="${order.status == 'WAITING_FOR_PAYMENT' && sessionScope.user.id == order.customerId}">
-              <form action="payOrder" method="Post">
+              <form action="payment" method="Post">
                 <td><button type="submit" name="orderId" value="${order.id}" class="btn btn-info">Pay</button></td>
               </form>
             </c:if>
+
     </c:otherwise>
     </c:choose>
 
@@ -161,6 +162,12 @@
        </div>
     </c:if>
 
+    <br/>
+    <c:if test="${order.status == 'COMPLETED' || order.status == 'PAID' && sessionScope.user.id == order.customerId}">
+          <form action="payment" method="Get">
+            <td><button type="submit" name="orderId" value="${order.id}" class="btn btn-info">Payment Info</button></td>
+          </form>
+        </c:if>
     <br/>
     <button class="btn btn-info" type="button" onclick="window.location.href='${PATH}/userOrders'" class="btn btn-info">Back</button>
 </div>

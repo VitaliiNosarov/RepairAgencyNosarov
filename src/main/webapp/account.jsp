@@ -26,14 +26,14 @@
   <h1 align="center"> Account  </h1>
   <h3 align="center"> <em>You can update your information </em> </h3>
 
-<c:if test="${sessionScope.infoMessage != null}">
-         <div class="alert alert-success" role="alert">
-                <center>${infoMessage}</center>
-                <c:remove var="infoMessage"/>
-         </div>
-    </c:if>
 
      <form id="registration_form" class="inner_block" action = "updateAccount" method = "POST">
+        <c:if test="${sessionScope.infoMessage != null}">
+            <div class="alert alert-success" role="alert">
+                <center>${infoMessage}</center>
+                <c:remove var="infoMessage"/>
+            </div>
+        </c:if>
 
      <input type="hidden" name="accountId" value="${account.id}">
 
@@ -47,7 +47,7 @@
        <div class="form-group row">
            <label for="password" align="center" class="col-sm-2 col-form-label">Password</label>
            <div class="col-sm-10">
-             <input type="password" id="password" class="form-control" name="password" value="${account.password}" placeholder="${account.password}">
+             <input type="password" id="password" class="form-control" name="password" value="${account.password}" placeholder="**********">
            </div>
         </div>
 

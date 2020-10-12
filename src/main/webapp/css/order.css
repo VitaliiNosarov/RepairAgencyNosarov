@@ -36,6 +36,10 @@
 overflow: auto;
 }
 
+.payment_info{
+    text-align: center;
+}
+
 @media screen and (max-width: 800px) {
   .main_block{
     width: 100%;

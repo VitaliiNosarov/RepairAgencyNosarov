@@ -4,7 +4,8 @@ import ua.kharkiv.nosarev.entitie.Payment;
 
 public interface PaymentDao {
 
-    void insertPayment(Payment payment);
+    boolean insertPayment(Payment payment);
 
-    Payment getPayment(long userId);
+    Payment getPayment(long orderId);
+
 }

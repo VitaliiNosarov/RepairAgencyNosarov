@@ -29,6 +29,9 @@ public class Validator {
         if (password == null) {
             return false;
         }
+        if (password.length() == 128) {
+            return true;
+        }
         Pattern patternMail = Pattern.compile(PASSWORD_PATTERN);
         Matcher matcher = patternMail.matcher(password);
         return matcher.find();

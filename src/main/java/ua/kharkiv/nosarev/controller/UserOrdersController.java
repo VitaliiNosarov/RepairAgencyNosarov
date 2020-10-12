@@ -21,9 +21,6 @@ public class UserOrdersController extends HttpServlet {
 
     private OrderService orderService;
 
-    //TODO
-    private PaginationService paginationService;
-
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);

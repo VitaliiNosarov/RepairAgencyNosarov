@@ -147,11 +147,16 @@
   </div>
 </div>
 
-
 <button class="btn btn-info" type="submit" class="btn btn-info">Update</button>
 <button class="btn btn-info" type="button" onclick="history.back();" class="btn btn-info">Back</button>
-
 </form>
+
+<c:if test="${order.status == 'PAID' || order.status == 'COMPLETED' && sessionScope.user.role == 'ADMIN'}">
+  <form action="payment" method="Get" class="payment_info">
+    <button class="btn btn-info" type="submit" name="orderId" value="${order.id}" class="btn btn-info">Payment Info</button>
+  </form>
+</c:if>
+
 </div>
 <jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>

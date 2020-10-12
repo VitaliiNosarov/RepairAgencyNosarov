@@ -13,6 +13,8 @@ public enum MessageType {
     PAYMENT_SUCCESS("Order was successfully paid"),
     PAYMENT_DENIED("Not enough money on your balance. Contact the manager for top up"),
     WRONG_AUTHENTICATION("Wrong login or password");
+
+
     private String message;
 
     public String getMessage() {

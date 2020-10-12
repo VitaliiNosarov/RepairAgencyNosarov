@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Order extends AbstractEntity{
 
-
     private long customerId;
     private long masterId;
     private String customerName;

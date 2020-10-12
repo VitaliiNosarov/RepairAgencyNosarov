@@ -14,11 +14,13 @@ public interface UserDao {
 
     boolean deleteUserById(long userId);
 
-    List<User> getAllUsers();
+    List<User> findUsers(long startPosition, long recordsPerPage);
 
     List<User> getAllUsersByRole(UserRole role);
 
     User insertUser(User user) throws RegistrationException;
 
     UserRole getRoleById(long userId);
+
+    int amountOfUsers();
 }

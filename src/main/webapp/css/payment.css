@@ -1,0 +1,21 @@
+.main_block{
+    width: fit-content;
+    margin: auto;
+    margin-top: 2%;
+    background-color: aliceblue;
+    text-align: center;
+    height: 480px;
+    border-style: double;
+}
+
+.order_form{
+    width: 600px;
+    margin: auto;
+    margin-top: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: aliceblue;
+    text-align: center;
+}
+
+

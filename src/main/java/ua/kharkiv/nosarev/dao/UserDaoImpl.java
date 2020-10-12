@@ -73,15 +73,18 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> findUsers(long startPosition, long recordsPerPage) {
         List<User> list = new ArrayList<>();
-        try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement();
-             ResultSet set = statement.executeQuery(SQLConstant.GET_ALL_USERS)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQLConstant.FIND_USERS)) {
+            statement.setLong(1, startPosition);
+            statement.setLong(2, recordsPerPage);
+            ResultSet set = statement.executeQuery();
             while (set.next()) {
                 list.add(extractUser(set));
             }
         } catch (SQLException throwables) {
-            LOGGER.error("Can't get all users from database", throwables);
+            LOGGER.error("Can't get users list from database", throwables);
             throw new DatabaseException();
         }
         return list;
@@ -105,7 +108,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User insertUser(User user) throws RegistrationException{
+    public User insertUser(User user) throws RegistrationException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.SAVE_USER, Statement.RETURN_GENERATED_KEYS)) {
             if (user != null) {
@@ -139,6 +142,23 @@ public class UserDaoImpl implements UserDao {
             throw new DatabaseException();
         }
         return role;
+    }
+
+    @Override
+    public int amountOfUsers() {
+        int amount = 0;
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement()) {
+            try (ResultSet rs = statement.executeQuery((SQLConstant.GET_AMOUNT_OF_USERS))) {
+                if (rs.next()) {
+                    amount = rs.getInt("count");
+                }
+            }
+        } catch (SQLException ex) {
+            LOGGER.error("SQL Exception in amountOfUsers " + ex);
+            throw new DatabaseException();
+        }
+        return amount;
     }
 
     private User extractUser(ResultSet rs) throws SQLException {
