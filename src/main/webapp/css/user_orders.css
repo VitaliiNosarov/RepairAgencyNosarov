@@ -1,9 +1,18 @@
+body {
+  background: url(../image/banner.jpg) no-repeat;
+  background-size: cover;
+  background-position-y: center;
+}
+
 .main_block{
     width: fit-content;
     margin: auto;
     border-style: double;
+    border-color: 0c4e88;
+    border-radius: 10px;
     margin-top: 2%;
-    background-color: aliceblue;
+    background-color: #f1f1f1;
+
 
 }
 

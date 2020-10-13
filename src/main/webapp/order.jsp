@@ -24,7 +24,7 @@
 <h3> Order info</h3>
 
     <c:if test="${sessionScope.infoMessage != null}">
-         <div class="alert alert-info" role="alert">
+         <div class="alert alert-warning" role="alert">
                 <center>${infoMessage}</center>
                 <c:remove var="infoMessage"/>
          </div>

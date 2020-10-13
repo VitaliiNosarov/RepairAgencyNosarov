@@ -48,11 +48,11 @@ public class AuthorizationFilter implements Filter {
             return;
         }
         LOGGER.info("Unauthorized access request");
-        resp.sendRedirect(req.getContextPath()+"/info_page/not_rights.jsp");
+        resp.sendRedirect(req.getContextPath()+"/error_page/not_rights.jsp");
     }
 
     private boolean checkUri(String uri) {
-        return uri.contains("login") || uri.contains("registration")
+        return uri.contains("login") || uri.contains("registration") || uri.endsWith(".jpg")
                 || uri.endsWith("index.jsp") || uri.endsWith(".css") || uri.endsWith(".js");
     }
 

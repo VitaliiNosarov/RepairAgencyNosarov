@@ -1,9 +1,17 @@
+body {
+  background: url(../image/banner.jpg) no-repeat;
+  background-size: cover;
+  background-position-y: center;
+}
+
 .main_block{
-    width: 45%;
+    width: 35%;
     margin: auto;
     border-style: double;
+    border-color: 0c4e88;
+    border-radius: 10px;
     margin-top: 3%;
-    background-color: aliceblue;
+    background-color: #f1f1f1;
 }
 
 .table_block{
@@ -11,6 +19,7 @@
     overflow: auto;
     justify-content: space-evenly;
     border-style: inset;
+    border-color: #c5cdd4;
     background-color: white;
 }
 

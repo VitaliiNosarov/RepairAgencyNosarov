@@ -51,7 +51,7 @@ public class PaymentDaoImpl implements PaymentDao {
 
                 orderStatement = connection.prepareStatement(SQLConstant.SET_ORDER_STATUS);
                 orderStatement.setString(1, OrderStatus.PAID.toString());
-                orderStatement.setLong(2, payment.getUserId());
+                orderStatement.setLong(2, payment.getId());
                 orderStatement.executeUpdate();
 
                 accountStatement = connection.prepareStatement(SQLConstant.SET_ACCOUNT_BALANCE);

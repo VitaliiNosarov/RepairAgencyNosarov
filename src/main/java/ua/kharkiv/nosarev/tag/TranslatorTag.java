@@ -1,7 +1,6 @@
 package ua.kharkiv.nosarev.tag;
 
 import org.apache.log4j.Logger;
-import ua.kharkiv.nosarev.MessageType;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -9,9 +8,9 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.io.StringWriter;
 
-public class UpdateSessionTag extends SimpleTagSupport {
+public class TranslatorTag extends SimpleTagSupport {
 
-    private static final Logger LOGGER = Logger.getLogger(UpdateSessionTag.class);
+    private static final Logger LOGGER = Logger.getLogger(TranslatorTag.class);
     private String attribute;
     private StringWriter sw = new StringWriter();
 

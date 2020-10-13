@@ -18,27 +18,28 @@
 
 <body>
 <header>
-  <a href="${PATH}/index.jsp" class="logo">RepairAgency</a>
+
+  <a href="${PATH}/index.jsp" class="logo" ><font color="#0a91ab">Computer</font> <br/><font color="#ffc045">RepairAgency</font></a>
    <div class="right-header">
 
     <c:choose>
     <c:when test="${empty sessionScope.user}">
-        <a href="${PATH}/login"><fmt:message key="login.login_button"/></a>
+        <a href="${PATH}/login" class="header_link"><fmt:message key="login.login_button"/></a>
     </c:when>
     <c:otherwise>
-        <a href="${PATH}/logout"><fmt:message key="header.logout"/></a>
+        <a href="${PATH}/logout" class="header_link"><fmt:message key="header.logout"/></a>
     </c:otherwise>
     </c:choose>
 
     <c:if test="${sessionScope.user.role == 'ADMIN'}">
-      <a href="${PATH}/users?currentPage=1&recordsPerPage=10">All users</a>
+      <a href="${PATH}/users?currentPage=1&recordsPerPage=10" class="header_link">All users</a>
     </c:if>
     <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.role == 'MASTER'}">
-          <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=false">All orders</a>
+          <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=false" class="header_link">All orders</a>
         </c:if>
-    <a href="${PATH}/create_order">New order</a>
-     <a href="${PATH}/userOrders">My orders</a>
-    <a href="${PATH}/updateAccount">My account</a>
+    <a href="${PATH}/create_order" class="header_link">New order</a>
+     <a href="${PATH}/userOrders" class="header_link">My orders</a>
+    <a href="${PATH}/updateAccount" class="header_link">My account</a>
     <div class="language">
        <form>
            <label for="locale"></label>

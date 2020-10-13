@@ -7,6 +7,7 @@
 
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="messages"/>
+<c:set var="PATH" value="${pageContext.request.contextPath}" scope="request"/>
 
 <html>
 <head>
@@ -20,8 +21,10 @@
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
 <div class = "login">
-
-<h1 align="center"> Log in </h1>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+  <br/>
+    <h2><font color="black"><fmt:message key="login.page_title" /></font> </h2>
 
 <c:if test="${sessionScope.infoMessage != null}">
      <div class="alert alert-danger" role="alert">
@@ -37,19 +40,39 @@
      </div>
 </c:if>
 
- <form id="login_form" action="login" method="post" >
-   <div class="form-group">
-    <label for="email"><fmt:message key="login.email" /></label>
-    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="<fmt:message key="login.enter_email" />" name="email" required>
-    <span class="error" aria-live="polite"></span>
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-   </div>
-   <div class="form-group">
-    <label for="password"><fmt:message key="login.password" /></label>
-    <input type="password" class="form-control" id="password" placeholder="<fmt:message key="login.enter_password" />" name="password" required>
-   </div>
-    <button type="submit" class="btn btn-primary"><fmt:message key="login.login_button"/></button> <a href="/RepairAgency/registration"><fmt:message key="login.registration" /></a>
- </form>
+
+    <!-- Login Form -->
+    <form id="login_form" action="login" method="post" >
+
+    <c:if test="${sessionScope.infoMessage != null}">
+         <div class="alert alert-danger" role="alert">
+                <center>${infoMessage}</center>
+                <c:remove var="infoMessage"/>
+         </div>
+    </c:if>
+
+    <c:if test="${sessionScope.infoMessageSuccess != null}">
+         <div class="alert alert-success" role="alert">
+                <center>${infoMessageSuccess}</center>
+                <c:remove var="infoMessageSuccess"/>
+         </div>
+    </c:if>
+
+      <input type="email" id="email" class="fadeIn second" name="email" placeholder="<fmt:message key="login.enter_email" />" required>
+      <br/>
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="<fmt:message key="login.enter_password" />" required>
+      <br/>
+      <input type="submit" class="fadeIn fourth" value="<fmt:message key="login.login_button"/>">
+    </form>
+
+
+    <div id="formFooter">
+      <a class="underlineHover" href="${PATH}/registration"><fmt:message key="login.registration" /></a>
+    </div>
+
+  </div>
+</div>
+
 </div>
 
     <jsp:include page="/page_component/footer.jsp"></jsp:include>

@@ -82,7 +82,8 @@
        </div>
        <div class="form-group" align="center">
          <div class="col-sm-10">
-           <button type="submit" class="btn btn-primary">Registration</button>
+           <button type="submit" class="btn btn-info">Registration</button>
+           <button align="center" class="btn btn-info" type="button" onclick="history.back();" class="btn btn-info">Back</button>
          </div>
        </div>
      </fieldset>

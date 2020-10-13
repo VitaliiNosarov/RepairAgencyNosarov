@@ -5,7 +5,8 @@
     </head>
     <body>
     <jsp:include page="/page_component/header.jsp"></jsp:include>
-    <h1>Page not found</h1>
+    <br/>
+    <h1><center>Page not found</center></h1>
     <h1 align="center"><input type="button" onclick="history.back();" value="back"/></h1>
     <jsp:include page="/page_component/footer.jsp"></jsp:include>
     </body>

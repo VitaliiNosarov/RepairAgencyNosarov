@@ -1,10 +1,9 @@
 footer {
   text-align: center;
   padding: 3px;
-  background-color: #b3cde8;
+  background-color: #374c61;
   color: white;
-  height: 80px;
-    margin-top: -80px;
+
   position: fixed;
       bottom: 0;
       width: -webkit-fill-available;

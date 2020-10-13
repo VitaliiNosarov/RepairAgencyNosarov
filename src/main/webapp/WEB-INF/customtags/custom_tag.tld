@@ -4,12 +4,12 @@
     <short-name>TLD</short-name>
 
     <tag>
-        <name>session_remove_attr</name>
-        <tag-class>ua.kharkiv.nosarev.tag.UpdateSessionTag</tag-class>
+        <name>translate</name>
+        <tag-class>ua.kharkiv.nosarev.tag.TranslatorTag</tag-class>
         <body-content>scriptless</body-content>
 
         <attribute>
-            <name>forRemove</name>
+            <name>test</name>
         </attribute>
     </tag>
 </taglib>

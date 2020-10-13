@@ -158,6 +158,7 @@
 </c:if>
 
 </div>
+
 <jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>
 </html>

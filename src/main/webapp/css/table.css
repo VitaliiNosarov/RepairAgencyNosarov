@@ -1,5 +1,9 @@
+body {
+}
+
 .table{
     position: inherit;
+    font-weight: 600;
 }
 
 .pagination_down{

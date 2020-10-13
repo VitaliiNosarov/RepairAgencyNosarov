@@ -29,7 +29,7 @@ $(document).ready(function() {
           var regExPass = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{5,}$/;
           var validPass = regExPass.test(password);
           if (!validPass) {
-            $('#password').after('<span class="error">Password must be at least 5 symbols long and contains digits and capital letters</span>');
+            $('#password').after('<span class="error">Example : Password1</span>');
             isValid = false;
           }
         }

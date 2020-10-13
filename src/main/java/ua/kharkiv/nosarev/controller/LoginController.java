@@ -30,7 +30,7 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         if (session.getAttribute("user") != null) {
-            resp.sendRedirect("index.jsp");
+            resp.sendRedirect("create_order");
             return;
         }
         req.getRequestDispatcher("login.jsp").forward(req, resp);
@@ -44,6 +44,7 @@ public class LoginController extends HttpServlet {
         try {
             User user = userService.getUserByEmailPass(email, password);
             session.setAttribute("user", user);
+            session.setAttribute("language", user.getLocale().toString());
         } catch (AuthenticationException exception) {
             session.setAttribute("infoMessage", MessageType.WRONG_AUTHENTICATION.getMessage());
         }
