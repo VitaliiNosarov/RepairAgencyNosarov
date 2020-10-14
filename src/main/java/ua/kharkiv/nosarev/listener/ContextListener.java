@@ -22,6 +22,7 @@ import javax.sql.DataSource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -45,6 +46,7 @@ public class ContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
+        Locale.setDefault(Locale.ENGLISH);
         ContextListener contextListener = new ContextListener();
         contextListener.initializeLogger(event);
         contextListener.initializeContextObjects(event);

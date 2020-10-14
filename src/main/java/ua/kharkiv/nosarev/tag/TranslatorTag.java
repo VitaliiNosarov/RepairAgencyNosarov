@@ -26,7 +26,8 @@ public class TranslatorTag extends SimpleTagSupport {
 
     public void doTag() throws JspException, IOException {
         if (attribute != null) {
-            /* Use message from attribute */
+
+            LOGGER.debug("tag"+ attribute);
             JspWriter out = getJspContext().getOut();
             out.println( attribute );
         } else {

@@ -1,15 +1,23 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="/WEB-INF/tld/custom.tld" %>
 <%@ page isELIgnored="false" %>
+<%@ page session="true" %>
+
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="messages"/>
 
 <html>
 <head>
+<link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="${pageContext.request.contextPath}/css/table.css" rel="stylesheet" type="text/css">
     <title>All orders</title>
 </head>
+
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
+
 <br/>
 <h3 align="center">All orders info</h3>
 <br/>
@@ -97,7 +105,7 @@
                         <td> ${order.comment} </td>
                         <td> ${order.services} </td>
                         <td> ${order.price} </td>
-                        <td> ${order.status.value} </td>
+                        <td> <ctg:statusTranslate locale="${sessionScope.language}" status="${order.status}"/></td>
                         <td> ${order.customerName} ${order.customerSurname} </td>
                         <td> ${order.masterName} ${order.masterSurname}</td>
                         <td> ${order.creatingTime} </td>
