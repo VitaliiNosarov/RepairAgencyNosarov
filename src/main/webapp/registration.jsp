@@ -13,7 +13,9 @@
      
  <body>
  <jsp:include page="/page_component/header.jsp"></jsp:include>
-     
+
+     <div class="content">
+
      <div class="main_block">
         <h1 align="center"> Registration new user  </h1>
         <h3 align="center"> <em>Enter your information </em> </h3>
@@ -88,6 +90,7 @@
        </div>
      </fieldset>
      </form>
+     </div>
      </div>
 
      <jsp:include page="/page_component/footer.jsp"></jsp:include>

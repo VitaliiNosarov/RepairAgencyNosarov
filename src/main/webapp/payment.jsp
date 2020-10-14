@@ -16,6 +16,8 @@
 
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
+<div class="content">
+
 <c:set var="order" value='${requestScope.payment}' />
 
 <div class="main_block">
@@ -59,7 +61,7 @@
  <button align="center" class="btn btn-info" type="button" onclick="history.back();" class="btn btn-info">Back</button>
  <br/>
  </div>
-<br/>
+ </div>
 <jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -13,6 +13,8 @@
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
+<div class="content">
+
 <c:set var="order" value='${requestScope.order}' />
 
 <div class="main_block">
@@ -157,6 +159,7 @@
   </form>
 </c:if>
 
+</div>
 </div>
 
 <jsp:include page="/page_component/footer.jsp"></jsp:include>

@@ -2,9 +2,9 @@ package ua.kharkiv.nosarev.services.api;
 
 import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.PaginationObject;
-import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
 import ua.kharkiv.nosarev.entitie.enumeration.PaginationField;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface OrderService {
@@ -17,11 +17,12 @@ public interface OrderService {
 
     String insertOrder(Order order);
 
-    //TODO
-    //update only 4 fileds
+    //update 4 fields
     String updateOrder(Order order);
 
     int getRowsAmount(PaginationField filter, String filterParam);
 
     List<Order> findOrders(String paginationSql, PaginationObject pagObject);
+
+    public void updateNewOrderCount(HttpServletRequest req);
 }

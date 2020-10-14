@@ -9,6 +9,8 @@ import ua.kharkiv.nosarev.entitie.enumeration.PaginationField;
 import ua.kharkiv.nosarev.exception.ServiceException;
 import ua.kharkiv.nosarev.services.api.OrderService;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
@@ -64,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
             LOGGER.error("Service Exception in updateOrder " + order);
         }
         result = orderDao.updateOrder(order);
-        if(result){
+        if (result) {
             return MessageType.UPDATING_ORDER.getMessage();
         }
         return MessageType.WRONG_FIELDS.getMessage();
@@ -79,8 +81,16 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.getRowsAmount(filterString);
     }
 
+
     @Override
     public List<Order> findOrders(String paginationSql, PaginationObject pagObject) {
         return orderDao.getOrderRows(paginationSql, pagObject);
+    }
+
+    @Override
+    public void updateNewOrderCount(HttpServletRequest req) {
+        ServletContext context = req.getServletContext();
+        int countOfNewOrders = orderDao.getNewOrdersAmount();
+        context.setAttribute("countOfNewOrders", countOfNewOrders);
     }
 }

@@ -20,6 +20,16 @@
 <header>
 
   <a href="${PATH}/index.jsp" class="logo" ><font color="#0a91ab">Computer</font> <br/><font color="#ffc045">RepairAgency</font></a>
+
+    <c:if test="${sessionScope.user.role == 'ADMIN'}">
+      <div class="order_count_info">
+          <div class="alert alert-info" role="alert">
+          <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=STATUS&reverse=false">
+           New orders : <b>${applicationScope.countOfNewOrders}</b></a>
+          </div>
+      </div>
+    </c:if>
+
    <div class="right-header">
 
     <c:choose>
@@ -35,7 +45,7 @@
       <a href="${PATH}/users?currentPage=1&recordsPerPage=10" class="header_link">All users</a>
     </c:if>
     <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.role == 'MASTER'}">
-          <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=false" class="header_link">All orders</a>
+          <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=true" class="header_link">All orders</a>
         </c:if>
     <a href="${PATH}/create_order" class="header_link">New order</a>
      <a href="${PATH}/userOrders" class="header_link">My orders</a>

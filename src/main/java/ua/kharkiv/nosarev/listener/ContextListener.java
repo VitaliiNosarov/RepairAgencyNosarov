@@ -41,8 +41,9 @@ public class ContextListener implements ServletContextListener {
     private OrderService orderService;
     private UserService userService;
     private PaymentServiceImpl paymentService;
-    private ServletContext ctx;
     private PaginationService paginationService;
+    private int countOfNewOrders;
+    private ServletContext ctx;
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
@@ -60,6 +61,7 @@ public class ContextListener implements ServletContextListener {
         ctx.setAttribute("paginationService", paginationService);
         ctx.setAttribute("feedbackService", feedbackService);
         ctx.setAttribute("paymentService", paymentService);
+        ctx.setAttribute("countOfNewOrders", countOfNewOrders);
         ctx.setAttribute("uriMap", initializeSecurity(event));
         LOGGER.info("Context was initialized");
     }
@@ -78,6 +80,7 @@ public class ContextListener implements ServletContextListener {
             paginationService = new PaginationService(userService);
             feedbackService = new FeedbackServiceImpl(feedbackDao);
             paymentService = new PaymentServiceImpl(orderService, paymentDao);
+            countOfNewOrders = orderDao.getNewOrdersAmount();
             ctx = event.getServletContext();
         } catch (NamingException e) {
             LOGGER.error("Can't initialize Datasource", e);

@@ -3,7 +3,9 @@ body {
   background-size: cover;
   background-position-y: center;
 }
-
+.content {
+  min-height: calc(100% - 150px);
+}
 .main_block{
     width: 35%;
     margin: auto;
@@ -11,7 +13,7 @@ body {
     border-color: 0c4e88;
     border-radius: 10px;
     margin-top: 3%;
-    background-color: #f1f1f1;
+    background-color: #fbfbfb;
 }
 
 .table_block{
@@ -28,11 +30,13 @@ body {
 }
 
 .order_form{
+    margin: auto;
     margin-left: 5%;
     margin-right: 5%;
     margin-bottom: 5%;
     position: inherit;
-    margin-top: 5%;
+    margin-top: 3%;
+    width: 90%;
     text-align: center;
 }
 

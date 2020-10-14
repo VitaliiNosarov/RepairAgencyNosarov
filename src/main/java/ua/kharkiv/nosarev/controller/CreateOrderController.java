@@ -52,6 +52,7 @@ public class CreateOrderController extends HttpServlet {
             }
         }
         session.setAttribute("infoMessage", orderService.insertOrder(order));
+        orderService.updateNewOrderCount(req);
         resp.sendRedirect("userOrders");
     }
 }

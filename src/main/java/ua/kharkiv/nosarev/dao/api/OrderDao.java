@@ -20,4 +20,6 @@ public interface OrderDao {
     List<Order> getOrderRows(String paginationSql, PaginationObject pagObject);
 
     int getRowsAmount(String filter);
+
+    int getNewOrdersAmount();
 }

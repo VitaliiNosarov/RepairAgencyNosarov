@@ -3,13 +3,17 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
+
 <html>
 <head>
 <title>Order</title>
 <link href="css/user_account.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
+
+<div class="content">
 
 <c:set var="user" value='${sessionScope.user}' />
 
@@ -81,6 +85,7 @@
 
     </div>
    </form>
+</div>
 </div>
 <jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>

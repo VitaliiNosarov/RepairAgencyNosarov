@@ -4,11 +4,15 @@ body {
   background-position-y: center;
 }
 
+.content {
+  min-height: calc(100% - 150px);
+}
+
 .main_block{
     width: fit-content;
     margin: auto;
     margin-top: 2%;
-    background-color: #f1f1f1;
+    background-color: #fbfbfb;
     border-color: 0c4e88;
     border-radius: 10px;
     text-align: center;

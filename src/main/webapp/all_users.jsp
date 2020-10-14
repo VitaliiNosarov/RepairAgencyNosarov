@@ -11,6 +11,8 @@
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
+<div class="content">
+    
 <br/>
 <h3 align="center">All users info</h3>
 <br/>
@@ -75,6 +77,7 @@
         </ul>
     </nav>
 <br/>
+</div>
 <jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>
 </html>

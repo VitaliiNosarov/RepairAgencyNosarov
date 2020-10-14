@@ -14,8 +14,8 @@
     </tag>
 
     <tag>
-        <name>statusTranslate</name>
-        <tag-class>ua.kharkiv.nosarev.tag.TranslateStatusTag</tag-class>
+        <name>enumTranslate</name>
+        <tag-class>ua.kharkiv.nosarev.tag.TranslateEnumTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>locale</name>

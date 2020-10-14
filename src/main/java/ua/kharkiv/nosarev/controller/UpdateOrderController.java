@@ -64,6 +64,7 @@ public class UpdateOrderController extends HttpServlet {
             order.setStatus(OrderStatus.valueOf(req.getParameter("status")));
             HttpSession session = req.getSession();
             session.setAttribute("infoMessage", orderService.updateOrder(order));
+            orderService.updateNewOrderCount(req);
             resp.sendRedirect("updateOrder?orderId=" + orderId);
         }
     }

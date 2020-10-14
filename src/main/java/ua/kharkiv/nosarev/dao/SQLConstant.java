@@ -11,7 +11,7 @@ public class SQLConstant {
     public static final String GET_USER_BY_EMAIL_PASS = "SELECT * FROM account where email = ?;";
     public static final String GET_USER_BY_ID = "SELECT * FROM account where id = ?;";
     public static final String DELETE_USER_BY_EMAIL = "DELETE FROM account WHERE id = ?";
-    public static final String FIND_USERS = "SELECT * FROM account "+LIMIT;
+    public static final String FIND_USERS = "SELECT * FROM account " + LIMIT;
     public static final String GET_ALL_USERS_BY_ROLE = "SELECT * FROM account WHERE role = ?";
     public static final String GET_ROLE_BY_USER_ID = "select role from account where id = ?";
     public static final String GET_AMOUNT_OF_USERS = "SELECT COUNT(*) AS count FROM account ";
@@ -25,7 +25,6 @@ public class SQLConstant {
     public static final String INSERT_ORDER = "INSERT INTO booking (user_account_id, device, customer_comment) VALUES (?, ?, ?);";
     public static final String INSERT_SERVICES_TO_ORDER = "INSERT INTO booking_service (booking_id, service_id) VALUES (?, ?);";
     public static final String UPDATE_ORDER = "UPDATE booking SET price = ?, master_account_id = ?, order_status = ? WHERE id = ?;";
-
 
 
     public static final String FIND_ORDERS = "SELECT b.id, b.price, b.customer_comment, b.device, b.creating_time, " +
@@ -44,6 +43,7 @@ public class SQLConstant {
 
     public static final String GET_ALL_SERVICES = "SELECT id, name FROM service";
     public static final String GET_AMOUNT_OF_ORDERS = "SELECT COUNT(*) AS count FROM booking ";
+    public static final String GET_AMOUNT_OF_NEW_ORDERS = "SELECT COUNT(*) AS count FROM booking WHERE order_status = 'WAITING_FOR_PROCESSING'";
 
     public static final String GET_PAYMENT = "SELECT payment_value, creating_time, account_id FROM payment WHERE booking_id = ? ";
     public static final String SAVE_PAYMENT = "INSERT INTO payment (payment_value, account_id, booking_id) VALUES (?, ?, ?) ";

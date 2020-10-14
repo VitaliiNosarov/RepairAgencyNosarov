@@ -10,6 +10,7 @@
         <param-name>log4j-config-location</param-name>
         <param-value>WEB-INF/log4j.properties</param-value>
     </context-param>
+
     <context-param>
         <param-name>security-config-location</param-name>
         <param-value>WEB-INF/uri_security.properties</param-value>

@@ -16,6 +16,8 @@
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
+<div class="content">
+
 <div class="main_block">
  <form id="order_form" class="order_form" action="create_order" method="post">
     <h3 align="center">Choose appropriate options for order</h3>
@@ -53,6 +55,8 @@
      <button class="btn btn-info" type="button" onclick="history.back();" class="btn btn-info">Back</button>
  </form>
 </div>
+</div>
+
 <jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>
 </html>

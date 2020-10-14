@@ -29,7 +29,7 @@ public class LanguageFilter implements Filter {
             resp.sendRedirect(req.getHeader("referer"));
             return;
         }
-        if(session.getAttribute("language")==null){
+        if (session.getAttribute("language") == null) {
             session.setAttribute("language", UserLocale.EN.toString());
         }
         chain.doFilter(request, response);

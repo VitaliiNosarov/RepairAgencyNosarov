@@ -22,6 +22,8 @@
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
+<div class="content">
+
 <div class="main_block">
   <h1 align="center"> Account  </h1>
   <h3 align="center"> <em>You can update your information </em> </h3>
@@ -113,6 +115,8 @@
        </div>
      </form>
      </div>
+   </div>
+
 <jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -18,6 +18,8 @@
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
+<div class="content">
+
 <br/>
 <h3 align="center">All orders info</h3>
 <br/>
@@ -105,7 +107,7 @@
                         <td> ${order.comment} </td>
                         <td> ${order.services} </td>
                         <td> ${order.price} </td>
-                        <td> <ctg:statusTranslate locale="${sessionScope.language}" status="${order.status}"/></td>
+                        <td> <ctg:enumTranslate locale="${sessionScope.language}" status="${order.status}"/></td>
                         <td> ${order.customerName} ${order.customerSurname} </td>
                         <td> ${order.masterName} ${order.masterSurname}</td>
                         <td> ${order.creatingTime} </td>
@@ -145,6 +147,7 @@
             </c:if>
         </ul>
     </nav>
+</div>
 </div>
 
 <jsp:include page="/page_component/footer.jsp"></jsp:include>

@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 @WebFilter("/*")
+
 public class AuthorizationFilter implements Filter {
 
     private static final Logger LOGGER = Logger.getLogger(AuthorizationFilter.class);

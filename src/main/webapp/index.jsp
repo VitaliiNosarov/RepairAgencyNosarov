@@ -19,11 +19,12 @@
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
+<div class="content">
 <div class="intro_inner">
     <h1 class="intro_title">Welcome to <br> computer repair agency<br></h1>
     <a class="consultation_button" href="${PATH}/create_order">Enter</a>
     <ctg:info-time/>
-    <ctg:statusTranslate locale="${language}" status="PAID"/>
+</div>
 </div>
 
 <jsp:include page="/page_component/footer.jsp"></jsp:include>

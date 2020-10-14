@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class TranslateStatusTag extends TagSupport {
+public class TranslateEnumTag extends TagSupport {
 
     private ResourceBundle bundle;
     private Locale locale;

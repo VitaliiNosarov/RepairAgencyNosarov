@@ -131,13 +131,30 @@ public class OrderDaoImpl implements OrderDao {
         int amountOfRows = 0;
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            try (ResultSet rs = statement.executeQuery((SQLConstant.GET_AMOUNT_OF_ORDERS + filterAttr))) {
+            try (ResultSet rs = statement.executeQuery(SQLConstant.GET_AMOUNT_OF_ORDERS + filterAttr)) {
                 if (rs.next()) {
                     amountOfRows = rs.getInt("count");
                 }
             }
         } catch (SQLException ex) {
             LOGGER.error("SQL Exception in getRowsAmount " + ex);
+            throw new DatabaseException();
+        }
+        return amountOfRows;
+    }
+
+    @Override
+    public int getNewOrdersAmount() {
+        int amountOfRows = 0;
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement()) {
+            try (ResultSet rs = statement.executeQuery(SQLConstant.GET_AMOUNT_OF_NEW_ORDERS)) {
+                if (rs.next()) {
+                    amountOfRows = rs.getInt("count");
+                }
+            }
+        } catch (SQLException ex) {
+            LOGGER.error("SQL Exception in getNewOrdersAmount " + ex);
             throw new DatabaseException();
         }
         return amountOfRows;

@@ -4,6 +4,10 @@ body {
   background-position-y: center;
 }
 
+.content {
+  min-height: calc(90% - 150px);
+}
+
 .intro_inner {
     width: 100%;
     max-width: 600px;

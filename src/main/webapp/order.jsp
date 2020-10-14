@@ -15,6 +15,8 @@
 <body>
 <jsp:include page="/page_component/header.jsp"></jsp:include>
 
+<div class="content">
+
 <c:set var="order" value='${requestScope.order}' />
 <c:set var="PATH" value="${pageContext.request.contextPath}" scope="request"/>
 
@@ -172,6 +174,8 @@
     <button class="btn btn-info" type="button" onclick="window.location.href='${PATH}/userOrders'" class="btn btn-info">Back</button>
 </div>
 </div>
+</div>
+
 <jsp:include page="/page_component/footer.jsp"></jsp:include>
 </body>
 </html>
