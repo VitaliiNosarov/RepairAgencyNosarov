@@ -108,7 +108,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User insertUser(User user) throws RegistrationException {
+    public User saveUser(User user) throws RegistrationException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.SAVE_USER, Statement.RETURN_GENERATED_KEYS)) {
             if (user != null) {

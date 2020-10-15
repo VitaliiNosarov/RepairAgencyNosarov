@@ -14,19 +14,22 @@ $(document).ready(function() {
 
     $(".error").remove();
 
-    if (email.length < 1) {
-      $('#email').after('<span class="error">This field is required</span>');
+
+    if (email.length < 5 || email.length > 25) {
+      $('#email').after('<span class="error">Enter a valid email</span>');
       isValid = false;
+
     } else {
-      var regEx = /[a-zA-Z]+@{1}[a-zA-Z]+\.{1}[a-zA-Z]{2,4}/;
+      var regEx = /[a-zA-Z]+@{1}[a-zA-Z]+\.{1}[a-zA-Z]{2,25}/;
       var validEmail = regEx.test(email);
       if (!validEmail) {
         $('#email').after('<span class="error">Enter a valid email</span>');
         isValid = false;
       }
     }
-    if (phone.length < 1) {
-          $('#phone').after('<span class="error">This field is required</span>');
+
+    if (phone.length < 6 || phone.length > 12) {
+          $('#phone').after('<span class="error">Enter a valid phone</span>');
           isValid = false;
         } else {
           var regEx = /[+]{0,1}\d{6,12}/;
@@ -36,11 +39,12 @@ $(document).ready(function() {
             isValid = false;
           }
         }
-    if (password.length < 1) {
-          $('#password').after('<span class="error">This field is required</span>');
+
+    if (password.length < 5 || password.length > 30) {
+          $('#password').after('<span class="error">Password must be 5-30 symbols long</span>');
           isValid = false;
         } else {
-          var regExPass = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{5,}$/;
+          var regExPass = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{5,30}$/;
           var validPass = regExPass.test(password);
           if (!validPass) {
             $('#password').after('<span class="error">Password must be at least 5 symbols long, contains digits and capital letters</span>');
@@ -48,12 +52,12 @@ $(document).ready(function() {
           }
         }
 
-     if (name.length < 2) {
-          $('#name').after('<span class="error">Name must be at least 2 characters long</span>');
+     if (name.length < 2 || name.length > 30) {
+          $('#name').after('<span class="error">Name must be 2-30 characters long</span>');
           isValid = false;
         }
-        if (surName.length < 2) {
-          $('#surName').after('<span class="error">Surname must be at least 2 characters long</span>');
+        if (surName.length < 2 || surName.length > 35) {
+          $('#surName').after('<span class="error">Surname must be 2-35 symbols long</span>');
           isValid = false;
         }
     if(isValid){

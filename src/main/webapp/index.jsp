@@ -24,8 +24,7 @@
 <div class="intro_inner">
     <h1 class="intro_title">Welcome to <br> computer repair agency<br></h1>
     <a class="consultation_button" href="${PATH}/create_order">Enter</a>
-    <ctg:info-time/>
-    <h1>Testing Our First Tag File</p>
+    <p>Testing Our First Tag File</p>
     <p>Date in short format is: <tf:tagfileone/></p>
 </div>
 </div>

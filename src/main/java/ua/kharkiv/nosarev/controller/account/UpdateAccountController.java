@@ -55,8 +55,7 @@ public class UpdateAccountController extends HttpServlet {
         account.setLocale(UserLocale.valueOf(req.getParameter("locale")));
         try {
             session.setAttribute("user", userService.updateUser(account));
-            session.setAttribute("infoMessage", InfoMessage.UPDATING_ACCOUNT.toString());
-
+            session.setAttribute("infoMessage", InfoMessage.UPDATING_ACCOUNT_SUCCESS.toString());
         } catch (RegistrationException exception) {
             session.setAttribute("infoMessage", InfoMessage.WRONG_FIELDS.toString());
         }

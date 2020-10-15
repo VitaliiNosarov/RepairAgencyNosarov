@@ -1,7 +1,7 @@
 package ua.kharkiv.nosarev.controller.account;
 
-import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.entitie.User;
+import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 import ua.kharkiv.nosarev.services.api.UserService;
 
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 @WebServlet("/updateUser")
-public class UpdateAccountAdminController extends HttpServlet {
+public class AdminUpdateAccountController extends HttpServlet {
 
     private UserService userService;
 
@@ -38,13 +38,18 @@ public class UpdateAccountAdminController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long accountId = Long.parseLong(req.getParameter("accountId"));
         User account = userService.getUserById(accountId);
-        if (!req.getParameter("balance").equals("")) {
-            account.setBalance(new BigDecimal(req.getParameter("balance")));
+        String balance = req.getParameter("balance");
+        HttpSession session = req.getSession();
+        if (balance != null && balance.length() > 0) {
+            try {
+                account.setBalance(new BigDecimal(balance));
+            } catch (IllegalArgumentException | NullPointerException ex) {
+                session.setAttribute("infoMessage", InfoMessage.WRONG_FIELDS);
+            }
         }
         account.setRole(UserRole.valueOf(req.getParameter("role")));
         userService.updateUser(account);
-        HttpSession session = req.getSession();
-        session.setAttribute("infoMessage", InfoMessage.UPDATING_ACCOUNT.toString());
+        session.setAttribute("infoMessageSuccess", InfoMessage.UPDATING_ACCOUNT_SUCCESS);
         resp.sendRedirect("updateUser?accountId=" + accountId);
     }
 

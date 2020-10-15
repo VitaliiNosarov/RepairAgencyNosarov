@@ -12,9 +12,9 @@ public interface UserService {
 
     User getUserByEmailPass(String userEmail, String userPass) throws AuthenticationException;
 
-    User saveUser(User user) throws RegistrationException;
+    User saveUser(User user);
 
-    User updateUser(User user) throws RegistrationException;
+    User updateUser(User user);
 
     User getUserById(long id);
 
@@ -22,9 +22,6 @@ public interface UserService {
 
     List<User> getAllUsersByRole(UserRole role);
 
-    boolean deleteUserById(long userId);
-
     int getAmountOfUsers();
 
-//    boolean checkRole(UserRole expectedRole, long userId);
 }

@@ -120,7 +120,7 @@
   <div class="col-sm-10">
     <c:choose>
       <c:when test="${sessionScope.user.role == 'ADMIN'}">
-          <input type="number" min="0" step="any" class="form-control" id="price" name="price" value="${order.price}" placeholder="${order.price}">
+          <input type="number" min="0" max="10000" step="any" class="form-control" id="price" name="price" value="${order.price}" placeholder="${order.price}">
       </c:when>
       <c:otherwise>
           <input type="text" readonly class="form-control" id="Price" name="price" value="${order.price}" placeholder="${order.price}">

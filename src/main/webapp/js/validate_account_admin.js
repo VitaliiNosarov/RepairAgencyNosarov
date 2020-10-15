@@ -10,6 +10,9 @@ $(document).ready(function() {
 
     $(".error").remove();
 
+if(balance.length > 5){
+        isValid = false;
+}
     if (balance.length > 0) {
       var regEx = /^[0-9]+$/;
           var validBalance = regEx.test(balance);

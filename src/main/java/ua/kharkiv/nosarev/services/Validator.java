@@ -10,13 +10,16 @@ import java.util.regex.Pattern;
 public class Validator {
 
     private static final String EMAIL_PATTERN = "[a-zA-Z]+@{1}[a-zA-Z]+\\.{1}[a-zA-Z]{2,4}";
-    private static final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{5,}$";
+    private static final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.)(?=.*[a-zA-Z]).{5,}$";
     private static final String PHONE_PATTERN = "[+]{0,1}\\d{6,12}";
 
     private Validator() {
     }
 
     public static boolean validateEmail(String email) {
+        if (email.length() < 5 || email.length() > 25) {
+            return false;
+        }
         if (email == null) {
             return false;
         }
@@ -29,8 +32,8 @@ public class Validator {
         if (password == null) {
             return false;
         }
-        if (password.length() == 128) {
-            return true;
+        if (password.length() < 5 || password.length() > 128) {
+            return false;
         }
         Pattern patternMail = Pattern.compile(PASSWORD_PATTERN);
         Matcher matcher = patternMail.matcher(password);
@@ -39,6 +42,9 @@ public class Validator {
 
     public static boolean validatePhone(String phone) {
         if (phone == null) {
+            return false;
+        }
+        if (phone.length() < 6 || phone.length() > 12) {
             return false;
         }
         Pattern patternMail = Pattern.compile(PHONE_PATTERN);
@@ -54,6 +60,12 @@ public class Validator {
                 || user.getPassword() == null || user.getPhone() == null || user.getLocale() == null) {
             return false;
         }
+        if (user.getName().length() < 2 || user.getName().length() > 30) {
+            return false;
+        }
+        if (user.getSurName().length() < 2 || user.getSurName().length() > 35) {
+            return false;
+        }
         return validateEmail(user.getEmail()) && validatePassword(user.getPassword()) && validatePhone(user.getPhone())
                 && user.getName().length() >= 2 && user.getSurName().length() >= 2;
     }
@@ -62,10 +74,10 @@ public class Validator {
         if (order == null) {
             return false;
         }
-        if (order.getDevice().length() > 60 && order.getDevice().length() < 5) {
+        if (order.getDevice().length() < 5 || order.getDevice().length() > 60) {
             return false;
         }
-        if (order.getComment().length() > 1000 && order.getComment().length() < 10) {
+        if (order.getComment().length() < 10 || order.getComment().length() > 1000) {
             return false;
         }
 

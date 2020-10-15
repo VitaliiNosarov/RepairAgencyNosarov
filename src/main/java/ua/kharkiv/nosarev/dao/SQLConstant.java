@@ -2,16 +2,12 @@ package ua.kharkiv.nosarev.dao;
 
 public class SQLConstant {
 
-    public static final String GROUP_BY_ID = " GROUP BY id ";
-    public static final String LIMIT = " LIMIT ?, ?";
-    public static final String ORDER_BY = " ORDER BY ";
-    public static final String REVERSE = " DESC ";
-    public static final String WHERE = " WHERE ";
+
 
     public static final String GET_USER_BY_EMAIL_PASS = "SELECT * FROM account where email = ?;";
     public static final String GET_USER_BY_ID = "SELECT * FROM account where id = ?;";
     public static final String DELETE_USER_BY_EMAIL = "DELETE FROM account WHERE id = ?";
-    public static final String FIND_USERS = "SELECT * FROM account " + LIMIT;
+    public static final String FIND_USERS = "SELECT * FROM account LIMIT ?, ?";
     public static final String GET_ALL_USERS_BY_ROLE = "SELECT * FROM account WHERE role = ?";
     public static final String GET_ROLE_BY_USER_ID = "select role from account where id = ?";
     public static final String GET_AMOUNT_OF_USERS = "SELECT COUNT(*) AS count FROM account ";
@@ -35,8 +31,8 @@ public class SQLConstant {
             "LEFT JOIN service_en AS s ON s.service_id = b_s.service_id " +
             "LEFT JOIN account as acc on b.master_account_id = acc.id " +
             "LEFT JOIN account on b.user_account_id = account.id ";
-    public static final String GET_ORDER_BY_ID = FIND_ORDERS + " WHERE b.id = ?" + GROUP_BY_ID;
-    public static final String GET_ALL_ORDERS_BY_USER_ID = FIND_ORDERS + " WHERE user_account_id  = ?" + GROUP_BY_ID;
+    public static final String GET_ORDER_BY_ID = FIND_ORDERS + " WHERE b.id = ? GROUP BY id";
+    public static final String GET_ALL_ORDERS_BY_USER_ID = FIND_ORDERS + " WHERE user_account_id  = ? GROUP BY id";
 
     public static final String GET_FEEDBACK = "SELECT booking_id, feedback_text, creating_time, rate FROM feedback WHERE booking_id = ?";
     public static final String SAVE_FEEDBACK = "INSERT INTO feedback (booking_id, feedback_text, rate) VALUES (?, ?, ?)";

@@ -40,7 +40,6 @@ public class ContextListener implements ServletContextListener {
     private UserService userService;
     private PaymentService paymentService;
     private OfficeService officeService;
-    private PaginationService paginationService;
     private int countOfNewOrders;
     private ServletContext ctx;
 
@@ -57,7 +56,6 @@ public class ContextListener implements ServletContextListener {
         ctx.setAttribute("userService", userService);
         ctx.setAttribute("orderService", orderService);
         ctx.setAttribute("officeService", officeService);
-        ctx.setAttribute("paginationService", paginationService);
         ctx.setAttribute("feedbackService", feedbackService);
         ctx.setAttribute("paymentService", paymentService);
         ctx.setAttribute("countOfNewOrders", countOfNewOrders);
@@ -75,9 +73,8 @@ public class ContextListener implements ServletContextListener {
             feedbackDao = new FeedbackDaoImpl(ds);
             paymentDao = new PaymentDaoImpl(ds);
             userService = new UserServiceImpl(userDao);
-            orderService = new OrderServiceImpl(orderDao);
-            paginationService = new PaginationService(userService);
             feedbackService = new FeedbackServiceImpl(feedbackDao);
+            orderService = new OrderServiceImpl(orderDao, userService);
             officeService = new OfficeServiceImpl(officeDao);
             paymentService = new PaymentServiceImpl(orderService, paymentDao);
             countOfNewOrders = orderDao.getNewOrdersAmount();

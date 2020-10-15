@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.apache.tomcat.util.codec.binary.Base64;
 import ua.kharkiv.nosarev.dao.api.UserDao;
 import ua.kharkiv.nosarev.entitie.User;
+import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 import ua.kharkiv.nosarev.exception.AuthenticationException;
 import ua.kharkiv.nosarev.exception.RegistrationException;
@@ -62,7 +63,7 @@ public class UserServiceImpl implements UserService {
             throw new RegistrationException();
         }
         user.setPassword(getSecurePassword(user.getPassword(), getSalt(user.getPassword())));
-        return userDao.insertUser(user);
+        return userDao.saveUser(user);
     }
 
     @Override
@@ -75,7 +76,7 @@ public class UserServiceImpl implements UserService {
         if (!currentUser.getPassword().equals(user.getPassword())) {
             user.setPassword(getSecurePassword(user.getPassword(), getSalt(user.getPassword())));
         }
-        return userDao.insertUser(user);
+        return userDao.saveUser(user);
     }
 
     @Override
@@ -90,16 +91,6 @@ public class UserServiceImpl implements UserService {
             return userDao.getAllUsersByRole(role);
         } else {
             LOGGER.info("Service exception in getAllUsersByRole. User Role  = " + role);
-            throw new ServiceException();
-        }
-    }
-
-    @Override
-    public boolean deleteUserById(long userId) {
-        if (userId != 0) {
-            return userDao.deleteUserById(userId);
-        } else {
-            LOGGER.info("Service exception in deleteUserById. UserId  = " + userId);
             throw new ServiceException();
         }
     }

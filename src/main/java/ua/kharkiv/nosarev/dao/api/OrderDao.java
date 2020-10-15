@@ -1,7 +1,8 @@
 package ua.kharkiv.nosarev.dao.api;
 
 import ua.kharkiv.nosarev.entitie.Order;
-import ua.kharkiv.nosarev.entitie.PaginationObject;
+import ua.kharkiv.nosarev.services.OrderPaginationObject;
+import ua.kharkiv.nosarev.services.api.OfficeService;
 
 import java.util.List;
 
@@ -17,9 +18,9 @@ public interface OrderDao {
 
     boolean updateOrder(Order order);
 
-    List<Order> getOrderRows(String paginationSql, PaginationObject pagObject);
+    List<Order> getOrderRows(OrderPaginationObject pagObject);
 
-    int getRowsAmount(String filter);
+    void setRowsAmount(OrderPaginationObject pagObject);
 
     int getNewOrdersAmount();
 }
