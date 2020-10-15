@@ -1,7 +1,7 @@
 package ua.kharkiv.nosarev.services;
 
 import org.apache.log4j.Logger;
-import ua.kharkiv.nosarev.MessageType;
+import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.PaginationObject;
@@ -53,10 +53,10 @@ public class OrderServiceImpl implements OrderService {
     public String insertOrder(Order order) {
         if (Validator.validateOrder(order)) {
             orderDao.insertOrder(order);
-            return MessageType.CREATING_ORDER.getMessage();
+            return InfoMessage.CREATING_ORDER.toString();
         }
         LOGGER.error("Service Exception in insertOrder " + order);
-        return MessageType.WRONG_FIELDS.getMessage();
+        return InfoMessage.WRONG_FIELDS.toString();
     }
 
     @Override
@@ -67,16 +67,16 @@ public class OrderServiceImpl implements OrderService {
         }
         result = orderDao.updateOrder(order);
         if (result) {
-            return MessageType.UPDATING_ORDER.getMessage();
+            return InfoMessage.UPDATING_ORDER.toString();
         }
-        return MessageType.WRONG_FIELDS.getMessage();
+        return InfoMessage.WRONG_FIELDS.toString();
     }
 
     @Override
     public int getRowsAmount(PaginationField filter, String filterParam) {
         String filterString = "";
         if (filterParam != null && filterParam.length() > 0) {
-            filterString = filter.getName() + " = '" + filterParam + "'";
+            filterString = filter.getQuery() + " = '" + filterParam + "'";
         }
         return orderDao.getRowsAmount(filterString);
     }

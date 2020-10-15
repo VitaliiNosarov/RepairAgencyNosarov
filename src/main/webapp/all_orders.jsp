@@ -58,7 +58,7 @@
                 <select name="filterParam" onchange="submit()">
                 <option value="" ${filterParam == null ? 'selected' : ''}>None</option>
                    <c:forEach items="${statuses}" var="status">
-                      <option value="${status}" ${requestScope.filterParam == status ? 'selected' : ''}>${status.value}</option>
+                      <option value="${status}" ${requestScope.filterParam == status ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="${status}"/></option>
                   </c:forEach>
                 </select>
                 </c:if>
@@ -107,7 +107,7 @@
                         <td> ${order.comment} </td>
                         <td> ${order.services} </td>
                         <td> ${order.price} </td>
-                        <td> <ctg:enumTranslate locale="${sessionScope.language}" status="${order.status}"/></td>
+                        <td> <ctg:enumTranslate locale="${sessionScope.language}" value="${order.status}"/></td>
                         <td> ${order.customerName} ${order.customerSurname} </td>
                         <td> ${order.masterName} ${order.masterSurname}</td>
                         <td> ${order.creatingTime} </td>

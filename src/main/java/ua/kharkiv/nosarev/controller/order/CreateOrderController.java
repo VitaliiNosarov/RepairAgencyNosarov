@@ -1,9 +1,10 @@
-package ua.kharkiv.nosarev.controller;
+package ua.kharkiv.nosarev.controller.order;
 
-import ua.kharkiv.nosarev.dao.api.ServiceDao;
 import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.User;
+import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
+import ua.kharkiv.nosarev.services.api.OfficeService;
 import ua.kharkiv.nosarev.services.api.OrderService;
 
 import javax.servlet.ServletConfig;
@@ -19,19 +20,20 @@ import java.util.List;
 @WebServlet("/create_order")
 public class CreateOrderController extends HttpServlet {
 
-    private ServiceDao serviceDao;
+    private OfficeService officeService;
     private OrderService orderService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         orderService = (OrderService) config.getServletContext().getAttribute("orderService");
-        serviceDao = (ServiceDao) config.getServletContext().getAttribute("serviceDao");
+        officeService = (OfficeService) config.getServletContext().getAttribute("officeService");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Service> list = serviceDao.getAllServices();
+        UserLocale language = UserLocale.valueOf(req.getSession().getAttribute("language").toString());
+        List<Service> list = officeService.getAllServices(language);
         req.setAttribute("list", list);
         req.getRequestDispatcher("create_order.jsp").forward(req, resp);
     }

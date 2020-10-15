@@ -30,9 +30,9 @@ public class SQLConstant {
     public static final String FIND_ORDERS = "SELECT b.id, b.price, b.customer_comment, b.device, b.creating_time, " +
             "b.master_account_id, account.name AS customer_name, account.surname As customer_surname, " +
             "b.user_account_id, acc.name AS master_name, acc.surname AS master_surname, b.order_status, " +
-            "group_concat(Distinct s.id, ' ', s.name SEPARATOR ',') AS services FROM booking AS b " +
+            "group_concat(Distinct s.service_id, ' ', s.name SEPARATOR ',') AS services FROM booking AS b " +
             "LEFT JOIN booking_service AS b_s ON b_s.booking_id = b.id " +
-            "LEFT JOIN service AS s ON s.id = b_s.service_id " +
+            "LEFT JOIN service_en AS s ON s.service_id = b_s.service_id " +
             "LEFT JOIN account as acc on b.master_account_id = acc.id " +
             "LEFT JOIN account on b.user_account_id = account.id ";
     public static final String GET_ORDER_BY_ID = FIND_ORDERS + " WHERE b.id = ?" + GROUP_BY_ID;
@@ -41,7 +41,8 @@ public class SQLConstant {
     public static final String GET_FEEDBACK = "SELECT booking_id, feedback_text, creating_time, rate FROM feedback WHERE booking_id = ?";
     public static final String SAVE_FEEDBACK = "INSERT INTO feedback (booking_id, feedback_text, rate) VALUES (?, ?, ?)";
 
-    public static final String GET_ALL_SERVICES = "SELECT id, name FROM service";
+    public static final String GET_ALL_SERVICES = "SELECT service_id, name FROM service_%s";
+
     public static final String GET_AMOUNT_OF_ORDERS = "SELECT COUNT(*) AS count FROM booking ";
     public static final String GET_AMOUNT_OF_NEW_ORDERS = "SELECT COUNT(*) AS count FROM booking WHERE order_status = 'WAITING_FOR_PROCESSING'";
 

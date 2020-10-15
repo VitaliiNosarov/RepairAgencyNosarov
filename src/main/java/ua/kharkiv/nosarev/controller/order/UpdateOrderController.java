@@ -1,4 +1,4 @@
-package ua.kharkiv.nosarev.controller;
+package ua.kharkiv.nosarev.controller.order;
 
 import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.User;

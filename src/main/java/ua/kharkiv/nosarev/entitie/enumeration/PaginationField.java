@@ -7,13 +7,13 @@ public enum PaginationField {
     STATUS("order_status"),
     MASTER("master_account_id");
 
-    private String name;
+    private String query;
 
     PaginationField(String name) {
-        this.name = name;
+        this.query = name;
     }
 
-    public String getName() {
-        return name;
+    public String getQuery() {
+        return query;
     }
 }

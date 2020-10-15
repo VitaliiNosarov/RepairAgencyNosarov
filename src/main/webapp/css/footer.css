@@ -5,3 +5,8 @@ footer ,.push {
   height: 80px;
 }
 
+@media screen and (max-width: 500px) {
+  footer{
+    height: 150px;
+  }
+}

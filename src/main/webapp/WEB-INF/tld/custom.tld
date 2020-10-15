@@ -7,11 +7,6 @@
     <short-name>ctg</short-name>
     <uri>customtags</uri>
 
-    <tag>
-        <name>info-time</name>
-        <tag-class>ua.kharkiv.nosarev.tag.InfoTimeTag</tag-class>
-        <body-content>empty</body-content>
-    </tag>
 
     <tag>
         <name>enumTranslate</name>
@@ -24,7 +19,7 @@
         </attribute>
 
         <attribute>
-            <name>status</name>
+            <name>value</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

@@ -1,0 +1,15 @@
+package ua.kharkiv.nosarev.entitie.enumeration;
+
+public enum InfoMessage {
+
+    REGISTRATION_SUCCESS,
+    WRONG_REGISTRATION,
+    UPDATING_ORDER,
+    UPDATING_ACCOUNT,
+    CREATING_ORDER,
+    ADD_FEEDBACK_SUCCESS,
+    WRONG_FIELDS,
+    PAYMENT_SUCCESS,
+    PAYMENT_DENIED,
+    WRONG_AUTHENTICATION;
+}

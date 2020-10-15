@@ -3,7 +3,7 @@ header {
   overflow: hidden;
   background-color: #f5f5f5;
   padding: 5px 10px;
-  max-height: 120px;
+  height: 120px;
 }
 
 /* Style the header links */
@@ -60,6 +60,14 @@ header a:hover {
 }
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
 @media screen and (max-width: 500px) {
+
+header {
+  overflow: hidden;
+  background-color: #f5f5f5;
+  padding: 5px 10px;
+  max-height: 260px;
+}
+
   header a {
     float: none;
     display: block;
@@ -67,5 +75,7 @@ header a:hover {
   }
   .right-header {
     float: none;
+    height: 230px;
+    width: max-content;
   }
 }

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="ctg" uri="/WEB-INF/tld/custom.tld" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tf" %>
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
@@ -24,6 +25,8 @@
     <h1 class="intro_title">Welcome to <br> computer repair agency<br></h1>
     <a class="consultation_button" href="${PATH}/create_order">Enter</a>
     <ctg:info-time/>
+    <h1>Testing Our First Tag File</p>
+    <p>Date in short format is: <tf:tagfileone/></p>
 </div>
 </div>
 

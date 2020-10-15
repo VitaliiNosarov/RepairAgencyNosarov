@@ -95,7 +95,7 @@ public class UserDaoImpl implements UserDao {
         List<User> list = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_ALL_USERS_BY_ROLE)) {
-            statement.setInt(1, role.getId());
+            statement.setString(1, role.toString());
             ResultSet set = statement.executeQuery();
             while (set.next()) {
                 list.add(extractUser(set));

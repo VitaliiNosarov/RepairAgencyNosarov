@@ -1,4 +1,4 @@
-package ua.kharkiv.nosarev.controller;
+package ua.kharkiv.nosarev.controller.account;
 
 import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.services.api.UserService;

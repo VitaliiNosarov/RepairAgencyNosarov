@@ -1,6 +1,6 @@
-package ua.kharkiv.nosarev.controller;
+package ua.kharkiv.nosarev.controller.account;
 
-import ua.kharkiv.nosarev.MessageType;
+import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 import ua.kharkiv.nosarev.services.api.UserService;
@@ -44,7 +44,7 @@ public class UpdateAccountAdminController extends HttpServlet {
         account.setRole(UserRole.valueOf(req.getParameter("role")));
         userService.updateUser(account);
         HttpSession session = req.getSession();
-        session.setAttribute("infoMessage", MessageType.UPDATING_ACCOUNT.getMessage());
+        session.setAttribute("infoMessage", InfoMessage.UPDATING_ACCOUNT.toString());
         resp.sendRedirect("updateUser?accountId=" + accountId);
     }
 

@@ -1,7 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="/WEB-INF/tld/custom.tld" %>
 <%@ page isELIgnored="false" %>
+<%@ page session="true" %>
+
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="messages"/>
 
 <html>
 <head>
@@ -38,7 +44,7 @@
                 <td> ${list.email} </td>
                 <td> ${list.phone} </td>
                 <td> ${list.balance} </td>
-                <td> ${list.role} </td>
+                <td> <ctg:enumTranslate locale="${sessionScope.language}" value="${list.role}"/></td>
                 <td> ${list.locale} </td>
                 <td><button type="submit" name="accountId" value="${list.id}" class="btn btn-info">Update</button></td>
             </form>

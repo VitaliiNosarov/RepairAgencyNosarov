@@ -88,7 +88,7 @@
 <div class="form-group row">
     <label for="Status" class="col-sm-2 col-form-label">Status :</label>
     <div class="col-sm-10">
-      <input type="text" readonly class="form-control" id="Status" value="${order.status.value}">
+      <input type="text" readonly class="form-control" id="Status" value="${order.status}">
     </div>
  </div>
 

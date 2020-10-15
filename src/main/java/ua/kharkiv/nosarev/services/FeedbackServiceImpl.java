@@ -1,7 +1,7 @@
 package ua.kharkiv.nosarev.services;
 
 import org.apache.log4j.Logger;
-import ua.kharkiv.nosarev.MessageType;
+import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.dao.api.FeedbackDao;
 import ua.kharkiv.nosarev.entitie.FeedBack;
 import ua.kharkiv.nosarev.services.api.FeedbackService;
@@ -29,8 +29,8 @@ public class FeedbackServiceImpl implements FeedbackService {
             LOGGER.warn("Service exception in saveFeedback, wrong fields");
         }
         if (result) {
-            return MessageType.ADD_FEEDBACK.getMessage();
+            return InfoMessage.ADD_FEEDBACK_SUCCESS.toString();
         }
-        return MessageType.WRONG_FIELDS.getMessage();
+        return InfoMessage.WRONG_FIELDS.toString();
     }
 }

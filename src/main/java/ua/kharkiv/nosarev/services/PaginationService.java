@@ -83,10 +83,10 @@ public class PaginationService {
             reverse = SQLConstant.REVERSE;
         }
         if (pagObject.getFilterParam() != null && pagObject.getFilterParam().length() > 0) {
-            filterString = SQLConstant.WHERE + pagObject.getFilter().getName() + " = '" + pagObject.getFilterParam() + "'";
+            filterString = SQLConstant.WHERE + pagObject.getFilter().getQuery() + " = '" + pagObject.getFilterParam() + "'";
         }
         String paginationSQL = SQLConstant.FIND_ORDERS + filterString + SQLConstant.GROUP_BY_ID
-                + SQLConstant.ORDER_BY + pagObject.getOrderBy().getName() + reverse + SQLConstant.LIMIT;
+                + SQLConstant.ORDER_BY + pagObject.getOrderBy().getQuery() + reverse + SQLConstant.LIMIT;
         return paginationSQL;
     }
 }

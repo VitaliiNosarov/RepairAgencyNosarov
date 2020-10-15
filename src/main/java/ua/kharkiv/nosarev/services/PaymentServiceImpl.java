@@ -1,7 +1,7 @@
 package ua.kharkiv.nosarev.services;
 
 import org.apache.log4j.Logger;
-import ua.kharkiv.nosarev.MessageType;
+import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.dao.api.PaymentDao;
 import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.Payment;
@@ -26,13 +26,13 @@ public class PaymentServiceImpl implements PaymentService {
         try {
             if (savePayment(order)) {
                 LOGGER.info("Order with No " + orderId + " was successfully paid");
-                return MessageType.PAYMENT_SUCCESS.getMessage();
+                return InfoMessage.PAYMENT_SUCCESS.toString();
             }
         } catch (DatabaseException exception) {
             LOGGER.info("Denied attempt to payOrder No" + orderId + exception);
         }
         LOGGER.info("Denied attempt to payOrder No" + orderId + ". not enough money on balance");
-        return MessageType.PAYMENT_DENIED.getMessage();
+        return InfoMessage.PAYMENT_DENIED.toString();
     }
 
 

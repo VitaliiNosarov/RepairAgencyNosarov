@@ -1,0 +1,10 @@
+body {
+  background: url(../image/banner.jpg) no-repeat;
+  background-size: cover;
+  background-position-y: center;
+}
+
+.content {
+  min-height: calc(90% - 150px);
+}
+

@@ -1,6 +1,6 @@
-package ua.kharkiv.nosarev.controller;
+package ua.kharkiv.nosarev.controller.account;
 
-import ua.kharkiv.nosarev.MessageType;
+import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
 import ua.kharkiv.nosarev.exception.RegistrationException;
@@ -55,10 +55,10 @@ public class UpdateAccountController extends HttpServlet {
         account.setLocale(UserLocale.valueOf(req.getParameter("locale")));
         try {
             session.setAttribute("user", userService.updateUser(account));
-            session.setAttribute("infoMessage", MessageType.UPDATING_ACCOUNT.getMessage());
+            session.setAttribute("infoMessage", InfoMessage.UPDATING_ACCOUNT.toString());
 
         } catch (RegistrationException exception) {
-            session.setAttribute("infoMessage", MessageType.WRONG_FIELDS.getMessage());
+            session.setAttribute("infoMessage", InfoMessage.WRONG_FIELDS.toString());
         }
         resp.sendRedirect("updateAccount?accountId=" + accountId);
     }

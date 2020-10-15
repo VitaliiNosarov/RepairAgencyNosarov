@@ -1,4 +1,4 @@
-package ua.kharkiv.nosarev.controller;
+package ua.kharkiv.nosarev.controller.account;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

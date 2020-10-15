@@ -1,13 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="/WEB-INF/tld/custom.tld" %>
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
+
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="messages"/>
 
 <html>
 <head>
 <title>Order</title>
-<link href="css/user_account.css" rel="stylesheet" type="text/css">
+    <link href="css/user_account.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-3.5.1.min.js"></script>
+     <script src="js/validate_account_admin.js"></script>
 </head>
 
 <body>
@@ -19,7 +26,7 @@
 
 <div class="main_block">
  <div class="inner_block">
-    <form id="registration_form" class="inner_block" action = "updateUser" method = "POST">
+    <form id="account_form" class="inner_block" action = "updateUser" method = "POST">
 
     <input type="hidden" name="accountId" value="${account.id}">
 
@@ -66,17 +73,17 @@
         <label for="Role" class="col-sm-2 col-form-label">Role</label>
          <div class="col-sm-10">
            <select class="custom-select my-1 mr-sm-2" id="Role" name="role">
-                  <option value="ADMIN" ${account.role == 'ADMIN' ? 'selected' : ''}>Admin</option>
-                  <option value="CUSTOMER" ${account.role == 'CUSTOMER' ? 'selected' : ''}>Customer</option>
-                  <option value="MASTER" ${account.role == 'MASTER' ? 'selected' : ''}>Master</option>
+                  <option value="ADMIN" ${account.role == 'ADMIN' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="ADMIN"/></option>
+                  <option value="CUSTOMER" ${account.role == 'CUSTOMER' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="CUSTOMER"/></option>
+                  <option value="MASTER" ${account.role == 'MASTER' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="MASTER"/></option>
            </select>
         </div>
       </div>
 
      <div class="form-group row">
-           <label for="Balance" align="center" class="col-sm-2 col-form-label">Balance</label>
+           <label for="balance" align="center" class="col-sm-2 col-form-label">Balance</label>
            <div class="col-sm-10">
-             <input type="text" id="Balance" class="form-control" name="balance" default="${account.balance}" placeholder="${account.balance}">
+             <input type="number" min="0" step="any" id="balance" class="form-control" name="balance" default="${account.balance}" placeholder="${account.balance}">
            </div>
      </div>
 

@@ -13,7 +13,6 @@
 <html>
 <head>
 <link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet" type="text/css">
-<title>Insert title here</title>
 </head>
 
 <body>
@@ -25,7 +24,7 @@
       <div class="order_count_info">
           <div class="alert alert-info" role="alert">
           <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=STATUS&reverse=false">
-           New orders : <b>${applicationScope.countOfNewOrders}</b></a>
+           <fmt:message key="new.orders.admin.message"/> : <b>${applicationScope.countOfNewOrders}</b></a>
           </div>
       </div>
     </c:if>
@@ -42,20 +41,31 @@
     </c:choose>
 
     <c:if test="${sessionScope.user.role == 'ADMIN'}">
-      <a href="${PATH}/users?currentPage=1&recordsPerPage=10" class="header_link">All users</a>
+      <a href="${PATH}/users?currentPage=1&recordsPerPage=10" class="header_link"><fmt:message key="header.all_users.link"/></a>
     </c:if>
-    <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.role == 'MASTER'}">
-          <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=true" class="header_link">All orders</a>
+
+    <c:if test="${sessionScope.user.role == 'ADMIN'}">
+          <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=true" class="header_link"><fmt:message key="header.all_orders.link"/></a>
         </c:if>
-    <a href="${PATH}/create_order" class="header_link">New order</a>
-     <a href="${PATH}/userOrders" class="header_link">My orders</a>
-    <a href="${PATH}/updateAccount" class="header_link">My account</a>
+    <a href="${PATH}/create_order" class="header_link"><fmt:message key="header.new_order.link"/></a>
+
+    <c:choose>
+         <c:when test="${sessionScope.user.role == 'MASTER'}">
+             <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=true&filter=MASTER&filterParam=${user.id}"
+              class="header_link"><fmt:message key="header.my_orders.link"/></a>
+         </c:when>
+         <c:otherwise>
+             <a href="${PATH}/userOrders" class="header_link"><fmt:message key="header.my_orders.link"/></a>
+         </c:otherwise>
+    </c:choose>
+
+    <a href="${PATH}/updateAccount" class="header_link"><fmt:message key="header.my_account.link"/></a>
     <div class="language">
        <form>
            <label for="locale"></label>
            <select id="locale" class="form-control" name="language" onchange="submit()">
-           <option value="EN" ${language == 'EN' ? 'selected' : ''}><fmt:message key="language.english"/></option>
-           <option value="RU" ${language == 'RU' ? 'selected' : ''}><fmt:message key="language.russian"/></option>
+           <option value="EN" ${language == 'EN' ? 'selected' : ''}><fmt:message key="header.language.english"/></option>
+           <option value="RU" ${language == 'RU' ? 'selected' : ''}><fmt:message key="header.language.russian"/></option>
            </select>
        </form>
        </div>

@@ -12,15 +12,15 @@ public class TranslateEnumTag extends TagSupport {
 
     private ResourceBundle bundle;
     private Locale locale;
-    private String status;
+    private String value;
 
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public void setLocale(String locale) {
-        this.locale = new Locale(UserLocale.valueOf(locale).getValue());
+        this.locale = new Locale(UserLocale.valueOf(locale).toString());
 
     }
 
@@ -28,7 +28,7 @@ public class TranslateEnumTag extends TagSupport {
     public int doStartTag() throws JspException {
         try {
             bundle = ResourceBundle.getBundle("messages", locale);
-            String translatedStatus = bundle.getString(status);
+            String translatedStatus = bundle.getString(value);
             pageContext.getOut().write(translatedStatus);
         } catch (IOException e) {
             throw new JspException(e.getMessage());

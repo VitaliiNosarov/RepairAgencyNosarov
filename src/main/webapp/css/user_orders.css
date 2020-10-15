@@ -10,7 +10,7 @@ body {
 .main_block{
     width: fit-content;
     margin: auto;
-    border-style: double;
+    border-style: groove;
     border-color: 0c4e88;
     border-radius: 10px;
     margin-top: 2%;

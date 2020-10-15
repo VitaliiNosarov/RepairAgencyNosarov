@@ -7,6 +7,8 @@
 
 <head>
 <title>Order</title>
+    <script src="js/jquery-3.5.1.min.js"></script>
+     <script src="js/validate_price.js"></script>
      <link href="css/order.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -18,7 +20,7 @@
 <c:set var="order" value='${requestScope.order}' />
 
 <div class="main_block">
-<form class="order_form" method="Post" action="updateOrder">
+<form class="order_form" method="Post" action="updateOrder" id="order_form">
 
 <h3 align="center"> Order info</h3>
 
@@ -30,7 +32,7 @@
     </c:if>
 
 <div class="form-group row">
-    <label for="CustomerName" class="col-sm-2 col-form-label">Customer :</label>
+    <label for="CustomerName" class="col-sm-2 col-form-label">Customer</label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control" id="CustomerName" value="${order.customerName} ${order.customerSurname}">
     </div>
@@ -38,21 +40,21 @@
 
 
 <div class="form-group row">
-    <label for="Number" class="col-sm-2 col-form-label">Order № :</label>
+    <label for="Number" class="col-sm-2 col-form-label">Order №</label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control" id="orderId" name="orderId" value="${order.id}">
     </div>
  </div>
 
 <div class="form-group row">
-    <label for="Device" class="col-sm-2 col-form-label">Device :</label>
+    <label for="Device" class="col-sm-2 col-form-label">Device</label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control" id="Device" value="${order.device}">
     </div>
 </div>
 
 <div class="form-group row">
-    <label for="CustomerComment" class="col-sm-2 col-form-label">Comment :</label>
+    <label for="CustomerComment" class="col-sm-2 col-form-label">Comment</label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control" id="CustomerComment" value="${order.comment}">
     </div>
@@ -60,7 +62,7 @@
 
 
 <div class="form-group row">
-    <label for="orderServices" class="col-sm-2 col-form-label">Services :</label>
+    <label for="orderServices" class="col-sm-2 col-form-label">Services</label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control" id="orderServices" value="${order.services}">
     </div>
@@ -68,7 +70,7 @@
 
 
 <div class="form-group row">
-    <label for="creatingTime" class="col-sm-2 col-form-label">Was created :</label>
+    <label for="creatingTime" class="col-sm-2 col-form-label">Was created</label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control" id="creatingTime" value="${order.creatingTime}">
     </div>
@@ -76,13 +78,13 @@
 
 <c:if test="${requestScope.feedback != null}">
       <div class="form-group row">
-           <label for="Rate" class="col-sm-2 col-form-label">Rate :</label>
+           <label for="Rate" class="col-sm-2 col-form-label">Rate</label>
            <div class="col-sm-10">
              <input type="text" readonly class="form-control" id="Rate" value="${feedback.rate}">
            </div>
       </div>
       <div class="form-group row">
-          <label for="Feedback" class="col-sm-2 col-form-label">Feedback :</label>
+          <label for="Feedback" class="col-sm-2 col-form-label">Feedback</label>
           <div class="col-sm-10">
             <input type="text" readonly class="form-control" id="Feedback" value="${feedback.comment}">
           </div>
@@ -90,7 +92,7 @@
 </c:if>
 
 <div class="form-group row">
- <label for="Master" class="col-sm-2 col-form-label">Master :</label>
+ <label for="Master" class="col-sm-2 col-form-label">Master</label>
  <div class="col-sm-10">
  <c:choose>
        <c:when test="${sessionScope.user.role == 'ADMIN'}">
@@ -114,11 +116,11 @@
 
 
 <div class="form-group row">
- <label for="Price" class="col-sm-2 col-form-label">Price :</label>
+ <label for="price" class="col-sm-2 col-form-label">Price</label>
   <div class="col-sm-10">
     <c:choose>
       <c:when test="${sessionScope.user.role == 'ADMIN'}">
-          <input type="text" min="0" class="form-control" id="Price" name="price" value="${order.price}" placeholder="${order.price}">
+          <input type="number" min="0" step="any" class="form-control" id="price" name="price" value="${order.price}" placeholder="${order.price}">
       </c:when>
       <c:otherwise>
           <input type="text" readonly class="form-control" id="Price" name="price" value="${order.price}" placeholder="${order.price}">
@@ -130,7 +132,7 @@
 
 
 <div class="form-group row">
- <label for="Status" class="col-sm-2 col-form-label">Status :</label>
+ <label for="Status" class="col-sm-2 col-form-label">Status</label>
   <div class="col-sm-10">
 
    <select class="custom-select my-1 mr-sm-2" id="Status" name="status" >

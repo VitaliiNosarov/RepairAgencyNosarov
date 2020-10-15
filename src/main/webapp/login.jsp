@@ -7,6 +7,7 @@
 
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="messages"/>
+
 <c:set var="PATH" value="${pageContext.request.contextPath}" scope="request"/>
 
 <html>
