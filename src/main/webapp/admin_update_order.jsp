@@ -120,10 +120,10 @@
   <div class="col-sm-10">
     <c:choose>
       <c:when test="${sessionScope.user.role == 'ADMIN'}">
-          <input type="number" min="0" max="10000" step="any" class="form-control" id="price" name="price" value="${order.price}" placeholder="${order.price}">
+          <input type="number" min="0" maxlength = "300" maxlength="5" step="any" class="form-control" id="price" name="price" value="${order.price}" placeholder="${order.price}">
       </c:when>
       <c:otherwise>
-          <input type="text" readonly class="form-control" id="Price" name="price" value="${order.price}" placeholder="${order.price}">
+          <input type="text" readonly class="form-control" id="price" name="price" value="${order.price}" placeholder="${order.price}">
       </c:otherwise>
     </c:choose>
   </div>
@@ -135,19 +135,34 @@
  <label for="Status" class="col-sm-2 col-form-label">Status</label>
   <div class="col-sm-10">
 
-   <select class="custom-select my-1 mr-sm-2" id="Status" name="status" >
       <c:if test="${sessionScope.user.role == 'ADMIN'}">
-          <option value="WAITING_FOR_PAYMENT" ${order.status == 'WAITING_FOR_PAYMENT' ? 'selected' : ''}>Waiting for payment</option>
-          <option value="WAITING_FOR_PROCESSING" ${order.status == 'WAITING_FOR_PROCESSING' ? 'selected' : ''}>Waiting for processing</option>
-          <option value="PAID" ${order.status == 'PAID' ? 'selected' : ''}>Paid</option>
-          <option value="CANCELED" ${order.status == 'CANCELED' ? 'selected' : ''}>Canceled</option>
-          <option value="COMPLETED" ${order.status == 'COMPLETED' ? 'selected' : ''}>Completed</option>
+           <select class="custom-select my-1 mr-sm-2" id="Status" name="status" >
+             <option value="WAITING_FOR_PAYMENT" ${order.status == 'WAITING_FOR_PAYMENT' ? 'selected' : ''}>Waiting for payment</option>
+             <option value="WAITING_FOR_PROCESSING" ${order.status == 'WAITING_FOR_PROCESSING' ? 'selected' : ''}>Waiting for processing</option>
+             <option value="PAID" ${order.status == 'PAID' ? 'selected' : ''}>Paid</option>
+             <option value="CANCELED" ${order.status == 'CANCELED' ? 'selected' : ''}>Canceled</option>
+             <option value="COMPLETED" ${order.status == 'COMPLETED' ? 'selected' : ''}>Completed</option>
+             <option value="IN_WORK" ${order.status == 'IN_WORK' ? 'selected' : ''}>In work</option>
+             <option value="READY_TO_ISSUE" ${order.status == 'READY_TO_ISSUE' ? 'selected' : ''}>Ready to issue</option>
+          </select>
       </c:if>
       <c:if test="${sessionScope.user.role == 'MASTER' && order.masterId == sessionScope.user.id}">
-          <option value="IN_WORK" ${order.status == 'IN_WORK' ? 'selected' : ''}>In work</option>
-          <option value="READY_TO_ISSUE" ${order.status == 'READY_TO_ISSUE' ? 'selected' : ''}>Ready to issue</option>
+      <c:choose>
+               <c:when test="${order.status == 'IN_WORK' || order.status == 'READY_TO_ISSUE'|| order.status == 'PAID'}">
+                     <select class="custom-select my-1 mr-sm-2" id="Status" name="status" >
+                          <option value="PAID" ${order.status == 'PAID' ? 'selected' : ''}>Paid</option>
+                          <option value="IN_WORK" ${order.status == 'IN_WORK' ? 'selected' : ''}>In work</option>
+                          <option value="READY_TO_ISSUE" ${order.status == 'READY_TO_ISSUE' ? 'selected' : ''}>Ready to issue</option>
+                     </select>
+               </c:when>
+               <c:otherwise>
+                   <input type="text" readonly class="form-control" id="Status" name="status" value="${order.status}" placeholder="${order.status}">
+               </c:otherwise>
+       </c:choose>
+
+
       </c:if>
-   </select>
+
   </div>
 </div>
 

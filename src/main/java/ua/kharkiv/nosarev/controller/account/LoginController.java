@@ -3,7 +3,7 @@ package ua.kharkiv.nosarev.controller.account;
 import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.exception.AuthenticationException;
-import ua.kharkiv.nosarev.services.api.UserService;
+import ua.kharkiv.nosarev.service.api.UserService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

@@ -33,7 +33,6 @@ if (password.length < 5 || password.length > 30) {
             isValid = false;
           }
         }
-
     if(isValid){
          $('#login_form')[0].submit();
     }

@@ -4,7 +4,7 @@ import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
 import ua.kharkiv.nosarev.exception.RegistrationException;
-import ua.kharkiv.nosarev.services.api.UserService;
+import ua.kharkiv.nosarev.service.api.UserService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -45,10 +45,10 @@ public class RegistrationController extends HttpServlet {
         HttpSession session = req.getSession();
         try {
             userService.saveUser(user);
-            session.setAttribute("infoMessageSuccess", InfoMessage.REGISTRATION_SUCCESS.toString());
+            session.setAttribute("infoMessageSuccess", InfoMessage.REGISTRATION_SUCCESS);
             resp.sendRedirect("login");
         } catch (RegistrationException exception) {
-            session.setAttribute("infoMessage", InfoMessage.WRONG_REGISTRATION.toString());
+            session.setAttribute("infoMessage", InfoMessage.WRONG_REGISTRATION);
             resp.sendRedirect("registration");
             return;
         }

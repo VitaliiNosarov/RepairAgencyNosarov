@@ -42,7 +42,7 @@ public class PaymentDaoImpl implements PaymentDao {
             if (rs.next()) {
                 userBalance = rs.getBigDecimal("balance");
             }
-            if (userBalance.compareTo(payment.getSum()) > 0) {
+            if (userBalance.compareTo(payment.getSum()) > 0 || userBalance.compareTo(payment.getSum()) == 0) {
                 paymentStatement = connection.prepareStatement(SQLConstant.SAVE_PAYMENT);
                 paymentStatement.setBigDecimal(1, payment.getSum());
                 paymentStatement.setLong(2, payment.getUserId());

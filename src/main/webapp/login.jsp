@@ -1,10 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<%@ taglib prefix="ctg" uri="/WEB-INF/tld/custom.tld" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tf" %>
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
-
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="messages"/>
 
@@ -61,9 +62,9 @@
          </div>
     </c:if>
 
-      <input type="email" id="email" class="fadeIn second" name="email" placeholder="<fmt:message key="login.enter_email" />" required>
+      <input type="email" id="email" maxlength = "25" class="fadeIn second" name="email" placeholder="<fmt:message key="login.enter_email" />" required>
       <br/>
-      <input type="password" id="password" class="fadeIn third" name="password" placeholder="<fmt:message key="login.enter_password" />" required>
+      <input type="password" id="password" maxlength = "30" class="fadeIn third" name="password" placeholder="<fmt:message key="login.enter_password" />" required>
       <br/>
       <input type="submit" class="fadeIn fourth" value="<fmt:message key="login.login_button"/>">
     </form>

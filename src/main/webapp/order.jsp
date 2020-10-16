@@ -26,7 +26,7 @@
 <h3> Order info</h3>
 
     <c:if test="${sessionScope.infoMessage != null}">
-         <div class="alert alert-warning" role="alert">
+         <div class="alert alert-info" role="alert">
                 <center>${infoMessage}</center>
                 <c:remove var="infoMessage"/>
          </div>
@@ -125,7 +125,7 @@
       <div class="form-group row">
           <label for="Feedback" class="col-sm-2 col-form-label">Feedback :</label>
           <div class="col-sm-10">
-            <input type="text" readonly class="form-control" id="Feedback" value="${feedback.comment}">
+            <input type="text" maxlength="300" readonly class="form-control" id="Feedback" value="${feedback.comment}">
           </div>
      </div>
 </c:if>

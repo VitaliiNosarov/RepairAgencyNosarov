@@ -1,10 +1,7 @@
 package ua.kharkiv.nosarev.controller.order;
 
 import ua.kharkiv.nosarev.entitie.Order;
-import ua.kharkiv.nosarev.entitie.User;
-import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
-import ua.kharkiv.nosarev.services.OrderPaginationObject;
-import ua.kharkiv.nosarev.services.api.OrderService;
+import ua.kharkiv.nosarev.service.api.OrderService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;

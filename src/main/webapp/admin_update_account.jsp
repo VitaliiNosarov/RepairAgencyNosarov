@@ -89,7 +89,7 @@
      <div class="form-group row">
            <label for="balance" align="center" class="col-sm-2 col-form-label">Balance</label>
            <div class="col-sm-10">
-             <input type="number" min="0" max="10000" step="any" id="balance" class="form-control" name="balance" default="${account.balance}" placeholder="${account.balance}">
+             <input type="number" min="0" max="10000" maxlength="5" step="any" id="balance" class="form-control" name="balance" default="${account.balance}" placeholder="${account.balance}">
            </div>
      </div>
 

@@ -6,7 +6,7 @@ import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
 import ua.kharkiv.nosarev.exception.DatabaseException;
-import ua.kharkiv.nosarev.services.OrderPaginationObject;
+import ua.kharkiv.nosarev.service.OrderPaginationObject;
 import ua.kharkiv.nosarev.util.DaoUtil;
 
 import javax.sql.DataSource;
@@ -206,13 +206,15 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     private Order addServicesToOrder(String services, Order order) {
-        String[] servicesArray = services.split(",");
-        for (String str : servicesArray) {
-            String[] strService = str.split(" ");
-            Service service = new Service();
-            service.setId(Long.parseLong(strService[0]));
-            service.setName(strService[1]);
-            order.addService(service);
+        if (services != null) {
+            String[] servicesArray = services.split(",");
+            for (String str : servicesArray) {
+                String[] strService = str.split(" ");
+                Service service = new Service();
+                service.setId(Long.parseLong(strService[0]));
+                service.setName(strService[1]);
+                order.addService(service);
+            }
         }
         return order;
     }

@@ -4,8 +4,8 @@ import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
-import ua.kharkiv.nosarev.services.api.OfficeService;
-import ua.kharkiv.nosarev.services.api.OrderService;
+import ua.kharkiv.nosarev.service.api.OfficeService;
+import ua.kharkiv.nosarev.service.api.OrderService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

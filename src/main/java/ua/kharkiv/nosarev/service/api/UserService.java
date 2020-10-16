@@ -1,11 +1,9 @@
-package ua.kharkiv.nosarev.services.api;
+package ua.kharkiv.nosarev.service.api;
 
 import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 import ua.kharkiv.nosarev.exception.AuthenticationException;
-import ua.kharkiv.nosarev.exception.RegistrationException;
 
-import javax.servlet.Registration;
 import java.util.List;
 
 public interface UserService {

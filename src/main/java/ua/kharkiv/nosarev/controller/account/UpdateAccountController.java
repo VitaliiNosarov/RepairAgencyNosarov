@@ -1,10 +1,10 @@
 package ua.kharkiv.nosarev.controller.account;
 
-import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.entitie.User;
+import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
 import ua.kharkiv.nosarev.exception.RegistrationException;
-import ua.kharkiv.nosarev.services.api.UserService;
+import ua.kharkiv.nosarev.service.api.UserService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -28,17 +28,19 @@ public class UpdateAccountController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User account = null;
+        User user = (User) req.getSession().getAttribute("user");
         if (req.getParameter("accountId") != null) {
-            User user = (User) req.getSession().getAttribute("user");
             long accountId = Long.parseLong(req.getParameter("accountId"));
-            User account = userService.getUserById(accountId);
-            if (account.getId() == user.getId()) {
-                req.setAttribute("account", account);
-            } else {
-                resp.sendRedirect("not_rights.jsp");
-                return;
-            }
+            account = userService.getUserById(accountId);
+        } else {
+            account = userService.getUserById(user.getId());
         }
+        if (account.getId() != user.getId()) {
+            resp.sendRedirect("not_rights.jsp");
+            return;
+        }
+        req.setAttribute("account", account);
         req.getRequestDispatcher("account.jsp").forward(req, resp);
     }
 
@@ -55,11 +57,10 @@ public class UpdateAccountController extends HttpServlet {
         account.setLocale(UserLocale.valueOf(req.getParameter("locale")));
         try {
             session.setAttribute("user", userService.updateUser(account));
-            session.setAttribute("infoMessage", InfoMessage.UPDATING_ACCOUNT_SUCCESS.toString());
+            session.setAttribute("infoMessage", InfoMessage.UPDATING_ACCOUNT_SUCCESS);
         } catch (RegistrationException exception) {
-            session.setAttribute("infoMessage", InfoMessage.WRONG_FIELDS.toString());
+            session.setAttribute("infoMessage", InfoMessage.WRONG_FIELDS);
         }
         resp.sendRedirect("updateAccount?accountId=" + accountId);
     }
-
 }

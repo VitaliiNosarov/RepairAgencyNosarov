@@ -1,8 +1,7 @@
-package ua.kharkiv.nosarev.services;
+package ua.kharkiv.nosarev.service;
 
 import ua.kharkiv.nosarev.dao.SQLConstant;
 import ua.kharkiv.nosarev.entitie.enumeration.PaginationField;
-import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
 
 public class OrderPaginationObject {
 

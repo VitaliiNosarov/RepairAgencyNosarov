@@ -1,4 +1,4 @@
-package ua.kharkiv.nosarev.services.api;
+package ua.kharkiv.nosarev.service.api;
 
 import ua.kharkiv.nosarev.entitie.FeedBack;
 

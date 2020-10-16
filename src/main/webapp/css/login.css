@@ -12,7 +12,7 @@ body {
 .error {
   color: red;
   margin-left: 5px;
-
+    display: block;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Poppins');

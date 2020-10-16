@@ -14,7 +14,8 @@ body {
     border-style: groove;
     border-color: 0c4e88
     border-radius: 10px;;
-    padding-top: 3%;
+    padding-top: 2%;
+    margin-top: 3%;
     background-color: #fbfbfb;
     border-radius: 10px;
 }
@@ -36,6 +37,7 @@ body {
 .error {
   color: red;
   margin-left: 5px;
+  display: block;
 }
 
 @media screen and (max-width: 800px) {

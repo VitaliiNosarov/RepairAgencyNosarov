@@ -1,9 +1,9 @@
-package ua.kharkiv.nosarev.services;
+package ua.kharkiv.nosarev.service;
 
 import ua.kharkiv.nosarev.dao.api.OfficeDao;
 import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
-import ua.kharkiv.nosarev.services.api.OfficeService;
+import ua.kharkiv.nosarev.service.api.OfficeService;
 
 import java.util.List;
 

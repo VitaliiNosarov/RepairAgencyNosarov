@@ -46,7 +46,7 @@
         <input type="text" class="form-control" id="userDevice" name="device" maxlength = "60" placeholder="Device model" required>
         <br/>
         <h5 align="center"><label for="userComment">Write your comment</label></h5>
-        <textarea class="form-control" id="userComment" name="comment" rows="3" maxlength = "1000" placeholder="Describe the device malfunction" required></textarea>
+        <textarea class="form-control" id="userComment" name="comment" rows="3" maxlength = "200" placeholder="Describe the device malfunction" required></textarea>
       </div>
     <div class="alert alert-info" role="alert">
         The price and other details of the order will be agreed with the manager

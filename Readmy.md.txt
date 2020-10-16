@@ -1,0 +1,37 @@
+RepairAgency
+Repair agency project
+
+Technology:
+
+Maven;
+MySQL;
+Tomcat;
+Log4J;
+JUnit;
+JSP + JSTL;
+Servlets;
+JDBC;
+Mockito;
+Bootstrap
+Css;
+JavaScript;
+
+Database schema link https://ibb.co/R4f2Zpd
+
+Requirements:
+JDK 1.8+;
+Tomcat 9+;
+MySQL 5.6+
+
+How to run the project:
+
+1: Clone project from Git repository (LINK)
+2: Install MySQL;
+3: Create new Database with RepairAgency script in directory src/main/java/ua/kharkiv/nosarev/sql
+4: Install and run Tomcat Server
+5: Put RepairAgency.war to directory apache-tomcat-VERSION\webapps
+6: Open in browser link http://localhost:8080/RepairAgency/
+
+Admin:
+email: vitalii@gmail.com
+password: Admin1

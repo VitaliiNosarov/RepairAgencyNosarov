@@ -1,22 +1,21 @@
-package ua.kharkiv.nosarev.services;
+package ua.kharkiv.nosarev.service;
 
 import org.apache.log4j.Logger;
 import org.apache.tomcat.util.codec.binary.Base64;
 import ua.kharkiv.nosarev.dao.api.UserDao;
 import ua.kharkiv.nosarev.entitie.User;
-import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 import ua.kharkiv.nosarev.exception.AuthenticationException;
 import ua.kharkiv.nosarev.exception.RegistrationException;
 import ua.kharkiv.nosarev.exception.ServiceException;
-import ua.kharkiv.nosarev.services.api.UserService;
+import ua.kharkiv.nosarev.service.api.UserService;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-import static ua.kharkiv.nosarev.services.Validator.*;
+import static ua.kharkiv.nosarev.service.Validator.*;
 
 public class UserServiceImpl implements UserService {
 

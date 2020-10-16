@@ -5,8 +5,8 @@ import org.apache.log4j.PropertyConfigurator;
 import ua.kharkiv.nosarev.dao.*;
 import ua.kharkiv.nosarev.dao.api.*;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
-import ua.kharkiv.nosarev.services.*;
-import ua.kharkiv.nosarev.services.api.*;
+import ua.kharkiv.nosarev.service.*;
+import ua.kharkiv.nosarev.service.api.*;
 import ua.kharkiv.nosarev.util.SecurityUtil;
 
 import javax.naming.Context;

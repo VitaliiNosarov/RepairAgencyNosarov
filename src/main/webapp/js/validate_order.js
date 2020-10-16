@@ -24,8 +24,8 @@ $(document).ready(function() {
           $('#userComment').after('<span class="error">This field is required. Min 10 symbols</span>');
           isValid = false;
         }
-    if (comment.length >1000) {
-          $('#userComment').after('<span class="error">Comment can not be longer then 1000 symbols</span>');
+    if (comment.length >200) {
+          $('#userComment').after('<span class="error">Comment can not be longer then 200 symbols</span>');
           isValid = false;
         }
 

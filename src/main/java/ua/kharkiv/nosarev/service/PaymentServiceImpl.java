@@ -1,4 +1,4 @@
-package ua.kharkiv.nosarev.services;
+package ua.kharkiv.nosarev.service;
 
 import org.apache.log4j.Logger;
 import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
@@ -7,8 +7,8 @@ import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.Payment;
 import ua.kharkiv.nosarev.exception.DatabaseException;
 import ua.kharkiv.nosarev.exception.ServiceException;
-import ua.kharkiv.nosarev.services.api.OrderService;
-import ua.kharkiv.nosarev.services.api.PaymentService;
+import ua.kharkiv.nosarev.service.api.OrderService;
+import ua.kharkiv.nosarev.service.api.PaymentService;
 
 public class PaymentServiceImpl implements PaymentService {
 

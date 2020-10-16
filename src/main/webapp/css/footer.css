@@ -2,7 +2,12 @@ footer ,.push {
   text-align: center;
   background-color: #374c61;
   color: white;
-  height: 80px;
+  height: 100px;
+}
+
+.date{
+    float: right;
+    padding-right: 10px;
 }
 
 @media screen and (max-width: 500px) {

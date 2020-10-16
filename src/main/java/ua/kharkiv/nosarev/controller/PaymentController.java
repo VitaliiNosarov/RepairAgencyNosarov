@@ -3,8 +3,7 @@ package ua.kharkiv.nosarev.controller;
 import ua.kharkiv.nosarev.entitie.Payment;
 import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
-import ua.kharkiv.nosarev.services.PaymentServiceImpl;
-import ua.kharkiv.nosarev.services.api.PaymentService;
+import ua.kharkiv.nosarev.service.api.PaymentService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

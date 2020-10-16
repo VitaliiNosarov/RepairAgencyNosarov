@@ -1,4 +1,4 @@
-package ua.kharkiv.nosarev.services;
+package ua.kharkiv.nosarev.service;
 
 import ua.kharkiv.nosarev.entitie.FeedBack;
 import ua.kharkiv.nosarev.entitie.Order;
@@ -11,7 +11,7 @@ public class Validator {
 
     private static final String EMAIL_PATTERN = "[a-zA-Z]+@{1}[a-zA-Z]+\\.{1}[a-zA-Z]{2,4}";
     private static final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.)(?=.*[a-zA-Z]).{5,}$";
-    private static final String PHONE_PATTERN = "[+]{0,1}\\d{6,12}";
+    private static final String PHONE_PATTERN = "(^[0-9]{6,12})[^a-zA-Zа-яА-Я]|^$";
 
     private Validator() {
     }
@@ -77,10 +77,9 @@ public class Validator {
         if (order.getDevice().length() < 5 || order.getDevice().length() > 60) {
             return false;
         }
-        if (order.getComment().length() < 10 || order.getComment().length() > 1000) {
+        if (order.getComment().length() < 10 || order.getComment().length() > 200) {
             return false;
         }
-
         return true;
     }
 
@@ -89,7 +88,7 @@ public class Validator {
             return false;
         }
         if (feedBack.getComment() != null) {
-            if (feedBack.getComment().length() > 500) {
+            if (feedBack.getComment().length() > 300) {
                 return false;
             }
         }

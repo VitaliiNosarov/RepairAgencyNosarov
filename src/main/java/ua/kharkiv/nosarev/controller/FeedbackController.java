@@ -2,7 +2,7 @@ package ua.kharkiv.nosarev.controller;
 
 import ua.kharkiv.nosarev.entitie.FeedBack;
 import ua.kharkiv.nosarev.entitie.enumeration.FeedbackRate;
-import ua.kharkiv.nosarev.services.api.FeedbackService;
+import ua.kharkiv.nosarev.service.api.FeedbackService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

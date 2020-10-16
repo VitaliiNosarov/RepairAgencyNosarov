@@ -47,35 +47,35 @@
        <div class="form-group row">
          <label for="email" align="center" class="col-sm-2 col-form-label"><fmt:message key="account.email"/></label>
           <div class="col-sm-10">
-            <input type="email" id="email" class="form-control" name="email" value="${account.email}" placeholder="${account.email}">
+            <input type="email" id="email" class="form-control" name="email" maxlength = "25" value="${account.email}" placeholder="${account.email}">
           </div>
        </div>
 
        <div class="form-group row">
            <label for="password" align="center" class="col-sm-2 col-form-label"><fmt:message key="account.password"/></label>
            <div class="col-sm-10">
-             <input type="password" id="password" class="form-control" name="password" placeholder="**********">
+             <input type="password" id="password" class="form-control" maxlength = "30" name="password" placeholder="**********">
            </div>
         </div>
 
        <div class="form-group row">
            <label for="name" align="center" class="col-sm-2 col-form-label"><fmt:message key="account.name"/></label>
            <div class="col-sm-10">
-             <input type="text" id="name" class="form-control" name="name" value="${account.name}" placeholder="${account.name}">
+             <input type="text" id="name" class="form-control" name="name" maxlength = "30" value="${account.name}" placeholder="${account.name}">
            </div>
        </div>
 
        <div class="form-group row">
               <label for="surName" align="center" class="col-sm-2 col-form-label"><fmt:message key="account.surname"/></label>
            <div class="col-sm-10">
-              <input type="text" id="surName" class="form-control" name="surname" value="${account.surName}" placeholder="${account.surName}">
+              <input type="text" id="surName" class="form-control" name="surname" maxlength = "35" value="${account.surName}" placeholder="${account.surName}">
           </div>
        </div>
 
        <div class="form-group row">
              <label for="phone" align="center" class="col-sm-2 col-form-label"><fmt:message key="account.phone"/></label>
            <div class="col-sm-10">
-             <input type="text" id="phone" class="form-control" name="phone" value="${account.phone}"  placeholder="${account.phone}">
+             <input type="text" id="phone" class="form-control" maxlength = "12" name="phone" value="${account.phone}"  placeholder="${account.phone}">
            </div>
        </div>
 
@@ -84,7 +84,7 @@
            <div class="col-sm-10">
 
            <c:choose>
-                <c:when test="${account.balance == null}">
+                <c:when test="${account.balance <1}">
                         <div class="alert alert-info" role="alert">
                          <fmt:message key="account.balance_message"/>
                         </div>

@@ -1,8 +1,7 @@
 package ua.kharkiv.nosarev.dao.api;
 
 import ua.kharkiv.nosarev.entitie.Order;
-import ua.kharkiv.nosarev.services.OrderPaginationObject;
-import ua.kharkiv.nosarev.services.api.OfficeService;
+import ua.kharkiv.nosarev.service.OrderPaginationObject;
 
 import java.util.List;
 

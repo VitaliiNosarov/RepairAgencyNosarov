@@ -1,4 +1,4 @@
-package ua.kharkiv.nosarev.services;
+package ua.kharkiv.nosarev.service;
 
 import org.apache.log4j.Logger;
 import ua.kharkiv.nosarev.dao.api.OrderDao;
@@ -6,8 +6,8 @@ import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.User;
 import ua.kharkiv.nosarev.entitie.enumeration.*;
 import ua.kharkiv.nosarev.exception.ServiceException;
-import ua.kharkiv.nosarev.services.api.OrderService;
-import ua.kharkiv.nosarev.services.api.UserService;
+import ua.kharkiv.nosarev.service.api.OrderService;
+import ua.kharkiv.nosarev.service.api.UserService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -36,15 +36,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean deleteOrderById(long orderId) {
-        boolean result = false;
-        if (orderId != 0) {
-            result = orderDao.deleteOrderById(orderId);
-        }
-        return result;
-    }
-
-    @Override
     public List<Order> getAllCustomerOrders(long userId) {
         if (userId != 0) {
             return orderDao.getAllCustomerOrders(userId);
@@ -54,13 +45,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public String insertOrder(Order order) {
+    public InfoMessage insertOrder(Order order) {
         if (Validator.validateOrder(order)) {
             orderDao.insertOrder(order);
-            return InfoMessage.CREATING_ORDER.toString();
+            return InfoMessage.CREATING_ORDER_SECCESS;
         }
         LOGGER.error("Service Exception in insertOrder " + order);
-        return InfoMessage.WRONG_FIELDS.toString();
+        return InfoMessage.WRONG_FIELDS;
     }
 
     @Override
@@ -111,7 +102,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private HttpServletRequest setPaginationAttributes(HttpServletRequest req, OrderPaginationObject pagObject) {
-
         if (pagObject.getFilter() != null) {
             req.setAttribute("filter", pagObject.getFilter());
             if (pagObject.getFilterParam() != null) {
