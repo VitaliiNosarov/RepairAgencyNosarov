@@ -1,10 +1,11 @@
 package ua.kharkiv.nosarev.service.api;
 
 import ua.kharkiv.nosarev.entitie.FeedBack;
+import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 
 public interface FeedbackService {
 
     FeedBack getFeedback(long orderId);
 
-    String saveFeedback(FeedBack feedBack);
+    InfoMessage saveFeedback(FeedBack feedBack);
 }

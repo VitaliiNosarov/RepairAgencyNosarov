@@ -10,9 +10,11 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     private static final Logger LOGGER = Logger.getLogger(FeedbackServiceImpl.class);
     private FeedbackDao feedbackDao;
+    private Validator validator;
 
-    public FeedbackServiceImpl(FeedbackDao feedbackDao) {
+    public FeedbackServiceImpl(FeedbackDao feedbackDao,Validator validator) {
         this.feedbackDao = feedbackDao;
+        this.validator = validator;
     }
 
     @Override
@@ -21,14 +23,14 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public String saveFeedback(FeedBack feedBack) {
-        if (Validator.validateFeedback(feedBack)) {
+    public InfoMessage saveFeedback(FeedBack feedBack) {
+        if (validator.validateFeedback(feedBack)) {
             if (feedbackDao.saveFeedback(feedBack)) {
-                return InfoMessage.ADD_FEEDBACK_SUCCESS.toString();
+                return InfoMessage.ADD_FEEDBACK_SUCCESS;
             }
         }
         LOGGER.warn("Service exception in saveFeedback, wrong fields");
-        return InfoMessage.WRONG_FIELDS.toString();
+        return InfoMessage.WRONG_FIELDS;
 
     }
 }

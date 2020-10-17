@@ -17,7 +17,7 @@
     <br/>
     <br/>
     <h1><center>You do not have rights for visiting this page</center></h1>
-    <div class="img"><img src="../image/sorry.png"></div>
+    <div class=".error_image"><img src="../image/sorry.png"></div>
     <h1 align="center"><input type="button" onclick="history.back();" value="back"/></h1>
     <jsp:include page="/page_component/footer.jsp"></jsp:include>
 

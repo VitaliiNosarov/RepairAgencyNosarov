@@ -1,10 +1,11 @@
 package ua.kharkiv.nosarev.service.api;
 
 import ua.kharkiv.nosarev.entitie.Payment;
+import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 
 public interface PaymentService {
 
     Payment getPayment(long orderId);
 
-    public String payOrder(long orderId);
+    InfoMessage payOrder(long orderId);
 }

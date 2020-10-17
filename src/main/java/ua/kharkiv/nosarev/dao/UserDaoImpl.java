@@ -59,20 +59,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean deleteUserById(long userId) {
-        boolean result = false;
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQLConstant.DELETE_USER_BY_EMAIL)) {
-            statement.setLong(1, userId);
-            result = statement.executeUpdate() == 1;
-        } catch (SQLException throwables) {
-            LOGGER.error("Can't delete user with email " + userId + "from database", throwables);
-            throw new DatabaseException();
-        }
-        return result;
-    }
-
-    @Override
     public List<User> findUsers(long startPosition, long recordsPerPage) {
         List<User> list = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
@@ -127,25 +113,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserRole getRoleById(long userId) {
-        UserRole role = null;
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQLConstant.GET_ROLE_BY_USER_ID)) {
-            statement.setLong(1, userId);
-            try (ResultSet set = statement.executeQuery()) {
-                if (set.next()) {
-                    role = UserRole.valueOf(set.getString("role"));
-                }
-            }
-        } catch (SQLException throwables) {
-            LOGGER.error("Can't get user role by id " + userId);
-            throw new DatabaseException();
-        }
-        return role;
-    }
-
-    @Override
-    public int amountOfUsers() {
+    public long amountOfUsers() {
         int amount = 0;
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {

@@ -21,18 +21,18 @@ public class PaymentServiceImpl implements PaymentService {
         this.paymentDao = paymentDao;
     }
 
-    public String payOrder(long orderId) {
+    @Override
+    public InfoMessage payOrder(long orderId) {
         Order order = orderService.getOrderById(orderId);
         try {
             if (savePayment(order)) {
                 LOGGER.info("Order with No " + orderId + " was successfully paid");
-                return InfoMessage.PAYMENT_SUCCESS.toString();
+                return InfoMessage.PAYMENT_SUCCESS;
             }
         } catch (DatabaseException exception) {
             LOGGER.info("Denied attempt to payOrder No" + orderId + exception);
         }
-        LOGGER.info("Denied attempt to payOrder No" + orderId + ". not enough money on balance");
-        return InfoMessage.PAYMENT_DENIED.toString();
+        return InfoMessage.PAYMENT_DENIED;
     }
 
 
@@ -46,11 +46,6 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment getPayment(long orderId) {
-        if (orderId > 0) {
             return paymentDao.getPayment(orderId);
-        } else {
-            LOGGER.error("Service exception in getPayment");
-            throw new ServiceException();
-        }
     }
 }

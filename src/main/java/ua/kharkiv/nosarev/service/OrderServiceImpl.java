@@ -3,8 +3,12 @@ package ua.kharkiv.nosarev.service;
 import org.apache.log4j.Logger;
 import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.entitie.Order;
+import ua.kharkiv.nosarev.entitie.OrderPaginationObject;
 import ua.kharkiv.nosarev.entitie.User;
-import ua.kharkiv.nosarev.entitie.enumeration.*;
+import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
+import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
+import ua.kharkiv.nosarev.entitie.enumeration.PaginationField;
+import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 import ua.kharkiv.nosarev.exception.ServiceException;
 import ua.kharkiv.nosarev.service.api.OrderService;
 import ua.kharkiv.nosarev.service.api.UserService;
@@ -20,15 +24,17 @@ public class OrderServiceImpl implements OrderService {
     private static final Logger LOGGER = Logger.getLogger(OrderServiceImpl.class);
     private OrderDao orderDao;
     private UserService userService;
+    private Validator validator;
 
-    public OrderServiceImpl(OrderDao orderDao, UserService userService) {
+    public OrderServiceImpl(OrderDao orderDao, UserService userService, Validator validator) {
         this.orderDao = orderDao;
         this.userService = userService;
+        this.validator = validator;
     }
 
     @Override
     public Order getOrderById(long orderId) {
-        if (orderId != 0) {
+        if (orderId > 0) {
             return orderDao.getOrderById(orderId);
         }
         LOGGER.error("Service Exception in getOrderById, wrong orderId " + orderId);
@@ -37,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getAllCustomerOrders(long userId) {
-        if (userId != 0) {
+        if (userId > 0) {
             return orderDao.getAllCustomerOrders(userId);
         }
         LOGGER.error("Service Exception in getAllCustomerOrders, wrong userId " + userId);
@@ -46,23 +52,23 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public InfoMessage insertOrder(Order order) {
-        if (Validator.validateOrder(order)) {
+        if (validator.validateOrder(order)) {
             orderDao.insertOrder(order);
-            return InfoMessage.CREATING_ORDER_SECCESS;
+            return InfoMessage.CREATING_ORDER_SUCCESS;
         }
         LOGGER.error("Service Exception in insertOrder " + order);
         return InfoMessage.WRONG_FIELDS;
     }
 
     @Override
-    public String updateOrder(Order order) {
-        if (order == null) {
-            LOGGER.error("Service Exception in updateOrder " + order);
+    public InfoMessage updateOrder(Order order) {
+        if (validator.validateOrder(order)) {
+            if (orderDao.updateOrder(order)) {
+                return InfoMessage.UPDATING_ORDER_SUCCESS;
+            }
         }
-        if (orderDao.updateOrder(order)) {
-            return InfoMessage.UPDATING_ORDER.toString();
-        }
-        return InfoMessage.WRONG_FIELDS.toString();
+        LOGGER.error("Service Exception in updateOrder " + order);
+        return InfoMessage.WRONG_FIELDS;
     }
 
 
@@ -128,7 +134,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void updateNewOrderCount(HttpServletRequest req) {
         ServletContext context = req.getServletContext();
-        int countOfNewOrders = orderDao.getNewOrdersAmount();
+        long countOfNewOrders = orderDao.getNewOrdersAmount();
         context.setAttribute("countOfNewOrders", countOfNewOrders);
     }
 }

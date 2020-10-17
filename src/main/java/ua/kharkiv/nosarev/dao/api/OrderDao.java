@@ -1,15 +1,13 @@
 package ua.kharkiv.nosarev.dao.api;
 
 import ua.kharkiv.nosarev.entitie.Order;
-import ua.kharkiv.nosarev.service.OrderPaginationObject;
+import ua.kharkiv.nosarev.entitie.OrderPaginationObject;
 
 import java.util.List;
 
 public interface OrderDao {
 
     Order getOrderById(long orderId);
-
-    boolean deleteOrderById(long orderId);
 
     List<Order> getAllCustomerOrders(long userId);
 
@@ -21,5 +19,5 @@ public interface OrderDao {
 
     void setRowsAmount(OrderPaginationObject pagObject);
 
-    int getNewOrdersAmount();
+    long getNewOrdersAmount();
 }

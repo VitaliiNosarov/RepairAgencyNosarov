@@ -15,7 +15,7 @@ public interface OrderService {
     InfoMessage insertOrder(Order order);
 
     //update 4 fields
-    String updateOrder(Order order);
+    InfoMessage updateOrder(Order order);
 
     List<Order> findOrders(HttpServletRequest request);
 

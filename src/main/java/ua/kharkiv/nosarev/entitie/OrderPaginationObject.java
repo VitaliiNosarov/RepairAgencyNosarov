@@ -1,4 +1,4 @@
-package ua.kharkiv.nosarev.service;
+package ua.kharkiv.nosarev.entitie;
 
 import ua.kharkiv.nosarev.dao.SQLConstant;
 import ua.kharkiv.nosarev.entitie.enumeration.PaginationField;

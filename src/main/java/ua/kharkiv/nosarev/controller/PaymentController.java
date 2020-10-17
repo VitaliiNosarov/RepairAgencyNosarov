@@ -2,6 +2,7 @@ package ua.kharkiv.nosarev.controller;
 
 import ua.kharkiv.nosarev.entitie.Payment;
 import ua.kharkiv.nosarev.entitie.User;
+import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 import ua.kharkiv.nosarev.service.api.PaymentService;
 
@@ -43,9 +44,8 @@ public class PaymentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long orderId = Long.parseLong(req.getParameter("orderId"));
-        String message = paymentService.payOrder(orderId);
         HttpSession session = req.getSession();
-        session.setAttribute("infoMessage", message);
+        session.setAttribute("infoMessage", paymentService.payOrder(orderId));
         resp.sendRedirect("order?orderId=" + orderId);
     }
 }

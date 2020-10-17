@@ -35,12 +35,13 @@ public class ContextListener implements ServletContextListener {
     private OfficeDao officeDao;
     private FeedbackDao feedbackDao;
     private PaymentDao paymentDao;
+    private Validator validator;
     private FeedbackService feedbackService;
     private OrderService orderService;
     private UserService userService;
     private PaymentService paymentService;
     private OfficeService officeService;
-    private int countOfNewOrders;
+    private long countOfNewOrders;
     private ServletContext ctx;
 
     @Override
@@ -72,9 +73,10 @@ public class ContextListener implements ServletContextListener {
             officeDao = new OfficeDaoImpl(ds);
             feedbackDao = new FeedbackDaoImpl(ds);
             paymentDao = new PaymentDaoImpl(ds);
-            userService = new UserServiceImpl(userDao);
-            feedbackService = new FeedbackServiceImpl(feedbackDao);
-            orderService = new OrderServiceImpl(orderDao, userService);
+            validator = new Validator();
+            userService = new UserServiceImpl(userDao, validator);
+            feedbackService = new FeedbackServiceImpl(feedbackDao, validator);
+            orderService = new OrderServiceImpl(orderDao, userService, validator);
             officeService = new OfficeServiceImpl(officeDao);
             paymentService = new PaymentServiceImpl(orderService, paymentDao);
             countOfNewOrders = orderDao.getNewOrdersAmount();

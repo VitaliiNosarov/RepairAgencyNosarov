@@ -15,21 +15,21 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-import static ua.kharkiv.nosarev.service.Validator.*;
-
 public class UserServiceImpl implements UserService {
 
 
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
     private UserDao userDao;
+    private Validator validator;
 
-    public UserServiceImpl(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao, Validator validator) {
         this.userDao = userDao;
+        this.validator = validator;
     }
 
     @Override
     public User getUserByEmailPass(String userEmail, String userPass) throws AuthenticationException {
-        if (!validateEmail(userEmail) || !validatePassword(userPass)) {
+        if (!validator.validateEmail(userEmail) || !validator.validatePassword(userPass)) {
             throw new AuthenticationException();
         }
         User user = userDao.getUserByEmail(userEmail);
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) throws RegistrationException {
-        if (!validateUser(user)) {
+        if (!validator.validateUser(user)) {
             LOGGER.info("Wrong registration " + user.getEmail());
             throw new RegistrationException();
         }
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(User user) throws RegistrationException {
-        if (!validateUser(user)) {
+        if (!validator.validateUser(user)) {
             LOGGER.info("Can't update account");
             throw new RegistrationException();
         }
@@ -86,16 +86,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsersByRole(UserRole role) {
-        if (role != null) {
             return userDao.getAllUsersByRole(role);
-        } else {
-            LOGGER.info("Service exception in getAllUsersByRole. User Role  = " + role);
-            throw new ServiceException();
-        }
     }
 
     @Override
-    public int getAmountOfUsers() {
+    public long getAmountOfUsers() {
         return userDao.amountOfUsers();
     }
 

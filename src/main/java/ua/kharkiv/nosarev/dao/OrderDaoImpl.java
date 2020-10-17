@@ -6,7 +6,7 @@ import ua.kharkiv.nosarev.entitie.Order;
 import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
 import ua.kharkiv.nosarev.exception.DatabaseException;
-import ua.kharkiv.nosarev.service.OrderPaginationObject;
+import ua.kharkiv.nosarev.entitie.OrderPaginationObject;
 import ua.kharkiv.nosarev.util.DaoUtil;
 
 import javax.sql.DataSource;
@@ -39,20 +39,6 @@ public class OrderDaoImpl implements OrderDao {
             throw new DatabaseException();
         }
         return order;
-    }
-
-    @Override
-    public boolean deleteOrderById(long orderId) {
-        boolean result;
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQLConstant.DELETE_ORDER_BY_ID)) {
-            statement.setLong(1, orderId);
-            result = statement.executeUpdate() == 1;
-        } catch (SQLException throwables) {
-            LOGGER.error("Can't delete order with id " + orderId + "from database", throwables);
-            throw new DatabaseException();
-        }
-        return result;
     }
 
     @Override
@@ -123,8 +109,8 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public int getNewOrdersAmount() {
-        int amountOfRows = 0;
+    public long getNewOrdersAmount() {
+        long amountOfRows = 0;
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
             try (ResultSet rs = statement.executeQuery(SQLConstant.GET_AMOUNT_OF_NEW_ORDERS)) {

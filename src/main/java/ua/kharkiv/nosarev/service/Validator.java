@@ -13,10 +13,10 @@ public class Validator {
     private static final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.)(?=.*[a-zA-Z]).{5,}$";
     private static final String PHONE_PATTERN = "(^[0-9]{6,12})[^a-zA-Zа-яА-Я]|^$";
 
-    private Validator() {
+    public Validator() {
     }
 
-    public static boolean validateEmail(String email) {
+    public boolean validateEmail(String email) {
         if (email.length() < 5 || email.length() > 25) {
             return false;
         }
@@ -28,7 +28,7 @@ public class Validator {
         return matcher.find();
     }
 
-    public static boolean validatePassword(String password) {
+    public boolean validatePassword(String password) {
         if (password == null) {
             return false;
         }
@@ -40,7 +40,7 @@ public class Validator {
         return matcher.find();
     }
 
-    public static boolean validatePhone(String phone) {
+    public boolean validatePhone(String phone) {
         if (phone == null) {
             return false;
         }
@@ -52,7 +52,7 @@ public class Validator {
         return matcher.find();
     }
 
-    public static boolean validateUser(User user) {
+    public boolean validateUser(User user) {
         if (user == null) {
             return false;
         }
@@ -70,20 +70,22 @@ public class Validator {
                 && user.getName().length() >= 2 && user.getSurName().length() >= 2;
     }
 
-    public static boolean validateOrder(Order order) {
+    public boolean validateOrder(Order order) {
         if (order == null) {
             return false;
         }
-        if (order.getDevice().length() < 5 || order.getDevice().length() > 60) {
+        if (order.getDevice() == null || order.getDevice().length() < 5
+                || order.getDevice().length() > 60) {
             return false;
         }
-        if (order.getComment().length() < 10 || order.getComment().length() > 200) {
+        if (order.getComment() == null || order.getComment().length() < 10
+                || order.getComment().length() > 200) {
             return false;
         }
         return true;
     }
 
-    public static boolean validateFeedback(FeedBack feedBack) {
+    public boolean validateFeedback(FeedBack feedBack) {
         if (feedBack == null) {
             return false;
         }

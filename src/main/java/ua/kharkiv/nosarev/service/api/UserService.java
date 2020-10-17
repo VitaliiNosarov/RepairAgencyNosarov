@@ -20,6 +20,6 @@ public interface UserService {
 
     List<User> getAllUsersByRole(UserRole role);
 
-    int getAmountOfUsers();
+    long getAmountOfUsers();
 
 }
