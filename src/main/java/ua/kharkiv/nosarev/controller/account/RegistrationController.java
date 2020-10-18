@@ -32,7 +32,8 @@ public class RegistrationController extends HttpServlet {
         req.getRequestDispatcher("registration.jsp").forward(req, resp);
     }
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         User user = new User();
@@ -50,9 +51,6 @@ public class RegistrationController extends HttpServlet {
         } catch (RegistrationException exception) {
             session.setAttribute("infoMessage", InfoMessage.WRONG_REGISTRATION);
             resp.sendRedirect("registration");
-            return;
         }
-
     }
-
 }

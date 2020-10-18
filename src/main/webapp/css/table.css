@@ -1,7 +1,12 @@
 body {
 }
+
 .content {
   min-height: calc(100% - 150px);
+}
+
+.download_link{
+padding-left: 20px;
 }
 
 .table{

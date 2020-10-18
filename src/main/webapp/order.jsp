@@ -4,7 +4,7 @@
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
-<html>
+<!DOCTYPE html>
 <head>
 <title>Order</title>
     <link href="css/order.css" rel="stylesheet" type="text/css">

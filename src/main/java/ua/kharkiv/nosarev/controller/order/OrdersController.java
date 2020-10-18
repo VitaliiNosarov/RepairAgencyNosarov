@@ -18,7 +18,6 @@ public class OrdersController extends HttpServlet {
 
     private OrderService orderService;
 
-
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);

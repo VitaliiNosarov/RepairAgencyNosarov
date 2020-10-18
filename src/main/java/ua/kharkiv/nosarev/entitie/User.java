@@ -3,9 +3,10 @@ package ua.kharkiv.nosarev.entitie;
 import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
 import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class User extends AbstractEntity{
+public class User extends AbstractEntity implements Serializable {
 
 
     private String email;

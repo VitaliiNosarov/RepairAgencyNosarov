@@ -5,6 +5,8 @@ public class Service extends AbstractEntity {
 
     private String name;
 
+    private String nameRu;
+
     public Service() {
     }
 
@@ -19,6 +21,14 @@ public class Service extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNameRu() {
+        return nameRu;
+    }
+
+    public void setNameRu(String nameRu) {
+        this.nameRu = nameRu;
     }
 
     @Override

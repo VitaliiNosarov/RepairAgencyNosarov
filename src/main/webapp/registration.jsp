@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
- <html>
+ <!DOCTYPE html>
  <head>
      <title>Registration</title>
      <link href="css/registration.css" rel="stylesheet" type="text/css">
@@ -32,35 +32,35 @@
        <div class="form-group row">
          <label for="inputEmail3" align="center" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-10">
-            <input type="email" id="email" class="form-control" name="email" placeholder="Email" required>
+            <input type="email" id="email" class="form-control" name="email" minlength="5" maxlength = "25" placeholder="Email" required>
           </div>
        </div>
 
        <div class="form-group row">
            <label for="inputPassword3" align="center" class="col-sm-2 col-form-label">Password</label>
            <div class="col-sm-10">
-             <input type="password" id="password" class="form-control" name="password"placeholder="Password" required>
+             <input type="password" id="password" class="form-control" name="password" minlength="5" maxlength = "30" placeholder="Password" required>
            </div>
         </div>
 
        <div class="form-group row">
            <label for="inputName3" align="center" class="col-sm-2 col-form-label">Name</label>
            <div class="col-sm-10">
-             <input type="text" id="name" class="form-control" name="name" placeholder="Name" required>
+             <input type="text" id="name" class="form-control" name="name" minlength="2" maxlength = "30" placeholder="Name" required>
            </div>
        </div>
 
        <div class="form-group row">
               <label for="inputLastName3" align="center" class="col-sm-2 col-form-label">Surname</label>
            <div class="col-sm-10">
-              <input type="text" id="surName" class="form-control"name="surname" placeholder="Surname" required>
+              <input type="text" id="surName" class="form-control" name="surname" minlength="2" maxlength = "35" placeholder="Surname" required>
           </div>
        </div>
 
        <div class="form-group row">
              <label for="inputPhone3" align="center" class="col-sm-2 col-form-label">Phone</label>
            <div class="col-sm-10">
-             <input type="text" id="phone" class="form-control"name="phone" placeholder="Phone number" required>
+             <input type="text" id="phone" class="form-control" name="phone" minlength="6" maxlength = "12" placeholder="Phone number" required>
            </div>
        </div>
 

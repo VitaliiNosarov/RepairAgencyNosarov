@@ -19,6 +19,7 @@ import java.io.IOException;
 public class UpdateAccountController extends HttpServlet {
 
     private UserService userService;
+    private static final String ACCOUNT_ID = "accountId";
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -30,8 +31,8 @@ public class UpdateAccountController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User account = null;
         User user = (User) req.getSession().getAttribute("user");
-        if (req.getParameter("accountId") != null) {
-            long accountId = Long.parseLong(req.getParameter("accountId"));
+        if (req.getParameter(ACCOUNT_ID) != null) {
+            long accountId = Long.parseLong(req.getParameter(ACCOUNT_ID));
             account = userService.getUserById(accountId);
         } else {
             account = userService.getUserById(user.getId());
@@ -45,8 +46,8 @@ public class UpdateAccountController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long accountId = Long.parseLong(req.getParameter("accountId"));
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        long accountId = Long.parseLong(req.getParameter(ACCOUNT_ID));
         HttpSession session = req.getSession();
         User account = userService.getUserById(accountId);
         account.setEmail(req.getParameter("email"));

@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 public class TranslateEnumTag extends TagSupport {
 
-    private ResourceBundle bundle;
+
     private Locale locale;
     private String value;
 
@@ -26,6 +26,7 @@ public class TranslateEnumTag extends TagSupport {
 
     @Override
     public int doStartTag() throws JspException {
+        ResourceBundle bundle;
         try {
             bundle = ResourceBundle.getBundle("messages", locale);
             String translatedStatus = bundle.getString(value);

@@ -2,6 +2,7 @@ package ua.kharkiv.nosarev.service;
 
 import ua.kharkiv.nosarev.entitie.FeedBack;
 import ua.kharkiv.nosarev.entitie.Order;
+import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.User;
 
 import java.util.regex.Matcher;
@@ -13,14 +14,8 @@ public class Validator {
     private static final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.)(?=.*[a-zA-Z]).{5,}$";
     private static final String PHONE_PATTERN = "(^[0-9]{6,12})[^a-zA-Zа-яА-Я]|^$";
 
-    public Validator() {
-    }
-
     public boolean validateEmail(String email) {
-        if (email.length() < 5 || email.length() > 25) {
-            return false;
-        }
-        if (email == null) {
+        if (email == null || email.length() < 5 || email.length() > 25) {
             return false;
         }
         Pattern patternMail = Pattern.compile(EMAIL_PATTERN);
@@ -89,11 +84,19 @@ public class Validator {
         if (feedBack == null) {
             return false;
         }
-        if (feedBack.getComment() != null) {
-            if (feedBack.getComment().length() > 300) {
-                return false;
-            }
+        if (feedBack.getComment() == null || feedBack.getComment().length() > 300) {
+            return false;
         }
         return feedBack.getRate() != null;
+    }
+
+    public boolean validateService(Service service) {
+        if (service == null) {
+            return false;
+        }
+        if (service.getName() == null || service.getNameRu() == null) {
+            return false;
+        }
+        return service.getName().length() > 4 && service.getNameRu().length() > 4;
     }
 }

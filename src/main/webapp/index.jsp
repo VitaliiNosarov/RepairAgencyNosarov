@@ -11,7 +11,7 @@
 <fmt:setBundle basename="messages"/>
 <c:set var="language" value="${sessionScope.language}" scope="request"/>
 
-<html>
+<!DOCTYPE html>
 <head>
 <link href="${pageContext.request.contextPath}/css/index.css" rel="stylesheet" type="text/css">
 <title>Repair Agency</title>

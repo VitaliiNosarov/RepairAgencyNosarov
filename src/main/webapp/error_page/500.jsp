@@ -5,13 +5,13 @@
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
-  <html>
+<!DOCTYPE html>
     <head>
          <link href="css/error.css" rel="stylesheet" type="text/css">
          <title>500</title>
     </head>
 
-    <body>
+   <body>
     <jsp:include page="/page_component/header.jsp"></jsp:include>
     <div class="content">
 
@@ -23,5 +23,5 @@
     <jsp:include page="/page_component/footer.jsp"></jsp:include>
 
     </div>
-    </body>
- </html>
+   </body>
+</html>

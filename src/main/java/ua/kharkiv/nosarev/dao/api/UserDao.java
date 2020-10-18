@@ -16,7 +16,7 @@ public interface UserDao {
 
     List<User> getAllUsersByRole(UserRole role);
 
-    User saveUser(User user) throws RegistrationException;
+    User saveUser(User user);
 
     long amountOfUsers();
 }

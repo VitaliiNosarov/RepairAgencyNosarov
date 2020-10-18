@@ -15,6 +15,8 @@ public interface OrderDao {
 
     boolean updateOrder(Order order);
 
+    public List<Order> getAllOrders();
+
     List<Order> getOrderRows(OrderPaginationObject pagObject);
 
     void setRowsAmount(OrderPaginationObject pagObject);

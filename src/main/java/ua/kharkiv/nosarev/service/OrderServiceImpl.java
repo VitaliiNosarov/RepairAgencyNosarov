@@ -15,6 +15,7 @@ import ua.kharkiv.nosarev.service.api.UserService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
@@ -25,11 +26,13 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
     private UserService userService;
     private Validator validator;
+    private OrdersExelWriter ordersExelWriter;
 
     public OrderServiceImpl(OrderDao orderDao, UserService userService, Validator validator) {
         this.orderDao = orderDao;
         this.userService = userService;
         this.validator = validator;
+        ordersExelWriter = new OrdersExelWriter();
     }
 
     @Override
@@ -58,6 +61,11 @@ public class OrderServiceImpl implements OrderService {
         }
         LOGGER.error("Service Exception in insertOrder " + order);
         return InfoMessage.WRONG_FIELDS;
+    }
+
+    @Override
+    public List<Order> getAllOrders() {
+        return orderDao.getAllOrders();
     }
 
     @Override
@@ -136,5 +144,16 @@ public class OrderServiceImpl implements OrderService {
         ServletContext context = req.getServletContext();
         long countOfNewOrders = orderDao.getNewOrdersAmount();
         context.setAttribute("countOfNewOrders", countOfNewOrders);
+    }
+
+    @Override
+    public void uploadOrdersToExel(String path) {
+        try {
+            List<Order> orderList = orderDao.getAllOrders();
+            ordersExelWriter.writeIntoExcel(path, orderList);
+        } catch (IOException e) {
+            LOGGER.error("Exception in uploadOrdersToExel. Can't upload orders to file", e);
+            throw new ServiceException();
+        }
     }
 }

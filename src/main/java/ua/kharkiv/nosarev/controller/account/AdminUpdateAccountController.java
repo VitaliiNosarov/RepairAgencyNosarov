@@ -35,7 +35,7 @@ public class AdminUpdateAccountController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         long accountId = Long.parseLong(req.getParameter("accountId"));
         User account = userService.getUserById(accountId);
         String balance = req.getParameter("balance");

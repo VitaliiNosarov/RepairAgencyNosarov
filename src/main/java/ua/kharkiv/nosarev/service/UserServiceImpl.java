@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByEmailPass(String userEmail, String userPass) throws AuthenticationException {
+    public User getUserByEmailPass(String userEmail, String userPass){
         if (!validator.validateEmail(userEmail) || !validator.validatePassword(userPass)) {
             throw new AuthenticationException();
         }
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(User user) throws RegistrationException {
+    public User saveUser(User user){
         if (!validator.validateUser(user)) {
             LOGGER.info("Wrong registration " + user.getEmail());
             throw new RegistrationException();
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user) throws RegistrationException {
+    public User updateUser(User user){
         if (!validator.validateUser(user)) {
             LOGGER.info("Can't update account");
             throw new RegistrationException();

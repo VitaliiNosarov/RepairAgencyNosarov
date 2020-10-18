@@ -5,7 +5,7 @@
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
-<html>
+<!DOCTYPE html>
 <head>
     <link href="css/order.css" rel="stylesheet" type="text/css">
     <script src="js/jquery-3.5.1.min.js"></script>
@@ -27,14 +27,14 @@
 
      <c:forEach items="${list}" var="list">
     <tr>
-    <th>
+      <th>
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="${list.id}" default="1" name="service" id="Check" ${list.id == '1' ? 'checked' : ''}>
           <label class="form-check-label" for="Check">
           ${list.name}
           </label>
         </div>
-        </th>
+      </th>
     </tr>
     </c:forEach>
 
@@ -43,10 +43,10 @@
       <div class="form-group">
          <br/>
         <h5 align="center"><label for="userDevice">Write your Device model</label></h5>
-        <input type="text" class="form-control" id="userDevice" name="device" maxlength = "60" placeholder="Device model" required>
+        <input type="text" class="form-control" id="userDevice" name="device" minlength="5" maxlength = "60" placeholder="Device model" required>
         <br/>
         <h5 align="center"><label for="userComment">Write your comment</label></h5>
-        <textarea class="form-control" id="userComment" name="comment" rows="3" maxlength = "200" placeholder="Describe the device malfunction" required></textarea>
+        <textarea class="form-control" id="userComment" name="comment" rows="3" minlength="10" maxlength = "200" placeholder="Describe the device malfunction" required></textarea>
       </div>
     <div class="alert alert-info" role="alert">
         The price and other details of the order will be agreed with the manager

@@ -9,7 +9,7 @@
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="messages"/>
 
-<html>
+<!DOCTYPE html>
 <head>
     <link href="css/user_orders.css" rel="stylesheet" type="text/css">
     <title><fmt:message key="user_orders.page_title"/></title>

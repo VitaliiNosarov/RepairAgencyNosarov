@@ -15,7 +15,7 @@ import java.io.UnsupportedEncodingException;
 public class LanguageFilter implements Filter {
 
     static final Logger LOGGER = Logger.getLogger(LanguageFilter.class);
-
+    static final String LANGUAGE = "language";
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -24,13 +24,13 @@ public class LanguageFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         HttpSession session = req.getSession();
-        if (req.getParameter("language") != null) {
-            req.getSession().setAttribute("language", req.getParameter("language"));
+        if (req.getParameter(LANGUAGE) != null) {
+            req.getSession().setAttribute(LANGUAGE, req.getParameter(LANGUAGE));
             resp.sendRedirect(req.getHeader("referer"));
             return;
         }
-        if (session.getAttribute("language") == null) {
-            session.setAttribute("language", UserLocale.EN.toString());
+        if (session.getAttribute(LANGUAGE) == null) {
+            session.setAttribute(LANGUAGE, UserLocale.EN.toString());
         }
         chain.doFilter(request, response);
     }
@@ -42,10 +42,4 @@ public class LanguageFilter implements Filter {
         response.setCharacterEncoding("UTF-8");
     }
 
-
-    public void destroy() {
-    }
-
-    public void init(FilterConfig arg0) throws ServletException {
-    }
 }

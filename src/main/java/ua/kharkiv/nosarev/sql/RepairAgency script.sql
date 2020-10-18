@@ -149,8 +149,8 @@ CREATE TABLE IF NOT EXISTS `repair_Agency`.`service_ru` (
   CONSTRAINT `fk_table1_service1`
     FOREIGN KEY (`service_id`)
     REFERENCES `repair_Agency`.`service_en` (`service_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -164,6 +164,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `repair_Agency`;
 INSERT INTO `repair_Agency`.`account` (`id`, `email`, `password`, `name`, `surname`, `role`, `phone`, `locale`, `balance`) VALUES (1, 'vitalii@gmail.com', '5d934ffe28f76f873341a7c48df62ef0f906c04c032b18e4cc623f0aab73f771ef25c0d24c0a1706f2c40c10bd782ebbab6139efc4813b38f9c5125978163c50', 'Vitalii', 'Nosarov', '1', '0950531840', 'EN', NULL);
+INSERT INTO `repair_Agency`.`account` (`id`, `email`, `password`, `name`, `surname`, `role`, `phone`, `locale`, `balance`) VALUES (2, 'vitalii@gmail.com2', 'fa246cdc0f27891911f4d48201606a4683e00c25131a1ac8c865f40d2b026361758ea9fcf5ae483668e5411e1745d77c3257a19ab1ae0fea488f75093f2ea428', 'Vitalii', 'Nosarov', '3', '0950531840', 'EN', NULL);
+INSERT INTO `repair_Agency`.`account` (`id`, `email`, `password`, `name`, `surname`, `role`, `phone`, `locale`, `balance`) VALUES (3, 'vitalii@gmail.com3', '10b7e7bf03a51cf647d9b595934271e79fa2778f9ed1092d04813d09378e81650b1987865adc4441f9f96d8857a1653e9a09f4db6e3cf109ed113b6b80f7d926', 'Vitalii', 'Nosarov', '2', '0950531840', 'RU', NULL);
 
 COMMIT;
 

@@ -5,7 +5,7 @@
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
-  <html>
+  <!DOCTYPE html>
     <head>
          <link href="css/error.css" rel="stylesheet" type="text/css">
          <title>404</title>

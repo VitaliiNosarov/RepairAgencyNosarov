@@ -62,9 +62,9 @@
          </div>
     </c:if>
 
-      <input type="email" id="email" maxlength = "25" class="fadeIn second" name="email" placeholder="<fmt:message key="login.enter_email" />" required>
+      <input type="email" id="email" minlength="5" maxlength = "25" class="fadeIn second" name="email" placeholder="<fmt:message key="login.enter_email" />" required>
       <br/>
-      <input type="password" id="password" maxlength = "30" class="fadeIn third" name="password" placeholder="<fmt:message key="login.enter_password" />" required>
+      <input type="password" id="password" minlength="5" maxlength = "30" class="fadeIn third" name="password" placeholder="<fmt:message key="login.enter_password" />" required>
       <br/>
       <input type="submit" class="fadeIn fourth" value="<fmt:message key="login.login_button"/>">
     </form>

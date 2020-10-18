@@ -57,7 +57,4 @@ public class AuthorizationFilter implements Filter {
                 || uri.endsWith("index.jsp") || uri.endsWith(".css") || uri.endsWith(".js") || uri.endsWith(".png");
     }
 
-    @Override
-    public void destroy() {
-    }
 }

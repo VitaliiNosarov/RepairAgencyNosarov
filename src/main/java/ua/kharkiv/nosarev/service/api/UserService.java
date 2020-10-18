@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserService {
 
-    User getUserByEmailPass(String userEmail, String userPass) throws AuthenticationException;
+    User getUserByEmailPass(String userEmail, String userPass);
 
     User saveUser(User user);
 

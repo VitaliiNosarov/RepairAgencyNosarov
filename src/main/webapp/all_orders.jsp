@@ -7,6 +7,7 @@
 
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="messages"/>
+<c:set var="PATH" value="${pageContext.request.contextPath}" scope="request"/>
 
 <html>
 <head>
@@ -80,6 +81,10 @@
            <option value="false" ${reverse == 'false' ? 'selected' : ''}>Ascending</option>
          </select>
            <input type="submit" value="Sort">
+
+           <c:if test="${sessionScope.user.role == 'ADMIN'}">
+                <a class="download_link" href="${PATH}/orders_download">  Download report</a>
+           </c:if>
 
     </form>
 

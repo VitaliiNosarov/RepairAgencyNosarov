@@ -14,10 +14,13 @@ public interface OrderService {
 
     InfoMessage insertOrder(Order order);
 
+    public List<Order> getAllOrders();
     //update 4 fields
     InfoMessage updateOrder(Order order);
 
     List<Order> findOrders(HttpServletRequest request);
 
     public void updateNewOrderCount(HttpServletRequest req);
+
+    public void uploadOrdersToExel(String path);
 }

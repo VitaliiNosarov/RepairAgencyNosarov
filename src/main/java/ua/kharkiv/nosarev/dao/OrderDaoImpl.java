@@ -42,6 +42,22 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Order> getAllOrders() {
+        List<Order> orderList;
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+            try (ResultSet rs = statement.executeQuery(SQLConstant.GET_ALL_ORDERS)) {
+                orderList = getOrderListFromResultSet(rs);
+            }
+        } catch (SQLException throwables) {
+            LOGGER.error("Can't get all orders from database", throwables);
+            throw new DatabaseException();
+        }
+        return orderList;
+    }
+
+
+    @Override
     public List<Order> getAllCustomerOrders(long userId) {
         List<Order> list;
         try (Connection connection = dataSource.getConnection();
@@ -193,9 +209,9 @@ public class OrderDaoImpl implements OrderDao {
 
     private Order addServicesToOrder(String services, Order order) {
         if (services != null) {
-            String[] servicesArray = services.split(",");
+            String[] servicesArray = services.split("&");
             for (String str : servicesArray) {
-                String[] strService = str.split(" ");
+                String[] strService = str.split("/");
                 Service service = new Service();
                 service.setId(Long.parseLong(strService[0]));
                 service.setName(strService[1]);

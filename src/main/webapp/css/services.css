@@ -1,0 +1,62 @@
+body {
+  background: url(../image/banner.jpg) no-repeat;
+  background-size: cover;
+  background-position-y: center;
+}
+.content {
+  min-height: calc(100% - 150px);
+}
+.main_block{
+    width: 35%;
+    margin: auto;
+    border-style: groove;
+    border-color: 0c4e88;
+    border-radius: 10px;
+    margin-top: 3%;
+    background-color: #fbfbfb;
+}
+
+.table_block{
+    max-height: 260px;
+    overflow: auto;
+    justify-content: space-evenly;
+    border-style: inset;
+    border-color: #c5cdd4;
+    background-color: white;
+}
+
+.col-sm-10{
+  display: flex;
+}
+
+.update_form{
+    margin: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    position: inherit;
+    margin-top: 3%;
+    width: 90%;
+    text-align: center;
+}
+
+.error {
+  color: red;
+  margin-left: 5px;
+  display: block;
+}
+
+.table table-striped{
+overflow: auto;
+}
+
+.payment_info{
+    text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+  .main_block{
+    width: 100%;
+    margin-top: 0;
+  }
+}

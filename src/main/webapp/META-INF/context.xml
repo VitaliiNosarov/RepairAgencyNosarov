@@ -6,7 +6,7 @@
         type="javax.sql.DataSource"
         username="root"
         password="root"
-        driverClassName="com.mysql.jdbc.Driver"
+        driverClassName="com.mysql.cj.jdbc.Driver"
         url="jdbc:mysql://localhost:3306/repair_agency?useUnicode=yes&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;useSSL=true&amp;verifyServerCertificate=false"
         validationQuery="select 1"
         maxTotal="10"

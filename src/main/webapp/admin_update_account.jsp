@@ -94,7 +94,7 @@
      </div>
 
     <button type="submit" class="btn btn-info">Update</button>
-    <button class="btn btn-info" type="button" onclick="history.back();" class="btn btn-info">Back</button>
+    <button class="btn btn-info" type="button" onclick="window.location.href='${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=true'" class="btn btn-info">Back</button>
 
    </form>
     </div>

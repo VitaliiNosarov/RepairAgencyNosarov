@@ -5,12 +5,10 @@ import ua.kharkiv.nosarev.dao.api.OfficeDao;
 import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
 import ua.kharkiv.nosarev.exception.DatabaseException;
+import ua.kharkiv.nosarev.util.DaoUtil;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +39,40 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new DatabaseException();
         }
         return list;
+    }
+
+    @Override
+    public boolean saveService(Service service) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        PreparedStatement statementRu = null;
+        ResultSet rs = null;
+        boolean result = false;
+        try {
+            connection = dataSource.getConnection();
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(SQLConstant.INSERT_SERVICE_EN, Statement.RETURN_GENERATED_KEYS);
+            statementRu = connection.prepareStatement(SQLConstant.INSERT_SERVICE_RU);
+            statement.setLong(1, service.getId());
+            statement.setString(2, service.getName());
+            statement.executeUpdate();
+            rs = statement.getGeneratedKeys();
+            if (rs.next()) {
+                service.setId(rs.getInt(1));
+            }
+            statementRu.setLong(1, service.getId());
+            statementRu.setString(2, service.getNameRu());
+            statementRu.executeUpdate();
+            connection.commit();
+            result = true;
+            DaoUtil.rollBack(connection);
+        } catch (SQLException ex) {
+            DaoUtil.rollBack(connection);
+            LOGGER.error("Can't save Service to database", ex);
+            throw new DatabaseException();
+        } finally {
+            DaoUtil.close(rs, statementRu, statement, connection);
+        }
+        return result;
     }
 }

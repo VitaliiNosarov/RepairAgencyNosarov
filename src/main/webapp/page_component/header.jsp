@@ -10,7 +10,7 @@
 
 <c:set var="PATH" value="${pageContext.request.contextPath}" scope="request"/>
 
-<html>
+<!DOCTYPE html>
 <head>
 <link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet" type="text/css">
 </head>
@@ -41,11 +41,9 @@
     </c:choose>
 
     <c:if test="${sessionScope.user.role == 'ADMIN'}">
-      <a href="${PATH}/users?currentPage=1&recordsPerPage=10" class="header_link"><fmt:message key="header.all_users.link"/></a>
-    </c:if>
-
-    <c:if test="${sessionScope.user.role == 'ADMIN'}">
+          <a href="${PATH}/users?currentPage=1&recordsPerPage=10" class="header_link"><fmt:message key="header.all_users.link"/></a>
           <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=true" class="header_link"><fmt:message key="header.all_orders.link"/></a>
+          <a href="${PATH}/service_manager" class="header_link">Services</a>
         </c:if>
     <a href="${PATH}/create_order" class="header_link"><fmt:message key="header.new_order.link"/></a>
 

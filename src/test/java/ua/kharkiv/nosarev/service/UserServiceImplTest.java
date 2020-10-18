@@ -63,8 +63,7 @@ public class UserServiceImplTest {
     @Test(expected = AuthenticationException.class)
     public void getUserByEmailPassShouldThrowAuthenticationExceptionWhenPassWrong() {
         when(userDao.getUserByEmail(anyString())).thenReturn(plugUserWrong);
-        User newUser = userService.getUserByEmailPass(user.getEmail(), user.getPassword());
-        assertEquals(user.getEmail(), newUser.getEmail());
+        userService.getUserByEmailPass(user.getEmail(), user.getPassword());
     }
 
     @Test(expected = AuthenticationException.class)

@@ -25,7 +25,7 @@ public class FeedbackController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         long orderId = Long.parseLong(req.getParameter("orderId"));
         FeedBack feedBack = new FeedBack();
         feedBack.setId(orderId);

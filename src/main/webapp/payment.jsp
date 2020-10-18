@@ -5,7 +5,7 @@
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
-<html>
+<!DOCTYPE html>
 <head>
     <link href="css/payment.css" rel="stylesheet" type="text/css">
 

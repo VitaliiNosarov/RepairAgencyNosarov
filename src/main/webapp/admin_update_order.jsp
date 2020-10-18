@@ -167,7 +167,8 @@
 </div>
 
 <button class="btn btn-info" type="submit" class="btn btn-info">Update</button>
-<button class="btn btn-info" type="button" onclick="history.back();" class="btn btn-info">Back</button>
+<button class="btn btn-info" type="button" onclick="window.location.href='${PATH}/users?currentPage=1&recordsPerPage=10'"
+  class="btn btn-info">Back</button>
 </form>
 
 <c:if test="${order.status == 'PAID' || order.status == 'COMPLETED' && sessionScope.user.role == 'ADMIN'}">

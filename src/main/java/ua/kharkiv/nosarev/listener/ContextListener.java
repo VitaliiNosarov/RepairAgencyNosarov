@@ -29,13 +29,6 @@ import java.util.Set;
 public class ContextListener implements ServletContextListener {
 
     private static final Logger LOGGER = Logger.getLogger(ContextListener.class);
-    private DataSource ds;
-    private UserDao userDao;
-    private OrderDao orderDao;
-    private OfficeDao officeDao;
-    private FeedbackDao feedbackDao;
-    private PaymentDao paymentDao;
-    private Validator validator;
     private FeedbackService feedbackService;
     private OrderService orderService;
     private UserService userService;
@@ -65,6 +58,13 @@ public class ContextListener implements ServletContextListener {
     }
 
     private void initializeResources(ServletContextEvent event) {
+        DataSource ds;
+        UserDao userDao;
+        OrderDao orderDao;
+        OfficeDao officeDao;
+        FeedbackDao feedbackDao;
+        PaymentDao paymentDao;
+        Validator validator;
         try {
             Context context = new InitialContext();
             ds = (DataSource) context.lookup("java:comp/env/jdbc/repair_agency");
@@ -77,7 +77,7 @@ public class ContextListener implements ServletContextListener {
             userService = new UserServiceImpl(userDao, validator);
             feedbackService = new FeedbackServiceImpl(feedbackDao, validator);
             orderService = new OrderServiceImpl(orderDao, userService, validator);
-            officeService = new OfficeServiceImpl(officeDao);
+            officeService = new OfficeServiceImpl(officeDao, validator);
             paymentService = new PaymentServiceImpl(orderService, paymentDao);
             countOfNewOrders = orderDao.getNewOrdersAmount();
             ctx = event.getServletContext();
@@ -100,18 +100,13 @@ public class ContextListener implements ServletContextListener {
         ServletContext context = event.getServletContext();
         String securityConfigFile = context.getInitParameter("security-config-location");
         String fullPath = context.getRealPath("") + File.separator + securityConfigFile;
-        try {
-            FileInputStream fis = new FileInputStream(fullPath);
+        try (FileInputStream fis = new FileInputStream(fullPath);) {
             properties.load(fis);
-            Map<UserRole, Set<String>> uriMap = SecurityUtil.initializeUriMap(properties);
-            return uriMap;
+            return SecurityUtil.initializeUriMap(properties);
         } catch (IOException e) {
-            LOGGER.error("Security wasn't initialized, Properties not found");
+            LOGGER.error("Security wasn't initialized, Properties not found" + e);
             throw new RuntimeException();
         }
     }
 
-    @Override
-    public void contextDestroyed(ServletContextEvent event) {
-    }
 }
