@@ -5,7 +5,11 @@
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
-  <!DOCTYPE html>
+
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="messages"/>
+
+  <html>
     <head>
          <link href="css/error.css" rel="stylesheet" type="text/css">
          <title>404</title>
@@ -17,7 +21,7 @@
 
     <br/>
     <br/>
-    <h1><center>Page not found</center></h1>
+    <h1><center><fmt:message key="404.text"/></center></h1>
     <div class=".error_image"><img src="../image/sorry.png"></div>
     <h1 align="center"><input type="button" onclick="history.back();" value="back"/></h1>
     <jsp:include page="/page_component/footer.jsp"></jsp:include>

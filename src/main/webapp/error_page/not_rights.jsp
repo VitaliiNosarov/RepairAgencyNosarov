@@ -5,7 +5,10 @@
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
-  <!DOCTYPE html>
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="messages"/>
+
+  <html>
     <head>
          <link href="css/error.css" rel="stylesheet" type="text/css">
          <title>Denied access</title>
@@ -16,7 +19,7 @@
     <div class="content">
     <br/>
     <br/>
-    <h1><center>You do not have rights for visiting this page</center></h1>
+    <h1><center><fmt:message key="not.rights.text"/></center></h1>
     <div class=".error_image"><img src="../image/sorry.png"></div>
     <h1 align="center"><input type="button" onclick="history.back();" value="back"/></h1>
     <jsp:include page="/page_component/footer.jsp"></jsp:include>

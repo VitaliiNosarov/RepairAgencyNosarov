@@ -37,7 +37,7 @@ public class ServicesController extends HttpServlet {
         long serviceId = Long.parseLong(req.getParameter("serviceId"));
         Service newService = new Service();
         newService.setId(serviceId);
-        newService.setName(req.getParameter("name_en"));
+        newService.setNameEn(req.getParameter("name_en"));
         newService.setNameRu(req.getParameter("name_ru"));
 
         HttpSession session = req.getSession();

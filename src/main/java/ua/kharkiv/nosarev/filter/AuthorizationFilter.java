@@ -54,7 +54,8 @@ public class AuthorizationFilter implements Filter {
 
     private boolean checkUri(String uri) {
         return uri.contains("login") || uri.contains("registration") || uri.endsWith(".jpg")
-                || uri.endsWith("index.jsp") || uri.endsWith(".css") || uri.endsWith(".js") || uri.endsWith(".png");
+                || uri.endsWith("index.jsp") || uri.endsWith(".css")
+                || uri.endsWith(".js") || uri.endsWith(".png");
     }
 
 }

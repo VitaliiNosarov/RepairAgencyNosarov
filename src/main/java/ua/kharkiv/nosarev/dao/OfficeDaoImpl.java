@@ -29,13 +29,14 @@ public class OfficeDaoImpl implements OfficeDao {
             try (ResultSet rs = statement.executeQuery(query)) {
                 while (rs.next()) {
                     Service service = new Service();
-                    service.setId(rs.getLong("service_id"));
-                    service.setName(rs.getString("name"));
+                    service.setId(rs.getLong("en.service_id"));
+                    service.setNameEn(rs.getString("en.name"));
+                    service.setNameRu(rs.getString("ru.name"));
                     list.add(service);
                 }
             }
         } catch (SQLException throwables) {
-            LOGGER.error("Can't get all RU services from database", throwables);
+            LOGGER.error("Can't get all services from database", throwables);
             throw new DatabaseException();
         }
         return list;
@@ -54,7 +55,7 @@ public class OfficeDaoImpl implements OfficeDao {
             statement = connection.prepareStatement(SQLConstant.INSERT_SERVICE_EN, Statement.RETURN_GENERATED_KEYS);
             statementRu = connection.prepareStatement(SQLConstant.INSERT_SERVICE_RU);
             statement.setLong(1, service.getId());
-            statement.setString(2, service.getName());
+            statement.setString(2, service.getNameEn());
             statement.executeUpdate();
             rs = statement.getGeneratedKeys();
             if (rs.next()) {

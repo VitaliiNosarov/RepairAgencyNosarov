@@ -1,12 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="/WEB-INF/tld/custom.tld" %>
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
+
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="messages"/>
+
 <html>
 
 <head>
-<title>Order</title>
+<title><fmt:message key="order.page_title"/></title>
+<link rel="shortcut icon" href="image/icon.png" />
     <script src="js/jquery-3.5.1.min.js"></script>
      <script src="js/validate_price.js"></script>
      <link href="css/order.css" rel="stylesheet" type="text/css">
@@ -22,55 +29,65 @@
 <div class="main_block">
 <form class="order_form" method="Post" action="updateOrder" id="order_form">
 
-<h3 align="center"> Order info</h3>
+<h3 align="center"> <fmt:message key="order.title"/> </h3>
 
     <c:if test="${sessionScope.infoMessage != null}">
          <div class="alert alert-success" role="alert">
-                <center>${infoMessage}</center>
+                <center><ctg:enumTranslate locale="${sessionScope.language}" value="${infoMessage}"/></center>
                 <c:remove var="infoMessage"/>
          </div>
     </c:if>
 
 <div class="form-group row">
-    <label for="CustomerName" class="col-sm-2 col-form-label">Customer</label>
+    <label for="CustomerName" class="col-sm-2 col-form-label"><fmt:message key="order.customer"/></label>
     <div class="col-sm-10">
-      <input type="text" readonly class="form-control" id="CustomerName" value="${order.customerName} ${order.customerSurname}">
+      <input type="text" readonly class="form-control-plaintext" id="CustomerName" value="${order.customerName} ${order.customerSurname}">
     </div>
  </div>
 
 
 <div class="form-group row">
-    <label for="Number" class="col-sm-2 col-form-label">Order №</label>
+    <label for="orderServices" class="col-sm-2 col-form-label"><fmt:message key="order.services"/></label>
+    <div class="col-sm-10" id="orderServices">|
+            <c:choose>
+               <c:when test="${sessionScope.language == 'RU'}">
+                     <c:forEach items="${order.services}" var="service">
+                       ${service.nameRu} |
+                     </c:forEach>
+               </c:when>
+                   <c:otherwise>
+                      <c:forEach items="${order.services}" var="service">
+                         ${service.nameEn} |
+                      </c:forEach>
+                   </c:otherwise>
+            </c:choose>
+    </div>
+</div>
+
+
+<div class="form-group row">
+    <label for="Number" class="col-sm-2 col-form-label">№</label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control" id="orderId" name="orderId" value="${order.id}">
     </div>
  </div>
 
 <div class="form-group row">
-    <label for="Device" class="col-sm-2 col-form-label">Device</label>
+    <label for="Device" class="col-sm-2 col-form-label"><fmt:message key="order.device"/></label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control" id="Device" value="${order.device}">
     </div>
 </div>
 
 <div class="form-group row">
-    <label for="CustomerComment" class="col-sm-2 col-form-label">Comment</label>
+    <label for="CustomerComment" class="col-sm-2 col-form-label"><fmt:message key="order.comment"/></label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control" id="CustomerComment" value="${order.comment}">
     </div>
 </div>
 
-
 <div class="form-group row">
-    <label for="orderServices" class="col-sm-2 col-form-label">Services</label>
-    <div class="col-sm-10">
-      <input type="text" readonly class="form-control" id="orderServices" value="${order.services}">
-    </div>
- </div>
-
-
-<div class="form-group row">
-    <label for="creatingTime" class="col-sm-2 col-form-label">Was created</label>
+    <label for="creatingTime" class="col-sm-2 col-form-label"><fmt:message key="order.creating_time"/></label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control" id="creatingTime" value="${order.creatingTime}">
     </div>
@@ -78,13 +95,13 @@
 
 <c:if test="${requestScope.feedback != null}">
       <div class="form-group row">
-           <label for="Rate" class="col-sm-2 col-form-label">Rate</label>
+           <label for="Rate" class="col-sm-2 col-form-label"><fmt:message key="order.rate"/></label>
            <div class="col-sm-10">
              <input type="text" readonly class="form-control" id="Rate" value="${feedback.rate}">
            </div>
       </div>
       <div class="form-group row">
-          <label for="Feedback" class="col-sm-2 col-form-label">Feedback</label>
+          <label for="Feedback" class="col-sm-2 col-form-label"><fmt:message key="order.feedback"/></label>
           <div class="col-sm-10">
             <input type="text" readonly class="form-control" id="Feedback" value="${feedback.comment}">
           </div>
@@ -92,7 +109,7 @@
 </c:if>
 
 <div class="form-group row">
- <label for="Master" class="col-sm-2 col-form-label">Master</label>
+ <label for="Master" class="col-sm-2 col-form-label"><fmt:message key="order.master"/></label>
  <div class="col-sm-10">
  <c:choose>
        <c:when test="${sessionScope.user.role == 'ADMIN'}">
@@ -116,7 +133,7 @@
 
 
 <div class="form-group row">
- <label for="price" class="col-sm-2 col-form-label">Price</label>
+ <label for="price" class="col-sm-2 col-form-label"><fmt:message key="order.price"/></label>
   <div class="col-sm-10">
     <c:choose>
       <c:when test="${sessionScope.user.role == 'ADMIN'}">
@@ -132,48 +149,46 @@
 
 
 <div class="form-group row">
- <label for="Status" class="col-sm-2 col-form-label">Status</label>
+ <label for="Status" class="col-sm-2 col-form-label"><fmt:message key="order.status"/></label>
   <div class="col-sm-10">
 
       <c:if test="${sessionScope.user.role == 'ADMIN'}">
            <select class="custom-select my-1 mr-sm-2" id="Status" name="status" >
-             <option value="WAITING_FOR_PAYMENT" ${order.status == 'WAITING_FOR_PAYMENT' ? 'selected' : ''}>Waiting for payment</option>
-             <option value="WAITING_FOR_PROCESSING" ${order.status == 'WAITING_FOR_PROCESSING' ? 'selected' : ''}>Waiting for processing</option>
-             <option value="PAID" ${order.status == 'PAID' ? 'selected' : ''}>Paid</option>
-             <option value="CANCELED" ${order.status == 'CANCELED' ? 'selected' : ''}>Canceled</option>
-             <option value="COMPLETED" ${order.status == 'COMPLETED' ? 'selected' : ''}>Completed</option>
-             <option value="IN_WORK" ${order.status == 'IN_WORK' ? 'selected' : ''}>In work</option>
-             <option value="READY_TO_ISSUE" ${order.status == 'READY_TO_ISSUE' ? 'selected' : ''}>Ready to issue</option>
+             <option value="WAITING_FOR_PAYMENT" ${order.status == 'WAITING_FOR_PAYMENT' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="WAITING_FOR_PAYMENT"/></option>
+             <option value="WAITING_FOR_PROCESSING" ${order.status == 'WAITING_FOR_PROCESSING' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="WAITING_FOR_PROCESSING"/></option>
+             <option value="PAID" ${order.status == 'PAID' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="PAID"/></option>
+             <option value="CANCELED" ${order.status == 'CANCELED' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="CANCELED"/></option>
+             <option value="COMPLETED" ${order.status == 'COMPLETED' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="COMPLETED"/></option>
+             <option value="IN_WORK" ${order.status == 'IN_WORK' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="IN_WORK"/></option>
+             <option value="READY_TO_ISSUE" ${order.status == 'READY_TO_ISSUE' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="READY_TO_ISSUE"/></option>
           </select>
       </c:if>
       <c:if test="${sessionScope.user.role == 'MASTER' && order.masterId == sessionScope.user.id}">
       <c:choose>
                <c:when test="${order.status == 'IN_WORK' || order.status == 'READY_TO_ISSUE'|| order.status == 'PAID'}">
                      <select class="custom-select my-1 mr-sm-2" id="Status" name="status" >
-                          <option value="PAID" ${order.status == 'PAID' ? 'selected' : ''}>Paid</option>
-                          <option value="IN_WORK" ${order.status == 'IN_WORK' ? 'selected' : ''}>In work</option>
-                          <option value="READY_TO_ISSUE" ${order.status == 'READY_TO_ISSUE' ? 'selected' : ''}>Ready to issue</option>
+                          <option value="PAID" ${order.status == 'PAID' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="PAID"/></option>
+                          <option value="IN_WORK" ${order.status == 'IN_WORK' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="PAID"/></option>
+                          <option value="READY_TO_ISSUE" ${order.status == 'READY_TO_ISSUE' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="READY_TO_ISSUE"/></option>
                      </select>
                </c:when>
                <c:otherwise>
                    <input type="text" readonly class="form-control" id="Status" name="status" value="${order.status}" placeholder="${order.status}">
                </c:otherwise>
-       </c:choose>
-
-
+      </c:choose>
       </c:if>
 
   </div>
 </div>
 
-<button class="btn btn-info" type="submit" class="btn btn-info">Update</button>
-<button class="btn btn-info" type="button" onclick="window.location.href='${PATH}/users?currentPage=1&recordsPerPage=10'"
-  class="btn btn-info">Back</button>
+<button class="btn btn-info" type="submit" class="btn btn-info"><fmt:message key="order.update_button"/></button>
+<button class="btn btn-info" type="button" onclick="window.location.href='${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=true'"
+  class="btn btn-info"><fmt:message key="order.back_button"/></button>
 </form>
 
 <c:if test="${order.status == 'PAID' || order.status == 'COMPLETED' && sessionScope.user.role == 'ADMIN'}">
   <form action="payment" method="Get" class="payment_info">
-    <button class="btn btn-info" type="submit" name="orderId" value="${order.id}" class="btn btn-info">Payment Info</button>
+    <button class="btn btn-info" type="submit" name="orderId" value="${order.id}" class="btn btn-info"><fmt:message key="order.payment_info_button"/></button>
   </form>
 </c:if>
 

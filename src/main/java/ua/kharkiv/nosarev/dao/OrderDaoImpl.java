@@ -214,7 +214,8 @@ public class OrderDaoImpl implements OrderDao {
                 String[] strService = str.split("/");
                 Service service = new Service();
                 service.setId(Long.parseLong(strService[0]));
-                service.setName(strService[1]);
+                service.setNameEn(strService[1]);
+                service.setNameRu(strService[2]);
                 order.addService(service);
             }
         }

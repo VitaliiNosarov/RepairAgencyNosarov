@@ -1,15 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="/WEB-INF/tld/custom.tld" %>
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
-<!DOCTYPE html>
-<head>
-    <link href="css/payment.css" rel="stylesheet" type="text/css">
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="messages"/>
 
-      <title>Payment</title>
+<html>
+<head>
+        <link href="css/payment.css" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="image/icon.png" />
+        <title><fmt:message key="payment.page_title"/></title>
 </head>
 
 <body>
@@ -24,16 +28,16 @@
  <div id="order_form" class="order_form" action="create_order" method="get">
 
 <br/>
-<h3 align="center">Payment info</h3>
+<h3 align="center"><fmt:message key="payment.title"/></h3>
 <br/>
 <c:choose>
     <c:when test="${empty requestScope.payment}">
-        <h4 align="center">Order was paid with cash in office</h4>
+        <h4 align="center"><fmt:message key="payment.info_message"/></h4>
     </c:when>
     <c:otherwise>
 
     <div class="form-group row">
-        <label for="Payment number" class="col-sm-2 col-form-label">Order №</label>
+        <label for="Payment number" class="col-sm-2 col-form-label"><fmt:message key="payment.order_number"/></label>
         <div class="col-sm-10">
           <input type="text" readonly class="form-control" id="Payment number" value="${payment.id}">
         </div>
@@ -41,14 +45,14 @@
 
 
     <div class="form-group row">
-        <label for="Sum" class="col-sm-2 col-form-label">Sum :</label>
+        <label for="Sum" class="col-sm-2 col-form-label"><fmt:message key="payment.sum"/></label>
         <div class="col-sm-10">
           <input type="text" readonly class="form-control" id="Sum" value="${payment.sum}">
         </div>
      </div>
 
     <div class="form-group row">
-        <label for="Time" class="col-sm-2 col-form-label">Creating time :</label>
+        <label for="Time" class="col-sm-2 col-form-label"><fmt:message key="payment.creating_time"/></label>
         <div class="col-sm-10">
           <input type="text" readonly class="form-control" id="Time" value="${payment.paymentTime}">
         </div>
@@ -58,8 +62,9 @@
     </c:choose>
 
  </div>
- <button align="center" class="btn btn-info" type="button" onclick="history.back();" class="btn btn-info">Back</button>
+ <button align="center" class="btn btn-info" type="button" onclick="history.back();" class="btn btn-info"><fmt:message key="payment.back_button"/></button>
  <br/>
+
  </div>
  </div>
 <jsp:include page="/page_component/footer.jsp"></jsp:include>

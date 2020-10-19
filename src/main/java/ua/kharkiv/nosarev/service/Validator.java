@@ -94,9 +94,9 @@ public class Validator {
         if (service == null) {
             return false;
         }
-        if (service.getName() == null || service.getNameRu() == null) {
+        if (service.getNameEn() == null || service.getNameRu() == null) {
             return false;
         }
-        return service.getName().length() > 4 && service.getNameRu().length() > 4;
+        return service.getNameEn().length() > 4 && service.getNameRu().length() > 4;
     }
 }

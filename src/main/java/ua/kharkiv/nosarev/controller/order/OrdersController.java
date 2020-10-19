@@ -26,8 +26,7 @@ public class OrdersController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Order> orderList = orderService.findOrders(req);
-        req.setAttribute("orders", orderList);
+        req.setAttribute("orders", orderService.findOrders(req));
         RequestDispatcher dispatcher = req.getRequestDispatcher("all_orders.jsp");
         dispatcher.forward(req, resp);
     }

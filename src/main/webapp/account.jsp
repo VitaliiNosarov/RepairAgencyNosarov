@@ -21,7 +21,7 @@
          <link rel="shortcut icon" href="image/icon.png" />
          <link href="css/user_account.css" rel="stylesheet" type="text/css">
          <script src="js/jquery-3.5.1.min.js"></script>
-         <script src="js/registration.js"></script>
+         <script src="js/account.js"></script>
     </head>
 
 <body>
@@ -37,7 +37,7 @@
      <form id="registration_form" class="inner_block" action = "updateAccount" method = "POST">
         <c:if test="${sessionScope.infoMessage != null}">
             <div class="alert alert-success" role="alert">
-                <center>${infoMessage}</center>
+                <center><ctg:enumTranslate locale="${sessionScope.language}" value="${infoMessage}"/></center>
                 <c:remove var="infoMessage"/>
             </div>
         </c:if>

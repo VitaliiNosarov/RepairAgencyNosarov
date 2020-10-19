@@ -1,7 +1,7 @@
 package ua.kharkiv.nosarev.controller.account;
 
-import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.entitie.User;
+import ua.kharkiv.nosarev.entitie.enumeration.InfoMessage;
 import ua.kharkiv.nosarev.exception.AuthenticationException;
 import ua.kharkiv.nosarev.service.api.UserService;
 
@@ -44,7 +44,9 @@ public class LoginController extends HttpServlet {
         try {
             User user = userService.getUserByEmailPass(email, password);
             session.setAttribute("user", user);
-            session.setAttribute("language", user.getLocale().toString());
+            if (session.getAttribute("language") == null) {
+                session.setAttribute("language", user.getLocale().toString());
+            }
         } catch (AuthenticationException exception) {
             session.setAttribute("infoMessage", InfoMessage.WRONG_AUTHENTICATION.toString());
         }

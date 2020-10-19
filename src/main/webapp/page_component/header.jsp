@@ -2,6 +2,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="h" %>
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
@@ -10,7 +11,7 @@
 
 <c:set var="PATH" value="${pageContext.request.contextPath}" scope="request"/>
 
-<!DOCTYPE html>
+<html>
 <head>
 <link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet" type="text/css">
 </head>
@@ -24,7 +25,7 @@
       <div class="order_count_info">
           <div class="alert alert-info" role="alert">
           <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=STATUS&reverse=false">
-           <fmt:message key="new.orders.admin.message"/> : <b>${applicationScope.countOfNewOrders}</b></a>
+           <fmt:message key="new.orders.admin.message"/> : <h:font number="${applicationScope.countOfNewOrders}"/></a>
           </div>
       </div>
     </c:if>
@@ -41,10 +42,11 @@
     </c:choose>
 
     <c:if test="${sessionScope.user.role == 'ADMIN'}">
-          <a href="${PATH}/users?currentPage=1&recordsPerPage=10" class="header_link"><fmt:message key="header.all_users.link"/></a>
-          <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=true" class="header_link"><fmt:message key="header.all_orders.link"/></a>
-          <a href="${PATH}/service_manager" class="header_link">Services</a>
-        </c:if>
+      <a href="${PATH}/users?currentPage=1&recordsPerPage=10" class="header_link"><fmt:message key="header.all_users.link"/></a>
+      <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=true" class="header_link"><fmt:message key="header.all_orders.link"/></a>
+      <a href="${PATH}/service_manager" class="header_link"><fmt:message key="header.services.link"/></a>
+    </c:if>
+
     <a href="${PATH}/create_order" class="header_link"><fmt:message key="header.new_order.link"/></a>
 
     <c:choose>
@@ -58,6 +60,7 @@
     </c:choose>
 
     <a href="${PATH}/updateAccount" class="header_link"><fmt:message key="header.my_account.link"/></a>
+
     <div class="language">
        <form>
            <label for="locale"></label>
@@ -66,7 +69,7 @@
            <option value="RU" ${language == 'RU' ? 'selected' : ''}><fmt:message key="header.language.russian"/></option>
            </select>
        </form>
-       </div>
+    </div>
 
    </div>
   </header>

@@ -1,6 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="tf" %>
+<link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="h" %>
 <%@ page isELIgnored="false" %>
+<%@ page session="true" %>
+
+<%@ page isELIgnored="false" %>
+<%@ page session="true" %>
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="messages"/>
+
 <html>
 <head>
 
@@ -11,7 +21,6 @@
 <footer>
   <p>Author: Vitalii Nosarov<br>
   <a href="mailto:vitalii@gmail.com">vitalii@gmail.com</a></p>
-  <div class="date"><h5><tf:tagfileone/></h5> </div>
 </footer>
 </body>
 </html>

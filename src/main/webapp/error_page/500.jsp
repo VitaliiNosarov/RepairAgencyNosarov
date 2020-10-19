@@ -5,7 +5,7 @@
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
 
-<!DOCTYPE html>
+<html>
     <head>
          <link href="css/error.css" rel="stylesheet" type="text/css">
          <title>500</title>
@@ -17,7 +17,7 @@
 
     <br/>
     <br/>
-    <h1><center>Server Error</center></h1>
+    <h1><center>Service is temporarily unavailable</center></h1>
     <div class=".error_image"><img src="../image/sorry.png"></div>
     <h1 align="center"><input type="button" onclick="history.back();" value="back"/></h1>
     <jsp:include page="/page_component/footer.jsp"></jsp:include>

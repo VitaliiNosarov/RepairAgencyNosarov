@@ -33,14 +33,13 @@ public class CreateOrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserLocale language = UserLocale.valueOf(req.getSession().getAttribute("language").toString());
-        List<Service> list = officeService.getAllServices(language);
-        req.setAttribute("list", list);
+        List<Service> services = officeService.getAllServices(language);
+        req.setAttribute("services", services);
         req.getRequestDispatcher("create_order.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         Order order = new Order();

@@ -3,24 +3,24 @@ package ua.kharkiv.nosarev.entitie;
 public class Service extends AbstractEntity {
 
 
-    private String name;
+    private String nameEn;
 
     private String nameRu;
 
     public Service() {
     }
 
-    public Service(int id, String name) {
+    public Service(int id, String nameEn) {
         super(id);
-        this.name = name;
+        this.nameEn = nameEn;
     }
 
-    public String getName() {
-        return name;
+    public String getNameEn() {
+        return nameEn;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
     }
 
     public String getNameRu() {
@@ -33,6 +33,6 @@ public class Service extends AbstractEntity {
 
     @Override
     public String toString() {
-        return name;
+        return nameEn;
     }
 }

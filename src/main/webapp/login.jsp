@@ -14,6 +14,7 @@
 <html>
 <head>
     <title> <fmt:message key="login.page_title" /> </title>
+    <link rel="shortcut icon" href="image/icon.png" />
     <link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet" type="text/css">
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/validate_login.js"></script>
@@ -32,14 +33,14 @@
 
 <c:if test="${sessionScope.infoMessage != null}">
      <div class="alert alert-danger" role="alert">
-            <center>${infoMessage}</center>
+            <center><ctg:enumTranslate locale="${sessionScope.language}" value="${infoMessage}"/></center>
             <c:remove var="infoMessage"/>
      </div>
 </c:if>
 
 <c:if test="${sessionScope.infoMessageSuccess != null}">
      <div class="alert alert-success" role="alert">
-            <center>${infoMessageSuccess}</center>
+            <center><ctg:enumTranslate locale="${sessionScope.language}" value="${infoMessageSuccess}"/></center>
             <c:remove var="infoMessageSuccess"/>
      </div>
 </c:if>

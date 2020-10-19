@@ -9,6 +9,7 @@ Tomcat;
 Log4J;
 JSP + JSTL;
 Servlets;
+Apache POI;
 JDBC;
 JUnit;
 Mockito;
@@ -25,7 +26,7 @@ MySQL 5.6+
 
 How to run the project:
 
-1: Clone project from Git repository (LINK)
+1: Clone project from Git repository (shorturl.at/suDI7)
 2: Install MySQL;
 3: Create new Database with RepairAgency script in directory src/main/java/ua/kharkiv/nosarev/sql
 4: Install and run Tomcat Server

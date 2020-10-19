@@ -9,8 +9,9 @@
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="messages"/>
 
-<!DOCTYPE html>
+<html>
 <head>
+<link rel="shortcut icon" href="image/icon.png" />
     <link href="css/user_orders.css" rel="stylesheet" type="text/css">
     <title><fmt:message key="user_orders.page_title"/></title>
 </head>
@@ -53,7 +54,20 @@
                             <td> ${order.id} </td>
                             <td> ${order.device} </td>
                             <td> ${order.comment} </td>
-                            <td> ${order.services} </td>
+                            <td>|
+                                <c:choose>
+                                   <c:when test="${sessionScope.language == 'RU'}">
+                                         <c:forEach items="${order.services}" var="service">
+                                           ${service.nameRu} |
+                                         </c:forEach>
+                                   </c:when>
+                                       <c:otherwise>
+                                          <c:forEach items="${order.services}" var="service">
+                                             ${service.nameEn} |
+                                          </c:forEach>
+                                       </c:otherwise>
+                                </c:choose>
+                            </td>
                             <td> ${order.price} </td>
                             <td> <ctg:enumTranslate locale="${sessionScope.language}" value="${order.status}"/></td>
                             <td> ${order.masterName} ${order.masterSurname}</td>

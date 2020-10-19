@@ -18,8 +18,8 @@ import java.io.IOException;
 @WebServlet("/updateAccount")
 public class UpdateAccountController extends HttpServlet {
 
-    private UserService userService;
     private static final String ACCOUNT_ID = "accountId";
+    private UserService userService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -51,7 +51,10 @@ public class UpdateAccountController extends HttpServlet {
         HttpSession session = req.getSession();
         User account = userService.getUserById(accountId);
         account.setEmail(req.getParameter("email"));
-        account.setPassword(req.getParameter("password"));
+        String password = req.getParameter("password");
+        if (password != null && password.length() > 5) {
+            account.setPassword(password);
+        }
         account.setName(req.getParameter("name"));
         account.setSurName(req.getParameter("surname"));
         account.setPhone(req.getParameter("phone"));
