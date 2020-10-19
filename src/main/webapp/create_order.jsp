@@ -24,7 +24,7 @@
 <div class="content">
 
 <div class="main_block">
- <form id="order_form" class="order_form" action="create_order" method="post">
+ <form id="order_form" class="order_form" action="createOrder" method="post">
     <h3 align="center"><fmt:message key="create_order.title"/></h3>
     <br/>
     <div class="table_block">

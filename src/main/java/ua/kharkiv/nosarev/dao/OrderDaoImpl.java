@@ -3,10 +3,10 @@ package ua.kharkiv.nosarev.dao;
 import org.apache.log4j.Logger;
 import ua.kharkiv.nosarev.dao.api.OrderDao;
 import ua.kharkiv.nosarev.entitie.Order;
+import ua.kharkiv.nosarev.entitie.OrderPaginationObject;
 import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.enumeration.OrderStatus;
 import ua.kharkiv.nosarev.exception.DatabaseException;
-import ua.kharkiv.nosarev.entitie.OrderPaginationObject;
 import ua.kharkiv.nosarev.util.DaoUtil;
 
 import javax.sql.DataSource;
@@ -45,7 +45,7 @@ public class OrderDaoImpl implements OrderDao {
     public List<Order> getAllOrders() {
         List<Order> orderList;
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+             Statement statement = connection.createStatement()) {
             try (ResultSet rs = statement.executeQuery(SQLConstant.GET_ALL_ORDERS)) {
                 orderList = getOrderListFromResultSet(rs);
             }
@@ -109,19 +109,17 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public boolean updateOrder(Order order) {
-        boolean result = false;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQLConstant.UPDATE_ORDER)) {
             statement.setBigDecimal(1, order.getPrice());
             statement.setLong(2, order.getMasterId());
             statement.setString(3, String.valueOf(order.getStatus()));
             statement.setLong(4, order.getId());
-            result = statement.executeUpdate() > 0;
+            return statement.executeUpdate() > 0;
         } catch (SQLException ex) {
             LOGGER.error("Exception in updateOrder", ex);
             throw new DatabaseException();
         }
-        return result;
     }
 
     @Override
@@ -162,10 +160,10 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> getOrderRows(OrderPaginationObject pagObject) {
-        int queryCounter = 1;
         List<Order> orderList;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(pagObject.getSqlQuery().toString())) {
+            int queryCounter = 1;
             if (pagObject.getFilterParam() != null) {
                 statement.setString(queryCounter++, pagObject.getFilterParam());
             }

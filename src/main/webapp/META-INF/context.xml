@@ -7,7 +7,7 @@
         username="root"
         password="root"
         driverClassName="com.mysql.cj.jdbc.Driver"
-        url="jdbc:mysql://localhost:3306/repair_agency?useUnicode=yes&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;useSSL=true&amp;verifyServerCertificate=false"
+        url="jdbc:mysql://localhost:3306/repair_agency?useUnicode=yes&amp;characterEncoding=UTF-8&amp;serverTimezone=Europe/Kiev&amp;useSSL=true&amp;verifyServerCertificate=false"
         validationQuery="select 1"
         maxTotal="10"
         maxIdle="4"/>

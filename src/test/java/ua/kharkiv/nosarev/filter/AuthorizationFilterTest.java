@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 
 public class AuthorizationFilterTest {
 
-    ServletContext mockContext;
+    private ServletContext mockContext;
     private Map<UserRole, Set<String>> uriMap;
     private Set<String> mockUriSet;
     private HttpServletRequest mockRequest;
@@ -32,9 +32,6 @@ public class AuthorizationFilterTest {
     private HttpSession mockSession;
     private AuthorizationFilter filter;
     private User user;
-
-    public AuthorizationFilterTest() {
-    }
 
     @Before
     public void init() {

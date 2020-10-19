@@ -21,16 +21,14 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public List<Service> getAllServices(UserLocale language) {
-        return officeDao.getAllServices(language);
+    public List<Service> getAllServices() {
+        return officeDao.getAllServices();
     }
 
     @Override
     public InfoMessage saveService(Service service) {
-        if (validator.validateService(service)) {
-            if (officeDao.saveService(service)) {
-                return InfoMessage.SAVE_SERVICE_SUCCESS;
-            }
+        if (validator.validateService(service) && officeDao.saveService(service)) {
+            return InfoMessage.SAVE_SERVICE_SUCCESS;
         }
         LOGGER.info("Can't save service to db. Wrong fields");
         return InfoMessage.WRONG_FIELDS;

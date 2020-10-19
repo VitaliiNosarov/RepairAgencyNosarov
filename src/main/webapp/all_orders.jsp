@@ -85,7 +85,7 @@
            <input type="submit" value="<fmt:message key="orders.sort_button"/>">
 
            <c:if test="${sessionScope.user.role == 'ADMIN'}">
-                <a class="download_link" href="${PATH}/orders_download">  <fmt:message key="orders.download_report"/></a>
+                <a class="download_link" href="${PATH}/ordersDownload">  <fmt:message key="orders.download_report"/></a>
            </c:if>
 
     </form>

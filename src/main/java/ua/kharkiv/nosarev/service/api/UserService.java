@@ -21,5 +21,4 @@ public interface UserService {
     List<User> getAllUsersByRole(UserRole role);
 
     long getAmountOfUsers();
-
 }

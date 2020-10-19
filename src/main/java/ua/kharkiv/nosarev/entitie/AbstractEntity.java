@@ -5,7 +5,7 @@ public abstract class AbstractEntity {
     private long id;
 
     public AbstractEntity() {
-        id =0;
+        id = 0;
     }
 
     public AbstractEntity(long id) {

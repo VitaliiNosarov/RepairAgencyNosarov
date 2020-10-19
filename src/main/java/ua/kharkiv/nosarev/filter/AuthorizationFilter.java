@@ -41,7 +41,7 @@ public class AuthorizationFilter implements Filter {
         }
         User currentUser = (User) session.getAttribute("user");
         if (currentUser == null) {
-            resp.sendRedirect(req.getContextPath()+"/login");
+            resp.sendRedirect(req.getContextPath() + "/login");
             return;
         }
         if (uriMap.get(currentUser.getRole()).contains(uri)) {
@@ -49,7 +49,7 @@ public class AuthorizationFilter implements Filter {
             return;
         }
         LOGGER.info("Unauthorized access request");
-        resp.sendRedirect(req.getContextPath()+"/error_page/not_rights.jsp");
+        resp.sendRedirect(req.getContextPath() + "/error_page/not_rights.jsp");
     }
 
     private boolean checkUri(String uri) {
@@ -57,5 +57,4 @@ public class AuthorizationFilter implements Filter {
                 || uri.endsWith("index.jsp") || uri.endsWith(".css")
                 || uri.endsWith(".js") || uri.endsWith(".png");
     }
-
 }

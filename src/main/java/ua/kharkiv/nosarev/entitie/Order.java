@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order extends AbstractEntity{
+public class Order extends AbstractEntity {
 
     private long customerId;
     private long masterId;
@@ -76,9 +76,13 @@ public class Order extends AbstractEntity{
         this.comment = comment;
     }
 
-    public String getDevice() { return device; }
+    public String getDevice() {
+        return device;
+    }
 
-    public void setDevice(String device) { this.device = device; }
+    public void setDevice(String device) {
+        this.device = device;
+    }
 
     public OrderStatus getStatus() {
         return status;
@@ -88,20 +92,36 @@ public class Order extends AbstractEntity{
         this.status = status;
     }
 
-    public String getMasterName() { return masterName; }
+    public String getMasterName() {
+        return masterName;
+    }
 
-    public void setMasterName(String masterName) { this.masterName = masterName; }
+    public void setMasterName(String masterName) {
+        this.masterName = masterName;
+    }
 
-    public String getMasterSurname() { return masterSurname; }
+    public String getMasterSurname() {
+        return masterSurname;
+    }
 
-    public void setMasterSurname(String masterSurname) { this.masterSurname = masterSurname; }
+    public void setMasterSurname(String masterSurname) {
+        this.masterSurname = masterSurname;
+    }
 
-    public String getCustomerName() { return customerName; }
+    public String getCustomerName() {
+        return customerName;
+    }
 
-    public void setCustomerName(String customerName) { this.customerName = customerName; }
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 
-    public String getCustomerSurname() { return customerSurname; }
+    public String getCustomerSurname() {
+        return customerSurname;
+    }
 
-    public void setCustomerSurname(String customerSurname) { this.customerSurname = customerSurname; }
+    public void setCustomerSurname(String customerSurname) {
+        this.customerSurname = customerSurname;
+    }
 
 }

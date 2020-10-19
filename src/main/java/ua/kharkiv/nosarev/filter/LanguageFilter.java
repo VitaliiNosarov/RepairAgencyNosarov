@@ -1,6 +1,5 @@
 package ua.kharkiv.nosarev.filter;
 
-import org.apache.log4j.Logger;
 import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
 
 import javax.servlet.*;
@@ -14,8 +13,7 @@ import java.io.UnsupportedEncodingException;
 @WebFilter("/*")
 public class LanguageFilter implements Filter {
 
-    static final Logger LOGGER = Logger.getLogger(LanguageFilter.class);
-    static final String LANGUAGE = "language";
+    private static final String LANGUAGE = "language";
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

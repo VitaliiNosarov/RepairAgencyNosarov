@@ -30,7 +30,7 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         if (session.getAttribute("user") != null) {
-            resp.sendRedirect("create_order");
+            resp.sendRedirect("createOrder");
             return;
         }
         req.getRequestDispatcher("login.jsp").forward(req, resp);

@@ -168,7 +168,7 @@
                <c:when test="${order.status == 'IN_WORK' || order.status == 'READY_TO_ISSUE'|| order.status == 'PAID'}">
                      <select class="custom-select my-1 mr-sm-2" id="Status" name="status" >
                           <option value="PAID" ${order.status == 'PAID' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="PAID"/></option>
-                          <option value="IN_WORK" ${order.status == 'IN_WORK' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="PAID"/></option>
+                          <option value="IN_WORK" ${order.status == 'IN_WORK' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="IN_WORK"/></option>
                           <option value="READY_TO_ISSUE" ${order.status == 'READY_TO_ISSUE' ? 'selected' : ''}><ctg:enumTranslate locale="${sessionScope.language}" value="READY_TO_ISSUE"/></option>
                      </select>
                </c:when>
@@ -182,8 +182,7 @@
 </div>
 
 <button class="btn btn-info" type="submit" class="btn btn-info"><fmt:message key="order.update_button"/></button>
-<button class="btn btn-info" type="button" onclick="window.location.href='${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=true'"
-  class="btn btn-info"><fmt:message key="order.back_button"/></button>
+<button class="btn btn-info" type="button" onclick="history.back();" class="btn btn-info"><fmt:message key="order.back_button"/></button>
 </form>
 
 <c:if test="${order.status == 'PAID' || order.status == 'COMPLETED' && sessionScope.user.role == 'ADMIN'}">

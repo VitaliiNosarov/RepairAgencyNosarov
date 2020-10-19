@@ -86,8 +86,8 @@ public class UserDaoImpl implements UserDao {
             while (set.next()) {
                 list.add(extractUser(set));
             }
-        } catch (SQLException throwables) {
-            LOGGER.error("Can't get all users by role from database", throwables);
+        } catch (SQLException ex) {
+            LOGGER.error("Can't get all users by role from database", ex);
             throw new DatabaseException();
         }
         return list;
@@ -105,8 +105,8 @@ public class UserDaoImpl implements UserDao {
                     user.setId(rs.getInt(1));
                 }
             }
-        } catch (SQLException throwables) {
-            LOGGER.error("Can't insert user with email = " + user.getEmail() + " to database");
+        } catch (SQLException ex) {
+            LOGGER.error("Can't insert user with email = " + user.getEmail() + " to database", ex);
             throw new RegistrationException();
         }
         return user;

@@ -1,13 +1,13 @@
 package ua.kharkiv.nosarev.service;
 
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import ua.kharkiv.nosarev.entitie.Order;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.apache.poi.ss.usermodel.CellStyle.BORDER_MEDIUM;
@@ -18,40 +18,26 @@ public class OrdersExelWriter {
 
         try (Workbook wb = new HSSFWorkbook()) {
             Sheet sheet = wb.createSheet("Orders");
-
             CellStyle style = wb.createCellStyle();
             style.setBorderBottom(BORDER_MEDIUM);
             style.setBorderRight(BORDER_MEDIUM);
             style.setBorderLeft(BORDER_MEDIUM);
             Row row = sheet.createRow(0);
-            Cell cell1 = row.createCell(0);
-            Cell cell2 = row.createCell(1);
-            Cell cell3 = row.createCell(2);
-            Cell cell4 = row.createCell(3);
-            Cell cell5 = row.createCell(4);
-            Cell cell6 = row.createCell(5);
-            Cell cell7 = row.createCell(6);
-            Cell cell8 = row.createCell(7);
-            Cell cell9 = row.createCell(8);
-            cell1.setCellValue("Id");
-            cell2.setCellValue("Device");
-            cell3.setCellValue("Comment");
-            cell4.setCellValue("Services");
-            cell5.setCellValue("Price");
-            cell6.setCellValue("Status");
-            cell7.setCellValue("Customer");
-            cell8.setCellValue("Master");
-            cell9.setCellValue("Creating time");
-            cell1.setCellStyle(style);
-            cell2.setCellStyle(style);
-            cell3.setCellStyle(style);
-            cell4.setCellStyle(style);
-            cell5.setCellStyle(style);
-            cell6.setCellStyle(style);
-            cell7.setCellStyle(style);
-            cell8.setCellStyle(style);
-            cell9.setCellStyle(style);
-
+            List<Cell> cellList = new ArrayList<>();
+            for (int i = 0; i < 9; i++) {
+                Cell cell = row.createCell(i);
+                cell.setCellStyle(style);
+                cellList.add(cell);
+            }
+            cellList.get(0).setCellValue("Id");
+            cellList.get(1).setCellValue("Device");
+            cellList.get(2).setCellValue("Comment");
+            cellList.get(3).setCellValue("Services");
+            cellList.get(4).setCellValue("Price");
+            cellList.get(5).setCellValue("Status");
+            cellList.get(6).setCellValue("Customer");
+            cellList.get(7).setCellValue("Master");
+            cellList.get(8).setCellValue("Creating time");
             int rowNum = 1;
             for (Order order : orderList) {
                 int cellNum = 0;

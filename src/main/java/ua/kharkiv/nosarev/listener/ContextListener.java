@@ -58,22 +58,15 @@ public class ContextListener implements ServletContextListener {
     }
 
     private void initializeResources(ServletContextEvent event) {
-        DataSource ds;
-        UserDao userDao;
-        OrderDao orderDao;
-        OfficeDao officeDao;
-        FeedbackDao feedbackDao;
-        PaymentDao paymentDao;
-        Validator validator;
         try {
             Context context = new InitialContext();
-            ds = (DataSource) context.lookup("java:comp/env/jdbc/repair_agency");
-            userDao = new UserDaoImpl(ds);
-            orderDao = new OrderDaoImpl(ds);
-            officeDao = new OfficeDaoImpl(ds);
-            feedbackDao = new FeedbackDaoImpl(ds);
-            paymentDao = new PaymentDaoImpl(ds);
-            validator = new Validator();
+            DataSource ds = (DataSource) context.lookup("java:comp/env/jdbc/repair_agency");
+            UserDao userDao = new UserDaoImpl(ds);
+            OrderDao orderDao = new OrderDaoImpl(ds);
+            OfficeDao officeDao = new OfficeDaoImpl(ds);
+            FeedbackDao feedbackDao = new FeedbackDaoImpl(ds);
+            PaymentDao paymentDao = new PaymentDaoImpl(ds);
+            Validator validator = new Validator();
             userService = new UserServiceImpl(userDao, validator);
             feedbackService = new FeedbackServiceImpl(feedbackDao, validator);
             orderService = new OrderServiceImpl(orderDao, userService, validator);

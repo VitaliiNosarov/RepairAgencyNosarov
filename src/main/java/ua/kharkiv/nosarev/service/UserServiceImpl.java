@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private String getSecurePassword(String passwordToHash, String salt) {
-        String generatedPassword = null;
+        String generatedPassword;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             md.update(salt.getBytes(StandardCharsets.UTF_8));

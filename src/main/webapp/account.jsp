@@ -34,7 +34,7 @@
   <h3 align="center"> <em><fmt:message key="account.page_title_text"/> </em> </h3>
 
 
-     <form id="registration_form" class="inner_block" action = "updateAccount" method = "POST">
+     <form id="registration_form" class="inner_block" action = "updateUser" method = "POST">
         <c:if test="${sessionScope.infoMessage != null}">
             <div class="alert alert-success" role="alert">
                 <center><ctg:enumTranslate locale="${sessionScope.language}" value="${infoMessage}"/></center>

@@ -70,10 +70,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public InfoMessage updateOrder(Order order) {
-        if (validator.validateOrder(order)) {
-            if (orderDao.updateOrder(order)) {
-                return InfoMessage.UPDATING_ORDER_SUCCESS;
-            }
+        if (validator.validateOrder(order) && orderDao.updateOrder(order)) {
+            return InfoMessage.UPDATING_ORDER_SUCCESS;
         }
         LOGGER.error("Service Exception in updateOrder " + order);
         return InfoMessage.WRONG_FIELDS;
@@ -130,7 +128,6 @@ public class OrderServiceImpl implements OrderService {
             List<User> listOfMasters = userService.getAllUsersByRole(UserRole.MASTER);
             req.setAttribute("masters", listOfMasters);
         }
-
         req.setAttribute("reverse", pagObject.isReverse());
         req.setAttribute("noOfPages", pagObject.getNumberOfPages());
         req.setAttribute("currentPage", pagObject.getCurrentPage());

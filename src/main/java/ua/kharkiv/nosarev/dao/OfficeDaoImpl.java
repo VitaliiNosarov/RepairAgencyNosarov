@@ -22,10 +22,10 @@ public class OfficeDaoImpl implements OfficeDao {
     }
 
     @Override
-    public List<Service> getAllServices(UserLocale locale) {
+    public List<Service> getAllServices() {
         List<Service> list = new ArrayList<>();
         try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement()) {
-            String query = String.format(SQLConstant.GET_ALL_SERVICES, locale.toString());
+            String query = String.format(SQLConstant.GET_ALL_SERVICES);
             try (ResultSet rs = statement.executeQuery(query)) {
                 while (rs.next()) {
                     Service service = new Service();
@@ -48,7 +48,6 @@ public class OfficeDaoImpl implements OfficeDao {
         PreparedStatement statement = null;
         PreparedStatement statementRu = null;
         ResultSet rs = null;
-        boolean result = false;
         try {
             connection = dataSource.getConnection();
             connection.setAutoCommit(false);
@@ -65,8 +64,7 @@ public class OfficeDaoImpl implements OfficeDao {
             statementRu.setString(2, service.getNameRu());
             statementRu.executeUpdate();
             connection.commit();
-            result = true;
-            DaoUtil.rollBack(connection);
+            return true;
         } catch (SQLException ex) {
             DaoUtil.rollBack(connection);
             LOGGER.error("Can't save Service to database", ex);
@@ -74,6 +72,5 @@ public class OfficeDaoImpl implements OfficeDao {
         } finally {
             DaoUtil.close(rs, statementRu, statement, connection);
         }
-        return result;
     }
 }

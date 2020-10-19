@@ -27,7 +27,7 @@
 
 <div class="main_block">
  <div class="inner_block">
-    <form id="account_form" class="inner_block" action = "updateUser" method = "POST">
+    <form id="account_form" class="inner_block" action = "updateAccount" method = "POST">
 
     <input type="hidden" name="accountId" value="${account.id}">
 
@@ -95,7 +95,7 @@
      </div>
 
     <button type="submit" class="btn btn-info"><fmt:message key="account.update_button"/></button>
-    <button class="btn btn-info" type="button" onclick="window.location.href='${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=true'" class="btn btn-info"><fmt:message key="account.back_button"/></button>
+    <button class="btn btn-info" type="button" onclick="history.back();" class="btn btn-info"><fmt:message key="account.back_button"/></button>
 
    </form>
     </div>

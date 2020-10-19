@@ -22,7 +22,7 @@ public class OfficeDaoImplTest {
 
     @Test
     public void getAllServicesShouldReturnAllEnServicesFromDB() {
-        assertEquals(2, officeDao.getAllServices(UserLocale.EN).size());
+        assertEquals(2, officeDao.getAllServices().size());
     }
 
 }

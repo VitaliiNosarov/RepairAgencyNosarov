@@ -81,7 +81,7 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void updateNewOrderCount() {
+    public void updateNewOrderCountShouldReturnCorrectOrdersAmount() {
         HttpServletRequest mockReq = mock(HttpServletRequest.class);
         ServletContext mockContext = mock(ServletContext.class);
         when(mockReq.getServletContext()).thenReturn(mockContext);

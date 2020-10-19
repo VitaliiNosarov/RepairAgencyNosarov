@@ -1,4 +1,4 @@
-package ua.kharkiv.nosarev.controller.order;
+package ua.kharkiv.nosarev.controller;
 
 import ua.kharkiv.nosarev.entitie.Service;
 import ua.kharkiv.nosarev.entitie.enumeration.UserLocale;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/service_manager")
+@WebServlet("/serviceManager")
 public class ServicesController extends HttpServlet {
 
     private OfficeService officeService;
@@ -27,7 +27,7 @@ public class ServicesController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Service> services = officeService.getAllServices(UserLocale.EN);
+        List<Service> services = officeService.getAllServices();
         req.setAttribute("services", services);
         req.getRequestDispatcher("services.jsp").forward(req, resp);
     }
@@ -42,6 +42,6 @@ public class ServicesController extends HttpServlet {
 
         HttpSession session = req.getSession();
         session.setAttribute("infoMessage", officeService.saveService(newService));
-        resp.sendRedirect("service_manager");
+        resp.sendRedirect("serviceManager");
     }
 }

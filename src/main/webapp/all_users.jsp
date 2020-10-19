@@ -40,7 +40,7 @@
     </tr>
     <c:forEach items="${list}" var="list">
         <tr>
-            <form method="Get" action="updateUser">
+            <form method="Get" action="updateAccount">
                 <th scope="row">${count}</th>
                 <td> ${list.name} ${list.surName}</td>
                 <td> ${list.email} </td>

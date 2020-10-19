@@ -1,6 +1,6 @@
 package ua.kharkiv.nosarev.dao;
 
-public class SQLConstant {
+public final class SQLConstant {
 
     public static final String GET_USER_BY_EMAIL_PASS = "SELECT * FROM account where email = ?;";
     public static final String GET_USER_BY_ID = "SELECT * FROM account where id = ?;";

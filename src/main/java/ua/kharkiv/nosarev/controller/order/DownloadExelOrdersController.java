@@ -14,9 +14,10 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@WebServlet("/orders_download")
+@WebServlet("/ordersDownload")
 public class DownloadExelOrdersController extends HttpServlet {
 
+    private static final String PATTERN = "yyyy_MM_dd_HH-mm'_orders.xls'";
     private OrderService orderService;
 
     @Override
@@ -35,7 +36,7 @@ public class DownloadExelOrdersController extends HttpServlet {
 
     private void uploadFile(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/plain");
-        String fileName = new SimpleDateFormat("yyyy_MM_dd_HH-mm'_orders.xls'").format(new Date());
+        String fileName = new SimpleDateFormat(PATTERN).format(new Date());
         resp.setHeader("Content-disposition", "attachment; filename=" + fileName);
         try (InputStream in = req.getServletContext().getResourceAsStream("orders_report.xls");
              OutputStream out = resp.getOutputStream()) {

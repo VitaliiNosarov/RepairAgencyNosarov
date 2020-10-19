@@ -59,7 +59,7 @@ public class PaymentDaoImpl implements PaymentDao {
                 accountStatement.setLong(2, payment.getUserId());
                 accountStatement.executeUpdate();
                 connection.commit();
-                result = true;
+                return true;
             }
         } catch (SQLException ex) {
             DaoUtil.rollBack(connection);

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/create_order")
+@WebServlet("/createOrder")
 public class CreateOrderController extends HttpServlet {
 
     private OfficeService officeService;
@@ -33,7 +33,7 @@ public class CreateOrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserLocale language = UserLocale.valueOf(req.getSession().getAttribute("language").toString());
-        List<Service> services = officeService.getAllServices(language);
+        List<Service> services = officeService.getAllServices();
         req.setAttribute("services", services);
         req.getRequestDispatcher("create_order.jsp").forward(req, resp);
     }

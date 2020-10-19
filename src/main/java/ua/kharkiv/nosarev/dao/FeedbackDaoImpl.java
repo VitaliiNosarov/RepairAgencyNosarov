@@ -40,6 +40,7 @@ public class FeedbackDaoImpl implements FeedbackDao {
             }
         } catch (SQLException throwables) {
             LOGGER.error("Can't get feedback from database", throwables);
+            throw new DatabaseException();
         }
         return feedBack;
     }
@@ -56,7 +57,7 @@ public class FeedbackDaoImpl implements FeedbackDao {
                 result = statement.executeUpdate() > 0;
             }
         } catch (SQLException throwables) {
-            LOGGER.error("Can't insert feedback to database");
+            LOGGER.error("Can't insert feedback to database", throwables);
             throw new DatabaseException();
         }
         return result;

@@ -4,7 +4,7 @@ import ua.kharkiv.nosarev.entitie.enumeration.UserRole;
 
 import java.util.*;
 
-public class SecurityUtil {
+public final class SecurityUtil {
 
     private SecurityUtil() {
     }

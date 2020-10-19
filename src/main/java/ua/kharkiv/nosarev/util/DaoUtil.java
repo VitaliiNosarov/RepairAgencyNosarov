@@ -13,7 +13,6 @@ public final class DaoUtil {
     }
 
     public static void close(AutoCloseable... resources) {
-
         for (AutoCloseable resource : resources) {
             try {
                 if (resource != null) {

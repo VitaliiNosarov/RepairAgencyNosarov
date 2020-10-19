@@ -24,7 +24,7 @@
     <c:if test="${sessionScope.user.role == 'ADMIN'}">
       <div class="order_count_info">
           <div class="alert alert-info" role="alert">
-          <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=STATUS&reverse=false">
+          <a href="${PATH}/orders?currentPage=1&filter=STATUS&filterParam=WAITING_FOR_PROCESSING&recordsPerPage=10&orderBy=STATUS&reverse=false">
            <fmt:message key="new.orders.admin.message"/> : <h:font number="${applicationScope.countOfNewOrders}"/></a>
           </div>
       </div>
@@ -44,10 +44,10 @@
     <c:if test="${sessionScope.user.role == 'ADMIN'}">
       <a href="${PATH}/users?currentPage=1&recordsPerPage=10" class="header_link"><fmt:message key="header.all_users.link"/></a>
       <a href="${PATH}/orders?currentPage=1&recordsPerPage=10&orderBy=CREATING_TIME&reverse=true" class="header_link"><fmt:message key="header.all_orders.link"/></a>
-      <a href="${PATH}/service_manager" class="header_link"><fmt:message key="header.services.link"/></a>
+      <a href="${PATH}/serviceManager" class="header_link"><fmt:message key="header.services.link"/></a>
     </c:if>
 
-    <a href="${PATH}/create_order" class="header_link"><fmt:message key="header.new_order.link"/></a>
+    <a href="${PATH}/createOrder" class="header_link"><fmt:message key="header.new_order.link"/></a>
 
     <c:choose>
          <c:when test="${sessionScope.user.role == 'MASTER'}">
@@ -59,7 +59,7 @@
          </c:otherwise>
     </c:choose>
 
-    <a href="${PATH}/updateAccount" class="header_link"><fmt:message key="header.my_account.link"/></a>
+    <a href="${PATH}/updateUser" class="header_link"><fmt:message key="header.my_account.link"/></a>
 
     <div class="language">
        <form>
